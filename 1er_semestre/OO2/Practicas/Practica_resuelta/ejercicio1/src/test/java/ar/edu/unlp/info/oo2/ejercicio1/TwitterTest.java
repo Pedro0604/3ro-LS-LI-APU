@@ -34,10 +34,14 @@ public class TwitterTest {
 	public void testEliminarUsuario() {
 		Usuario u = tweety.registrarUsuario("pepe");
 		Tweet t = u.tweet("hola");
-		u.reTweet(t);
-		u.tweet("chauu");
+		Usuario u2 = tweety.registrarUsuario("jose");
+		ReTweet rt = u2.reTweet(t);
 		assertTrue(tweety.eliminarUsuario("pepe"));
-		assertEquals(0, tweety.getUsuarios().size());
+
+		// Como hago para que se elimine el retweet de u2
+		// (o al menos la referencia al tweet eliminado)
+		assertEquals(1, tweety.getUsuarios().size());
+		assertNull(rt);
 	}
 
 	@Test
