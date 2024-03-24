@@ -10,4 +10,9 @@ public class ReTweet implements Tweetable {
 	public String getTexto() {
 		return this.tweetDeOrigen.getTexto();
 	}
+
+	@Override
+	public Tweet getReferencia() {
+		return this.tweetDeOrigen;
+	}
 }

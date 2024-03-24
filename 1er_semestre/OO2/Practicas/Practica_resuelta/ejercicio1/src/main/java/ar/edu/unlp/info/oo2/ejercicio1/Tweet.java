@@ -10,4 +10,9 @@ public class Tweet implements Tweetable {
 	public String getTexto() {
 		return texto;
 	}
+
+	@Override
+	public Tweet getReferencia() {
+		return this;
+	}
 }

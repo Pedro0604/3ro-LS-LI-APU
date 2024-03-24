@@ -30,8 +30,12 @@ public class Twitter {
 		}
 		Usuario usuario = this.usuarios.stream().filter(u -> u.getScreenName().equals(screenName))
 				.collect(Collectors.toList()).get(0);
-		usuario.eliminarTweets();
+		this.eliminarReferencias(usuario.getTweets());
 		return this.usuarios.remove(usuario);
+	}
+
+	private void eliminarReferencias(List<Tweetable> tweets) {
+		this.usuarios.forEach(u -> u.eliminarReferencias(tweets));
 	}
 
 	public List<Usuario> getUsuarios() {

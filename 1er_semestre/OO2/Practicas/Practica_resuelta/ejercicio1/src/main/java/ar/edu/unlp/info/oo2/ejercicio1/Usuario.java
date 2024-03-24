@@ -2,6 +2,7 @@ package ar.edu.unlp.info.oo2.ejercicio1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Usuario {
 	private String screenName;
@@ -18,6 +19,12 @@ public class Usuario {
 
 	public void eliminarTweets() {
 		this.tweets.clear();
+	}
+
+	public void eliminarReferencias(List<Tweetable> tweetsRecibidos) {
+		this.tweets = this.tweets.stream().filter(t -> !tweetsRecibidos.contains(t.getReferencia()))
+				.collect(Collectors.toList());
+		System.out.println(this.tweets.size());
 	}
 
 	public Tweet tweet(String texto) {
