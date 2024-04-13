@@ -20,5 +20,6 @@
   * [EMTs](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Teorias/EMTs)
     * [EMT 1](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Teorias/EMTs/EMT_1)
       * [Mí EMT 1](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Teorias/EMTs/EMT_1/Mi%20EMT_1)
+        * [Resolución](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/1er_semestre/CPLP/Teorias/EMTs/EMT_1/Mi%20EMT_1/Mi%20EMT_1%20resuelta.pdf)
       * [EMTs 1 viejas](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/1er_semestre/CPLP/Teorias/EMTs/EMT_1/EMTs_1%20viejas.pdf)
       * [Resumen teorías para EMT 1](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/1er_semestre/CPLP/Teorias/EMTs/EMT_1/Resumen%20teor%C3%ADas%20para%20EMT_1.pdf)
