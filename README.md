@@ -1,5 +1,8 @@
 # 3ro LS-LI-APU - Facultad de Informática UNLP - 2024
-## 1er semestre
+
+<details open>
+  <summary><h2>1er semestre</h2></summary>
+ 
 ### [Conceptos y Paradigmas de Lenguajes de Programación](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP)
   * [Explicaciones prácticas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Explicaciones_practicas)
   * [Prácticas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas)
@@ -10,3 +13,4 @@
 ### [Orientación a Objetos 2](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/OO2)
   * [Práctica](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/OO2/Practicas/Practica_resuelta)
   * [Teorías](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/OO2/Teorias/PDFs)
+</details>
