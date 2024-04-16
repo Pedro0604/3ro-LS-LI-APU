@@ -16,17 +16,29 @@ Var
     z:   integer;
 Begin
     a := "j";
-    z =   -1;
+    z := -1;
     return z;
 End;
 
 Begin
+    // Esto es llamada a la function x
+    // (que en realidad debería ser x())
+    // (╯°□°）╯︵ ┻━┻ 
     p := x;
     write(a);
+    // Esto es llamada a la function x
+    // (que en realidad debería ser x())
+    // (╯°□°）╯︵ ┻━┻ 
     p := x+3;
-    c[p] =   8;
+    c[p] := 8;
+    // Esto es llamada a la function x
+    // (que en realidad debería ser x())
+    // (╯°□°）╯︵ ┻━┻ 
     p := x+2;
-    c[p] =   x;
+    // Esto es llamada a la function x
+    // (que en realidad debería ser x())
+    // (╯°□°）╯︵ ┻━┻ 
+    c[p] := x;
 End;
 
 
@@ -40,20 +52,17 @@ Begin
 End;
 
 Begin
-    // Me quedé en esta linea (acabo de terminar el registro de activación del procedure x)
     a := 1;
     c[a] := 4;
     b := "a";
+    // concat convierte a string los
+    // parámetros, concatena y retorna un string;
     write(concat(c[1],b));
-    /*concat convierte a string los
-    parámetros, concatena y retorna un string;
-    */
     PP1();
     b := "b";
+    // concat convierte a string los
+    // parámetros, concatena y retorna un string;
     write(concat(c[5],b));
-    /*concat convierte a string los
-    parámetros, concatena y retorna un string;
-    */
 End;
 
 Begin
@@ -63,6 +72,9 @@ Begin
         Begin
             c[a] := 2*a;
         End;
+    // Esto es llamada al procedure x
+    // (que en realidad debería ser x())
+    // (╯°□°）╯︵ ┻━┻ 
     x;
     write(b);
     write(a);
