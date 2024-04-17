@@ -55,18 +55,7 @@ Procedure D();
 Var 
     i, x:   integer;
     vec:   array[1..7] Of integer;
-
-Procedure A();
-
-Var y:   integer;
-Begin
-    y := x + 5;
-    vec[i + 2] := vec[i + 2] + y;
-    writeln('hola');
-    x := x + B();
-    C();
-End;
-
+// Acordarse de poner
 Function B():   integer;
 Begin
     vec[i] := y + 2;
@@ -74,6 +63,17 @@ Begin
     vec[i] := vec[1] * i;
     B := vec[i]-vec[1];
 End;
+
+Procedure A();
+
+Var y:   integer;
+Begin
+    y := x + 5;
+    vec[i + 2] := vec[i + 2] + y;
+    x := x + B();
+    C();
+End;
+
 Begin
     For x:= 1 To 7 Do
         vec[x] := 1;
