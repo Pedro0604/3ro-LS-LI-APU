@@ -12,7 +12,7 @@ public class FourGConn {
 		return symb;
 	}
 
-	public String transmit(String data, int crc) {
-		return "TODO";
+	public String transmit(String data, long crc) {
+		return "Data enviada por 4G";
 	}
 }

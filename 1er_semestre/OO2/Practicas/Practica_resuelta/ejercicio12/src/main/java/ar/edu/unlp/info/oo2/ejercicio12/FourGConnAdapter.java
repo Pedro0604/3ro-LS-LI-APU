@@ -3,11 +3,11 @@ package ar.edu.unlp.info.oo2.ejercicio12;
 public class FourGConnAdapter implements Connection {
 	private FourGConn adaptee;
 
-	public FourGConnAdapter(FourGConn adaptee) {
-		this.adaptee = adaptee;
+	public FourGConnAdapter() {
+		this.adaptee = new FourGConn();
 	}
 
-	public String sendData(String data, int crc) {
+	public String sendData(String data, long crc) {
 		return this.adaptee.transmit(data, crc);
 	}
 

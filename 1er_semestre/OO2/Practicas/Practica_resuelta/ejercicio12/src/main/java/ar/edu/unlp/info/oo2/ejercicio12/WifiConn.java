@@ -3,9 +3,13 @@ package ar.edu.unlp.info.oo2.ejercicio12;
 public class WifiConn implements Connection {
 	private String pict;
 
+	public WifiConn() {
+		this.pict = "Wifi";
+	}
+
 	@Override
-	public String sendData(String data, int crc) {
-		return "TODO";
+	public String sendData(String data, long crc) {
+		return "Data enviada por Wifi";
 	}
 
 	@Override
