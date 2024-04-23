@@ -1,0 +1,77 @@
+@startuml
+class PNGFilterLauncherWithPipes {
+	-{static} filters: Map<String,ImageFilter>
+	-{static} inputFile: File
+	-{static} outputFile: File
+	+{static} main(args: String[]): void
+	~{static} processArgs(args: String[]): void
+	~{static} getRainbowBrightenPipe(): ImageFilter
+	~{static} getMonoRepeaterPipe(): ImageFilter
+	~{static} initializeFilters(): void
+}
+
+interface ImageFilter <<Component>> {
+	filter(image: BufferedImage): BufferedImage
+}
+
+abstract class Filter implements ImageFilter{
+	+{abstract}<<abstract>> filter(image: BufferedImage): BufferedImage
+}
+PNGFilterLauncherWithPipes -right-> "*" Filter: -activeFilters
+
+class RGBShifter extends Filter {
+	+filter(image: BufferedImage): BufferedImage
+	+shiftValue(original: int, shiftMagnitude: int): int
+}
+
+class RGBShiftRepeater extends Filter {
+	+{static} X_REPEAT: int
+	+{static} Y_REPEAT: int
+	+filter(image: BufferedImage): BufferedImage
+}
+
+class Repeater extends Filter {
+	+{static} X_REPEAT: int
+	+{static} Y_REPEAT: int
+	+filter(image: BufferedImage): BufferedImage
+}
+
+class Artifacter extends Filter {
+	+{static} tempFile: File
+	+{static} compressionQuality: float
+	+filter(image: BufferedImage): BufferedImage
+}
+
+class Dull extends Filter {
+	+filter(image: BufferedImage): BufferedImage
+}
+
+class Rainbow extends Filter {
+	+filter(image: BufferedImage): BufferedImage
+}
+
+interface ImageFilterPipeInterface <<Decorator>> {
+	filter(image: BufferedImage): BufferedImage
+	addFilter(next: ImageFilter): void
+	setNextPipe(newPipe: ImageFilterPipe): void
+	addPipeFrom(newPipe: ImageFilterPipe, aPipe: ImageFilterPipe): void
+}
+
+class ImageFilterPipe <<Concrete Decorator 1>> implements ImageFilter, ImageFilterPipeInterface {
+	+ImageFilterPipe(aFilter: ImageFilter)
+	+addFilter(next: ImageFilter): void
+	+addPipeFrom(newPipe: ImageFilterPipe, aPipe: ImageFilterPipe): void
+	+setNextPipe(newPipe: ImageFilterPipe): void
+	+filter(image: BufferedImage): BufferedImage
+}
+ImageFilterPipe --> "1" ImageFilterPipeInterface : -nextPipe
+ImageFilterPipe --> "1" ImageFilter : -filter
+
+class EndPipe <<Concrete Decorator 2>>  implements ImageFilter, ImageFilterPipeInterface {
+	+addPipeFrom(newPipe: ImageFilterPipe, aPipe: ImageFilterPipe): void
+	+setNextPipe(newPipe: ImageFilterPipe): void
+	+addFilter(next: ImageFilter): void
+	+filter(image: BufferedImage): BufferedImage
+}
+
+@enduml
