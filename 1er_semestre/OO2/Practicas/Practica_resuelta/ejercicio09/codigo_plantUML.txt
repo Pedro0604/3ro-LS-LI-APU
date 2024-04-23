@@ -1,0 +1,80 @@
+@startuml
+class Excursion {
+	-nombre: String
+	-puntoEncuentro: String
+	-fechaInicio: LocalDate
+	-fechaFin: LocalDate
+	-costo: Real
+	-cupoMin: Integer
+	-cupoMax: Integer
+
+	+<<create>> Excursion(nombre: String, fechaInicio: Date, fechaFin: Date,
+                              puntoEncuentro: String, costo: Real, cupoMin: Integer, cupoMax: Integer)
+
+	+getUsuarios(): Usuario[*]
+	+getListaEspera(): Usuario[*]
+	+getNombre(): String
+	+getPuntoEncuentro(): String
+	+getFechaInicio(): Date
+	+getFechaFin(): Date
+	+getCosto(): Real
+
+	+setState(state: ExcursionState)
+
+	+isAtCupoMin(): Boolean
+	+isAtCupoMax(): Boolean
+
+	+getCantUsuarios(): Integer
+	+getCantUsuariosToCupoMin(): Integer
+	+getCantUsuariosToCupoMax(): Integer
+	+getAllMails(): String
+
+	+addUsuario(usuario: Usuario)
+	+addUsuarioToListaEspera(usuario: Usuario)
+	+inscribirUsuario(usuario: Usuario)
+	+toString(): String
+}
+
+class Usuario {
+	-nombre: String
+	-apellido: String
+	-email: String
+
+	+<<create>> Usuario(nombre: String, apellido: String, email: String)
+
+	+getEmail(): String
+}
+Excursion --> "*" Usuario : -usuarios
+Excursion --> "*" Usuario : -listaEspera
+
+abstract class ExcursionState {
+	+<<create>> ExcursionState(excursion: Excursion)
+
+	+{abstract}<<abstract>> inscribirUsuario(usuario: Usuario)
+	+toString(): String
+	#{abstract}<<abstract>> getExtraInfo(): String
+}
+ExcursionState --> "1" Excursion : #excursion
+Excursion --> "1" ExcursionState : -state
+
+class Provisoria <<Concrete State 1>> extends ExcursionState {
+	+<<create>> Provisoria(excursion: Excursion)
+
+	+inscribirUsuario(usuario: Usuario)
+	#getExtraInfo(): String
+}
+
+class Definitiva <<Concrete State 2>> extends ExcursionState {
+	+<<create>> Definitiva(excursion: Excursion)
+
+	+inscribirUsuario(usuario: Usuario)
+	#getExtraInfo(): String
+}
+
+class Completa <<Concrete State 3>> extends ExcursionState {
+	+<<create>> Completa(excursion: Excursion)
+
+	+inscribirUsuario(usuario: Usuario)
+	#getExtraInfo(): String
+}
+@enduml

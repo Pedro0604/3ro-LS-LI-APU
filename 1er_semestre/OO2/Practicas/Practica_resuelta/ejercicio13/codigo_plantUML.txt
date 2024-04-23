@@ -1,0 +1,44 @@
+@startuml
+class Decodificador {
+	+<<create>> Decodificador(strategy: EstrategiaDeSugerencia)
+
+	+setStrategy(strategy: EstrategiaDeSugerencia)
+	+addPelicula(pelicula: Pelicula)
+	+addPeliculaVista(pelicula: Pelicula)
+	+sugerirPeliculas(): Pelicula[*]
+}
+Decodificador --> "*" Pelicula : peliculas
+Decodificador --> "*" Pelicula : peliculasVistas
+Decodificador --> "1" EstrategiaDeSugerencia : strategy
+
+class Pelicula {
+	-titulo: String
+	-anioEstreno: int
+	-puntaje: double
+
+	+<<create>> Pelicula(titulo: String, anioEstreno: int, puntaje: double)
+
+	+getAnioEstreno(): int
+	+getPuntaje(): double
+	+getPeliculasSimilares(): Pelicula[*]
+	+addPeliculaSimilar(pelicula: Pelicula)
+	+toString(): String
+}
+Pelicula --> "*" Pelicula : peliculasSimilares
+
+interface EstrategiaDeSugerencia {
+	+{abstract}<<abstract>> sugerir(peliculas: List<Pelicula>, peliculasVistas: List<Pelicula>): List<Pelicula>
+}
+
+class SugerenciaNovedad <<Concrete Strategy 1>> implements EstrategiaDeSugerencia {
+	+sugerir(peliculas: List<Pelicula>, peliculasVistas: List<Pelicula>): List<Pelicula>
+}
+
+class SugerenciaSimilaridad <<Concrete Strategy 2>> implements EstrategiaDeSugerencia {
+	+sugerir(peliculas: List<Pelicula>, peliculasVistas: List<Pelicula>): List<Pelicula>
+}
+
+class SugerenciaPuntaje <<Concrete Strategy 3>> implements EstrategiaDeSugerencia {
+	+sugerir(peliculas: List<Pelicula>, peliculasVistas: List<Pelicula>): List<Pelicula>
+}
+@enduml

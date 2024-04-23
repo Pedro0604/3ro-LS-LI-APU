@@ -1,0 +1,68 @@
+@startuml
+class Proyecto <<Context>> {
+	-nombre: String
+	-objetivo: String
+	-fechaInicio: DateTime
+	-fechaFin: DateTime
+	-nroIntegrantes: Integer
+	-montoPorDia: Real
+	-margenDeGanancia: Real
+
+	+<<create>> Proyecto(nombre: String, fechaInicio: DateTime,
+                  fechaFin: DateTime, objetivo: String, nroIntegrantes: Integer, montoPorDia: Real)
+
+	+getObjetivo(): String
+	+setObjetivo(objetivo: String)
+	+setMargenDeGanancia(margenDeGanancia: Real)
+	+setState(state: ProyectoState)
+	+appendToObjetivo(str: String)
+	+getDiasProyecto(): Integer
+	+aprobarEtapa()
+	+costoProyecto(): Real
+	+precioProyecto(): Real
+	+modificarMargenDeGanancia(margenDeGanancia: Real)
+	+cancelarProyecto()
+	+getState(): String
+}
+
+abstract class ProyectoState <<State>> {
+	+<<create>> ProyectoState(proyecto: Proyecto)
+
+	+aprobarEtapa()
+	+modificarMargenDeGanancia(margenDeGanancia: Real)
+	+cancelarProyecto()
+	+{abstract}<<abstract>> getNombre(): String
+}
+
+Proyecto --> "1" ProyectoState : -state
+ProyectoState --> "1" Proyecto : #proyecto
+
+class EnConstruccion <<Concrete State 1>> extends ProyectoState {
+	+<<create>> EnConstruccion(proyecto: Proyecto)
+
+	+aprobarEtapa()
+	+modificarMargenDeGanancia(margenDeGanancia: Real)
+	+getNombre(): String
+}
+
+class EnEvaluacion <<Concrete State 2>> extends ProyectoState {
+	+<<create>> EnEvaluacion(proyecto: Proyecto)
+
+	+aprobarEtapa()
+	+modificarMargenDeGanancia(margenDeGanancia: Real)
+	+getNombre(): String
+}
+
+class Confirmado <<Concrete State 3>> extends ProyectoState {
+	+<<create>> Confirmado(proyecto: Proyecto)
+
+	+getNombre(): String
+}
+
+class Cancelado <<Concrete State 4>> extends ProyectoState {
+	+<<create>> Cancelado(proyecto: Proyecto)
+
+	+cancelarProyecto()
+	+getNombre(): String
+}
+@enduml

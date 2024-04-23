@@ -1,0 +1,79 @@
+@startuml
+interface WheaterData <<Component>> {
+	+{abstract}<<abstract>> getTemperatura(): double
+	+{abstract}<<abstract>> getPresion(): double
+	+{abstract}<<abstract>> getRadiacionSolar(): double
+	+{abstract}<<abstract>> getTemperaturas(): List<Double>
+	+{abstract}<<abstract>> displayData(): String
+}
+
+class HomeWheaterStation <<Concrete Component>> implements WheaterData {
+	-temperatura: double
+	-presion: double
+	-radiacionSolar: double
+	-temperaturas: List<Double>
+
+	+<<create>> HomeWheaterStation(temperatura: double, presion: double,
+                            radiacionSolar: double, temperaturas: List<Double>)
+
+	+getTemperatura(): double
+	+getPresion(): double
+	+getRadiacionSolar(): double
+	+getTemperaturas(): List<Double>
+	+displayData(): String
+}
+
+abstract class WheaterDecorator <<Decorator>> implements WheaterData {
+	+<<create>> WheaterDecorator(datos: WheaterData)
+
+	+getTemperatura(): double
+	+getPresion(): double
+	+getRadiacionSolar(): double
+	+getTemperaturas(): List<Double>
+	+displayData(): String
+}
+WheaterDecorator --> "1" WheaterData : datos
+
+class TemperaturaDecorator <<Concrete Decorator>> extends WheaterDecorator {
+	-isCelsius: boolean
+
+	+<<create>> TemperaturaDecorator(datos: WheaterData, isCelsius: boolean)
+	+displayData(): String
+}
+
+class PresionDecorator <<Concrete Decorator>> extends WheaterDecorator {
+	+<<create>> PresionDecorator(datos: WheaterData)
+
+	+displayData(): String
+}
+	
+class RadiacionSolarDecorator <<Concrete Decorator>> extends WheaterDecorator {
+	+<<create>> RadiacionSolarDecorator(datos: WheaterData)
+
+	+displayData(): String
+}
+
+class PromedioTemperaturasDecorator <<Concrete Decorator>> extends WheaterDecorator {
+	-isCelsius: boolean
+
+	+<<create>> PromedioTemperaturasDecorator(datos: WheaterData, isCelsius: boolean)
+
+	+displayData(): String
+}
+
+class MaximaTemperaturaDecorator <<Concrete Decorator>> extends WheaterDecorator {
+	-isCelsius: boolean
+
+	+<<create>> MaximaTemperaturaDecorator(datos: WheaterData, isCelsius: boolean)
+
+	+displayData(): String
+}
+
+class MinimaTemperaturaDecorator <<Concrete Decorator>> extends WheaterDecorator {
+	-isCelsius: boolean
+
+	+<<create>> MinimaTemperaturaDecorator(datos: WheaterData, isCelsius: boolean)
+
+	+displayData(): String
+}
+@enduml

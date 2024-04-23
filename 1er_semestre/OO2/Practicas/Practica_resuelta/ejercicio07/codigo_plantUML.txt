@@ -1,0 +1,62 @@
+@startuml
+class FileSystem <<Client>> {
+	+<<create>> FileSystem(root: Directorio)
+	+tamanoTotalOcupado(): int
+
+	+archivoMasGrande(): Archivo
+	+archivoMasNuevo(): Archivo
+	+buscar(nombre: String): Elemento
+	+buscarTodos(nombre: String): List<Elemento>
+	+listadoDeContenido(): String
+}
+
+abstract class Elemento <<Component>> {
+	-nombre: String
+	-fechaCreacion: LocalDateTime
+
+	+<<create>> Elemento(nombre: String)
+
+	+getNombre(): String
+	+getFechaCreacion(): LocalDateTime
+        +getChildren(): Elemento[*]
+
+	+{abstract}<<abstract>> getTamano(): int
+	+hasNameEqualsTo(name: String): boolean
+
+	+archivoMasGrande(): Archivo
+	+archivoMasNuevo(): Archivo
+	+buscar(nombre: String): Elemento
+	+buscarTodos(nombre: String): List<Elemento>
+	+listadoDeContenido(nombre: String): String
+}
+
+class Archivo <<Leaf>> extends Elemento {
+	-tamano: int
+
+	+<<create>> Archivo(nombre: String, tamano: int)
+
+	+getTamano(): int
+}
+
+class Directorio <<Composite>> extends Elemento {
+	+<<create>> Directorio(nombre: String)
+
+	+getTamano(): int
+        +getChildren(): Elemento[*]
+	+addChild(child: Elemento): void
+	+removeAllChildren(): void
+
+	+archivoMasGrande(): Archivo
+	-archivoMasGrandeFromChild(c: Elemento): Archivo
+	+archivoMasNuevo(): Archivo
+	-archivoMasNuevoFromChild(c: Elemento): Archivo
+	+buscar(nombre: String): Elemento
+	-buscarEnChild(c: Elemento, nombre: String): Elemento
+	+buscarTodos(nombre: String): List<Elemento>
+	-buscarTodosEnChild(c: Elemento, nombre: String): List<Elemento>
+	+listadoDeContenido(previousPath: String): String
+	-listadoDeContenidoEnChild(c: Elemento, path: String): String
+}
+Directorio -up-> "*" Elemento: children
+FileSystem --> "1" Directorio : root
+@enduml

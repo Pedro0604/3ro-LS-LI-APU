@@ -1,0 +1,20 @@
+@startuml
+class Juego {
+	+<<create>> Juego()
+
+	+getManos(): Mano[*]
+	+jugar(mano1: Mano, mano2: Mano): String
+}
+Juego --> "*" Mano : manos
+
+class Mano {
+	-nombre: String
+
+	+<<create>> Mano(nombre: String)
+
+	+addGanaContra(mano: Mano)
+	+ganaA(otraMano: Mano): Boolean
+	+getNombre(): String
+}
+Mano --> "*" Mano : ganaContra
+@enduml

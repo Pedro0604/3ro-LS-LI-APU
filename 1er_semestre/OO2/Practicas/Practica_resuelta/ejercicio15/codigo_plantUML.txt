@@ -1,0 +1,96 @@
+@startuml
+class FileManager {
+	+<<create>> FileManager()
+	+addArchivo(archivo: File): void
+	+getArchivos(): File[*]
+}
+
+interface File <<Component>> {
+	+{abstract}<<abstract>> prettyPrint(): String
+	+{abstract}<<abstract>> getNombre(): String
+	+{abstract}<<abstract>> getExtension(): String
+	+{abstract}<<abstract>> getPermisos(): String
+	+{abstract}<<abstract>> getTamanio(): int
+	+{abstract}<<abstract>> getFechaCreacion(): LocalDateTime
+	+{abstract}<<abstract>> getFechaModificacion(): LocalDateTime
+}
+
+FileManager --> "*" File : archivos
+
+class FileOO2 <<Concrete Component>> implements File {
+	-nombre: String
+	-extension: String
+	-permisos: String
+	-tamanio: int
+	-fechaCreacion: LocalDateTime
+	-fechaModificacion: LocalDateTime
+
+	+<<create>> FileOO2(nombre: String, extension: String, tamanio: int, permisos: String)
+
+	+getNombre(): String
+	+getExtension(): String
+	+getPermisos(): String
+	+getTamanio(): int
+	+getFechaCreacion(): LocalDateTime
+	+getFechaModificacion(): LocalDateTime
+	+prettyPrint(): String
+}
+
+abstract class FileDecorator <<Decorator>> implements File {
+	+<<create>> FileDecorator(archivo: File)
+
+	+getNombre(): String
+	+getExtension(): String
+	+getPermisos(): String
+	+getTamanio(): int
+	+getFechaCreacion(): LocalDateTime
+	+getFechaModificacion(): LocalDateTime
+	+setArchivo(archivo: File): void
+	+{abstract}<<abstract>> prettyPrint(): String
+}
+
+FileDecorator -left-> "1" File : archivo
+
+note right of FileDecorator::getNombre
+@Override
+public String getNombre(){
+    return this.archivo.getNombre();
+}
+end note
+
+class FileNameDecorator <<Concrete Decorator 1>> extends FileDecorator {
+	+<<create>> FileNameDecorator(archivo: File)
+
+	+prettyPrint(): String
+}
+
+class FileExtensionDecorator <<Concrete Decorator 2>> extends FileDecorator {
+	+<<create>> FileExtensionDecorator(archivo: File)
+
+	+prettyPrint(): String
+}
+
+class FileSizeDecorator <<Concrete Decorator 3>> extends FileDecorator {
+	+<<create>> FileSizeDecorator(archivo: File)
+
+	+prettyPrint(): String
+}
+
+class FileCreationDateDecorator <<Concrete Decorator 4>> extends FileDecorator {
+	+<<create>> FileCreationDateDecorator(archivo: File)
+
+	+prettyPrint(): String
+}
+
+class FileModificationDateDecorator <<Concrete Decorator 5>> extends FileDecorator {
+	+<<create>> FileModificationDateDecorator(archivo: File)
+
+	+prettyPrint(): String
+}
+
+class FilePermissionsDecorator <<Concrete Decorator 6>> extends FileDecorator {
+	+<<create>> FilePermissionsDecorator(archivo: File)
+
+	+prettyPrint(): String
+}
+@enduml

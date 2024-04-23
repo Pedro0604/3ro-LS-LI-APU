@@ -1,0 +1,40 @@
+@startuml
+class Client <<Client>> {
+	+<<create>> Client()
+
+	+addTopografia(topografia: Topografia)
+	+getProporcionAguaTopografia(index: int): Real
+	+getProporcionTierraTopografia(index: int): Real
+}
+
+abstract class Topografia <<Component>> {
+	+<<create>> Topografia()
+
+	+{abstract}<<abstract>> getProporcionAgua(): Real
+	+getProporcionTierra(): Real
+	+isEqualTo(topografia: Topografia): Boolean
+	+getChildren(): Topografia[*]
+	+getChildCount(): Integer
+}
+Client --> "*" Topografia : -topografias
+
+class Agua <<Leaf 1>> extends Topografia {
+	+getProporcionAgua(): double
+}
+
+class Tierra <<Leaf 2>> extends Topografia {
+	+getProporcionAgua(): double
+}
+
+class CompositeTopografia <<Composite>> extends Topografia {
+	+<<create>> CompositeTopografia()
+
+	+addTopografia(child: Topografia): Boolean
+	+removeAllTopografias(): void
+	+getProporcionAgua(): Real
+	+isEqualTo(topografia: Topografia): Boolean
+	+getChildren(): Topografia[*]
+	+getChildCount(): Integer
+}
+CompositeTopografia --> "*" Topografia : -children
+@enduml

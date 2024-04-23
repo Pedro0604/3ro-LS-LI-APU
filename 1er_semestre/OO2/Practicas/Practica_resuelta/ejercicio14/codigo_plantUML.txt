@@ -1,0 +1,28 @@
+@startuml
+interface DatabaseAccess {
+	+{abstract}<<abstract>> insertNewRow(rowData: List<String>): int
+	+{abstract}<<abstract>> getSearchResults(queryString: String): Collection<String>
+}
+
+class DatabaseRealAccess implements DatabaseAccess {
+	-data: Map<String,List<String>>
+	-currentId: int
+
+	+<<create>> DatabaseRealAccess()
+
+	+getSearchResults(queryString: String): Collection<String>
+	+insertNewRow(rowData: List<String>): int
+}
+
+class DatabaseAccessProxy implements DatabaseAccess {
+	-userId: int
+
+	+<<create>> DatabaseAccessProxy(realDatabaseAccess: DatabaseAccess, userId: Integer)
+
+	+setUserId(userId: int): void
+	-isAuthenticated(): boolean
+	+insertNewRow(rowData: List<String>): int
+	+getSearchResults(queryString: String): Collection<String>
+}
+DatabaseAccessProxy ---> "1" DatabaseAccess: realDatabaseAccess
+@enduml

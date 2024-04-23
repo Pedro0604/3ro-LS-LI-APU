@@ -1,0 +1,114 @@
+@startuml
+class Banco {
+  +addProductoFinanciero(ProductoFinanciero pf)
+  +addCliente(Cliente c)
+}
+
+abstract ProductoFinanciero {
+  -fechaOperacion: Date
+  -?: ?
+  
+  +<<create>> ProductoFinanciero(fechaOperacion: Date)
+  +<<abstract>> retornoInversion(montoInicial: Real): Real
+  +?(): ?
+}
+
+Banco --> "*" ProductoFinanciero: -productos
+
+class CompraDolares Extends ProductoFinanciero {
+  -valorCompra: Real
+  -cantidad: Integer
+
+  +<<create>> CompraDolares(fechaOperacion: Date,
+                            valorCompra: Real, cantidadCompra: Integer)
+  +retornoInversion(montoInicial: Real): Real
+}
+
+class CompraPesos Extends ProductoFinanciero {
+  -valorCompra: Real
+  -cantidad: Integer
+
+  +<<create>> CompraPesos(fechaOperacion: Date,
+                          valorCompra: Real, cantidadCompra: Integer)
+  +retornoInversion(montoInicial: Real): Real
+}
+
+class PlazoFijo Extends ProductoFinanciero {
+  -cantidadDias: Integer
+  -interes: Real
+
+  +<<create>> PlazoFijo (fechaOperacion: Date,
+                         cantidadDias: Integer, interes: Real)
+  +retornoInversion(montoInicial: Real): Real
+}
+
+class CompraBonoBajoRiesgo Extends ProductoFinanciero {
+  -parking: Integer
+
+  +<<create>> CompraBonoBajoRiesgo(
+              fechaOperacion: Date, parking: Integer)
+  +retornoInversion(montoInicial: Real): Real
+}
+note bottom of CompraBonoBajoRiesgo: Tiene una variación máxima de 10%
+
+class CompraAltoBajoRiesgo Extends ProductoFinanciero {
+  -parking: Integer
+
+  +<<create>> CompraAltoBajoRiesgo(
+              fechaOperacion: Date, parking: Integer)
+  +retornoInversion(montoInicial: Real): Real
+}
+note bottom of CompraAltoBajoRiesgo : Tiene una variación máxima de 70%
+
+class ProductoCombinado Extends ProductoFinanciero {
+  +<<create>> CompraDolares(fechaOperacion: Date)
+}
+ProductoCombinado --> "*" ProductoFinanciero: -productos
+
+abstract Creador <<Creator>>{
+  +crearProducto(): ProductoFinanciero 
+}
+
+class CreadorProducto1 <<Concrete Creator 1>> extends Creador {
+  +crearProducto(): ProductoFinanciero 
+}
+
+CreadorProducto1 ..> ProductoCombinado: <<creates>>
+
+class CreadorProducto2 <<Concrete Creator 2>> extends Creador {
+  +crearProducto(): ProductoFinanciero 
+}
+
+CreadorProducto2 ..> ProductoCombinado: <<creates>>
+
+class CreadorProducto3 <<Concrete Creator 3>> extends Creador {
+  +crearProducto(): ProductoFinanciero 
+}
+
+CreadorProducto3 ..> ProductoCombinado: <<creates>>
+
+class CreadorProducto4 <<Concrete Creator 4>> extends Creador {
+  +crearProducto(): ProductoFinanciero
+}
+
+CreadorProducto4 ..> ProductoCombinado: <<creates>>
+
+class Cliente {
+
+}
+
+Banco -left-> "*" Cliente: -clientes
+
+abstract Membresia {
+  
+}
+Cliente -left> "1" Membresia: -membresia
+
+class Silver extends Membresia {
+  
+}
+
+class Gold extends Membresia {
+  
+}
+@enduml

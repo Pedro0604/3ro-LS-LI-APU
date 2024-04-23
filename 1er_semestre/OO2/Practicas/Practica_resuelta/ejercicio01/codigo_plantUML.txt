@@ -1,0 +1,48 @@
+@startuml
+class Twitter {
+	+<<create>> Twitter()
+
+	+registrarUsuario(screenName: String): Usuario
+	+getUsuarios():Usuario[*]
+	-existeScreenName(screenName: String): Boolean
+	+eliminarUsuario(screenName: String): Boolean
+	-eliminarReferencias(tweets: Tweetable[*])
+}
+
+class Usuario {
+	-screenName: String
+
+	+<<create>> Usuario(screenName: String)
+
+	+getScreenName(): String
+	+getTweets(): Tweetable[*]
+	+eliminarTweets()
+	+eliminarReferencias(tweetsRecibidos: Tweetable[*])
+	+tweet(texto: String): Tweet
+	+reTweet(tweet: Tweet): ReTweet
+}
+Twitter -right-> "*" Usuario : -usuarios
+
+interface Tweetable {
+	+getTexto(): String
+	+getReferencia(): Tweet
+}
+Usuario -right-> "*" Tweetable : -tweets
+
+class Tweet implements Tweetable{
+	-texto: String
+
+	+<<create>> Tweet(texto: String)
+
+	+getTexto(): String
+	+getReferencia(): Tweet
+}
+
+class ReTweet implements Tweetable{
+	+<<create>> ReTweet(tweetDeOrigen: Tweet)
+
+	+getTexto(): String
+	+getReferencia(): Tweet
+}
+ReTweet -left-> "1" Tweet : -tweetDeOrigen
+@enduml

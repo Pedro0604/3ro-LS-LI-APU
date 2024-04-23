@@ -1,0 +1,51 @@
+@startuml
+class Biblioteca {
+	+<<create>> Biblioteca()
+
+	+agregarSocio(socio: Socio)
+	+exportarSocios(): String
+	+getExporter(): VoorheesExporter
+	+setExporter(exporter: VoorheesExporter)
+}
+
+class Socio {
+	-nombre: String
+	-email: String
+	-legajo: String
+
+	+<<create>> Socio(nombre: String,
+                          email: String, legajo: String)
+
+	+getNombre(): String
+	+getEmail(): String
+	+getLegajo(): String
+
+	+setEmail(email: String)
+	+setNombre(nombre: String)
+	+setLegajo(legajo: String)
+}
+Biblioteca -right-> "*" Socio : -socios
+
+class VoorheesExporter {
+	-exportar(socio: Socio): String
+	+exportar(socios: Socio[*]): String
+}
+Biblioteca --> "1" VoorheesExporter : -exporter
+
+class JacksonAdapter <<Adapter>> extends VoorheesExporter {
+	-objectMapperAdaptee: ObjectMapper
+
+	+<<create>> JacksonAdapter()
+
+	+exportar(socios: Socio[*]): String
+}
+
+class JsonAdapter <<Adapter>> extends VoorheesExporter {
+	-JsonObjectAdaptee: JSONObject
+	-JsonArrayAdaptee: JSONArray
+
+	+<<create>> JsonAdapter()
+
+	+exportar(socios: Socio[*]): String
+}
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+class MediaPlayer {
+	+setMedia(media: Media)
+	+play(): String
+}
+
+abstract class Media {
+	+{abstract}<<abstract>> play(): String
+}
+MediaPlayer --> "1" Media : -media
+
+class Audio extends Media {
+	+play(): String
+}
+
+class VideoFile extends Media {
+	+play(): String
+}
+
+class VideoStreamAdapter extends Media {
+	+<<create>> VideoStreamAdapter()
+
+	+play(): String
+}
+
+class VideoStream {
+	+reproduce(): String
+}
+VideoStreamAdapter --> "1" VideoStream : -videoStreamAdaptee
+@enduml

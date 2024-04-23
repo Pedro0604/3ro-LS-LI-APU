@@ -1,0 +1,67 @@
+@startuml
+class ToDoItem {
+	-name: String
+	-startTime: DateTime
+	-endTime: DateTime
+	-comments: List<String>
+
+	+<<create>> ToDoItem(name: String)
+
+	+getComments(): List<String>
+	+getStartTime(): DateTime
+	+getEndTime(): DateTime
+
+	+setState(state: State)
+	+setEndTime(endTime: LocalDateTime)
+	+getStateName(): String
+
+	+start()
+	+togglePause()
+	+finish()
+	+workedTime(): Duration
+	+addComment(comment: String)
+}
+
+abstract class State <<State>> {
+	+<<create>> State(toDoItem: ToDoItem)
+
+	+start()
+	+togglePause()
+	+finish()
+	+workedTime(startTime: DateTime, endTime: DateTime): Duration
+	+addComment(comment: String)
+	+{abstract}<<abstract>> getStateName(): String
+}
+State --> "1" ToDoItem : -toDoItem
+ToDoItem --> "1" State : -state
+
+class Pending <<Concrete State 1>> extends State {
+	+<<create>> Pending(toDoItem: ToDoItem)
+
+	+start()
+	+workedTime(startTime: LocalDateTime, endTime: LocalDateTime): Duration
+	+getStateName(): String
+}
+
+class InProgress <<Concrete State 2>> extends State {
+	+<<create>> InProgress(toDoItem: ToDoItem)
+
+	+togglePause()
+	+finish()
+	+getStateName(): String
+}
+class Paused <<Concrete State 3>> extends State {
+	+<<create>> Paused(toDoItem: ToDoItem)
+
+	+togglePause()
+	+finish()
+	+getStateName(): String
+}
+
+class Finished <<Concrete State 4>> extends State {
+	+<<create>> Finished(toDoItem: ToDoItem)
+
+	+addComment(comment: String)
+	+getStateName(): String
+}
+@enduml

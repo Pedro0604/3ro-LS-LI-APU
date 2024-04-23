@@ -1,0 +1,53 @@
+
+@startuml
+class Biblioteca {
+	+<<create>> Biblioteca()
+
+	+agregarSocio(socio: Socio)
+	+exportarSocios(): String
+	+getExporter(): VoorheesExporter
+	+setExporter(exporter: VoorheesExporter)
+}
+
+class Socio {
+	-nombre: String
+	-email: String
+	-legajo: String
+
+	+<<create>> Socio(nombre: String,
+                          email: String, legajo: String)
+
+	+getNombre(): String
+	+getEmail(): String
+	+getLegajo(): String
+
+	+setEmail(email: String)
+	+setNombre(nombre: String)
+	+setLegajo(legajo: String)
+}
+Biblioteca -right-> "*" Socio : -socios
+
+class VoorheesExporter {
+	-exportar(socio: Socio): String
+	+exportar(socios: Socio[*]): String
+}
+Biblioteca --> "1" VoorheesExporter : -exporter
+@enduml
+//www.plantuml.com/plantuml/png/TL6nQiCm49shhn2Uh3GUkePWGg5RwLBeKZeexg6eo5OvAL0e-VTAygNHnSI3aUuzlNltRXUYndWSdHYS3a4-shspFiAWvQ-ukzzk1mGTeUyhf5KYGTeW68slVh2-3Vc_aUMY4WW_tnuZeQ5L2Ofe9vCW0_6fe82v_kOz7W32kPOOeM807PP49Kw2J9SksMyt-N6FSEdMmQYjg-uEZFxo_mK-uZmBrrWBUVDZucl9jPMOXtqfSei8yjFhudCHgAeKHk6oPcf6I9iSSup4hasTHBNY3gqvnAwNpQgX53UoAyiC5EuYzvBpURzyyTKqd128yRxwk92uaspYeLbqotw0pc87q-TnT7y0
+Decode URL
+Autorefresh Submit Dark mode Change layout Extract window 
+       Pure Javascript  PNG  SVG  ASCII ArtDiscord server         
+PlantUML diagram
+Home
+What's New ?
+Getting Started
+Online Server
+Running
+F.A.Q.
+Download
+Forum
+Theme
+Preprocessing
+Standard Library
+Hitchhiker's Guide
+PDF Guide

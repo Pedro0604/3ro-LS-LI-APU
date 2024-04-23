@@ -1,0 +1,52 @@
+@startuml
+class ControlPanel <<Client>> {
+  -pollingPeriod: Integer
+
+  +<<create>> ControlPanel(module: SensingModule, period: Integer)
+  +updateView()
+  +createCallback(period: Integer)
+  +displayTemp(temp: Real)
+  +displayHumid(humid: Real)
+}
+
+note left of ControlPanel::ControlPanel
+this.module = module;
+this.module.reset();
+this.poolingPeriod = period;
+this.module.autocalibrate();
+this.createCallback(this.poolingPeriod);
+end note
+
+note left of ControlPanel::updateView
+temp = this.module.acquireTemp();
+this.displayTemp(temp);
+humid = this.module.acquireHumid();
+this.displayHumid(humid);
+end note
+
+abstract SensingModule {
+  +<<abstract>> acquireTemp(): Real
+  +<<abstract>> acquireHumid(): Real
+  +reset()
+  +autoCalibrate()
+}
+
+ControlPanel --> "1" SensingModule: module
+
+class HighResolution extends SensingModule {
+  +acquireTemp(): Real
+  +acquireHumid(): Real
+}
+
+class MediumResolution extends SensingModule {
+  +acquireTemp(): Real
+  +acquireHumid(): Real
+}
+
+class CombinedMatrixSensor {
+  +acquireSensor(mode: Integer): Real
+  +acquireAll(): Map
+  +reset()
+  +calibrate(timeout: Integer)
+}
+@enduml

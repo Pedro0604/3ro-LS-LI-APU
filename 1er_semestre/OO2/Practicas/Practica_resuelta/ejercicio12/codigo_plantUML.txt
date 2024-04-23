@@ -1,0 +1,72 @@
+@startuml
+class Dispositivo {
+	+<<create>> Dispositivo(crcCalculator: CRCCalculator, connection: Connection)
+
+	+send(data: String): String
+	+changeConnection(newConnection: Connection)
+	+changeCRCCalculator(newCRCCalculator: CRCCalculator)
+}
+
+class Ringer {
+	+ring(): void
+}
+Dispositivo --> "1" Ringer : -ringer
+
+class Display {
+	+showBanner(img: String): String
+}
+Dispositivo --> "1" Display : -display
+
+interface Connection <<Strategy A>> {
+	+{abstract}<<abstract>> sendData(data: String, crc: Integer): String
+	+{abstract}<<abstract>> pict(): String
+}
+Dispositivo --> "1" Connection : -connection
+
+class FourGConnAdapter <<Adapter/Concrete Strategy A 1>> implements Connection{
+	+FourGConnAdapter()
+	+sendData(data: String, crc: Integer): String
+	+pict(): String
+}
+
+note right of FourGConnAdapter::sendData
+public String sendData(String data, Integer crc){
+    return this.adaptee.transmit(data, crc);
+}
+end note
+
+note right of FourGConnAdapter::pict
+public String pict(){
+    return this.adaptee.getSymb();
+}
+end note
+
+class FourGConn <<Adaptee>> {
+	-symb: String
+	+FourGConn()
+	+getSymb(): String
+	+transmit(data: String, crc: Integer): String
+}
+FourGConnAdapter -down-> "1" FourGConn : -adaptee
+
+class WifiConn <<Concrete Strategy A 2>> implements Connection {
+	-pict: String
+	+WifiConn()
+	+sendData(data: String, crc: Integer): String
+	+pict(): String
+}
+
+interface CRCCalculator <<Strategy B>> {
+	+{abstract}<<abstract>> crcFor(data: String): Integer
+}
+Dispositivo --> "1" CRCCalculator : -crcCalculator
+
+class CRC16_Calculator <<Concrete Strategy B 1>> implements CRCCalculator {
+	+crcFor(datos: String): Integer
+}
+
+class CRC32_Calculator <<Concrete Strategy B 2>> implements CRCCalculator {
+	+crcFor(data: String): Integer
+}
+
+@enduml
