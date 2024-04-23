@@ -1,0 +1,87 @@
+@startuml
+class Personaje {
+  -nombre: String
+  -puntosDeVida: Integer
+
+  +<<create>> Personaje(nombre: String,
+                        arma: Arma, armadura: Armadura)
+
+  +getPuntosDeVida(): Integer
+  +getNombre(): String
+
+  +addHabilidad(habilidad: Habilidad)
+  +atacarA(otroPersonaje: Personaje): Integer
+  +recibirDaño(Arma armaAtacante): Integer
+  +tieneVida(): Boolean
+  +desafiarAMuerteA(otroPersonaje: Personaje)
+}
+
+interface Armadura {
+  +{abstract}<<abstract>> recibirDaño(armaAtacante: Arma)
+}
+Personaje --> "1" Armadura: -armadura
+
+class ArmaduraDeCuero extends Armadura {
+  +recibirDaño(armaAtacante: Arma)
+}
+
+class ArmaduraDeHierro extends Armadura {
+  +recibirDaño(armaAtacante: Arma)
+}
+
+class ArmaduraDeAcero extends Armadura {
+  +recibirDaño(armaAtacante: Arma)
+}
+
+interface Arma {
+  +{abstract}<<abstract>> hacerDañoACuero(): Integer
+  +{abstract}<<abstract>> hacerDañoAHierro(): Integer
+  +{abstract}<<abstract>> hacerDañoAAcero(): Integer
+}
+Personaje --> "1" Arma: -arma
+
+class Espada extends Arma {
+  +hacerDañoACuero(): Integer
+  +hacerDañoAHierro(): Integer
+  +hacerDañoAAcero(): Integer
+}
+
+class Arco extends Arma {
+  +hacerDañoACuero(): Integer
+  +hacerDañoAHierro(): Integer
+  +hacerDañoAAcero(): Integer
+}
+
+class BastonDeMago extends Arma {
+  +hacerDañoACuero(): Integer
+  +hacerDañoAHierro(): Integer
+  +hacerDañoAAcero(): Integer
+}
+
+abstract Habilidad {}
+Personaje --> "*" Habilidad: -habilidades
+
+class CombateCuerpoACuerpo extends Habilidad
+class CombateADistancia extends Habilidad
+class Curacion extends Habilidad
+class Magia extends Habilidad
+
+abstract PersonajeCreator <<Creator>> {
+  + {abstract}<<abstract>> createPersonaje(): Personaje
+}
+
+class MagoCreator <<Concrete Creator>> extends PersonajeCreator {
+  +createPersonaje(): Personaje
+}
+MagoCreator ..> Personaje: <<creates>>
+
+class GuerreroCreator <<Concrete Creator>> extends PersonajeCreator {
+  +createPersonaje(): Personaje
+}
+GuerreroCreator ..> Personaje: <<creates>>
+
+class ArqueroCreator <<Concrete Creator>> extends PersonajeCreator  {
+  +createPersonaje(): Personaje
+}
+ArqueroCreator ..> Personaje: <<creates>>
+@enduml
