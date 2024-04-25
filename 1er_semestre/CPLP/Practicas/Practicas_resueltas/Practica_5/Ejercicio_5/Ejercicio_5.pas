@@ -21,6 +21,7 @@ Program Main;
                 // Esto es llamada al procedure D
                 // (que en realidad debería ser D())
                 // (╯°□°）╯︵ ┻━┻ 
+                // Parece que se puede hacer tanto D como D() (╯°□°）╯︵ ┻━┻
                 D;
             End;
 
@@ -31,6 +32,7 @@ Program Main;
             // Esto es llamada al procedure C
             // (que en realidad debería ser C())
             // (╯°□°）╯︵ ┻━┻ 
+            // Parece que se puede hacer tanto C como C() (╯°□°）╯︵ ┻━┻
             C;
             x := x + 1;
             write (x, y);
@@ -75,6 +77,7 @@ Program Main;
         // Esto es llamada al procedure B
         // (que en realidad debería ser b[)]
         // (╯°□°）╯︵ ┻━┻ 
+        // Parece que se puede hacer tanto B como B() (╯°□°）╯︵ ┻━┻
         B;
         For z:=1 To 6 Do
             write (a[z], b[z]);

@@ -24,20 +24,27 @@ Begin
     // Esto es llamada a la function x
     // (que en realidad debería ser x())
     // (╯°□°）╯︵ ┻━┻ 
+    // Parece que se puede hacer tanto x como x() (╯°□°）╯︵ ┻━┻
     p := x;
     write(a);
+
     // Esto es llamada a la function x
     // (que en realidad debería ser x())
     // (╯°□°）╯︵ ┻━┻ 
+    // Parece que se puede hacer tanto x como x() (╯°□°）╯︵ ┻━┻
     p := x+3;
     c[p] := 8;
+
     // Esto es llamada a la function x
     // (que en realidad debería ser x())
     // (╯°□°）╯︵ ┻━┻ 
+    // Parece que se puede hacer tanto x como x() (╯°□°）╯︵ ┻━┻
     p := x+2;
+
     // Esto es llamada a la function x
     // (que en realidad debería ser x())
     // (╯°□°）╯︵ ┻━┻ 
+    // Parece que se puede hacer tanto x como x() (╯°□°）╯︵ ┻━┻
     c[p] := x;
 End;
 
@@ -75,6 +82,7 @@ Begin
     // Esto es llamada al procedure x
     // (que en realidad debería ser x())
     // (╯°□°）╯︵ ┻━┻ 
+    // Parece que se puede hacer tanto x como x() (╯°□°）╯︵ ┻━┻
     x;
     write(b);
     write(a);

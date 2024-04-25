@@ -31,11 +31,13 @@ Begin
     // Esto es llamada a la function B
     // (que en realidad debería ser B())
     // (╯°□°）╯︵ ┻━┻ 
+    // Parece que se puede hacer tanto B como B() (╯°□°）╯︵ ┻━┻
     x := x + B;
 
     // Esto es llamada al procedure C
     // (que en realidad debería ser C())
     // (╯°□°）╯︵ ┻━┻ 
+    // Parece que se puede hacer tanto C como C() (╯°□°）╯︵ ┻━┻
     C;
 End;
 
@@ -56,11 +58,13 @@ Begin
     // Esto es llamada al procedure A
     // (que en realidad debería ser A())
     // (╯°□°）╯︵ ┻━┻ 
+    // Parece que se puede hacer tanto A como A() (╯°□°）╯︵ ┻━┻
     If y = 7 Then A;
 
     // Esto es llamada al procedure C
     // (que en realidad debería ser C())
     // (╯°□°）╯︵ ┻━┻ 
+    // Parece que se puede hacer tanto C como C() (╯°□°）╯︵ ┻━┻
     Else C;
     For x:= 1 To 7 Do
         write(vec[x]);
