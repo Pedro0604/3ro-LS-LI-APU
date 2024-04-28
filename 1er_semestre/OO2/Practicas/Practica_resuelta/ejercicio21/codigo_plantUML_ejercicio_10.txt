@@ -1,0 +1,69 @@
+@startuml
+abstract class AbstractMamifero {
+	+{abstract}<<abstract>> getIdentificador(): String
+	+{abstract}<<abstract>> getEspecie(): String
+	+{abstract}<<abstract>> getFechaNacimiento(): LocalDate
+	+{abstract}<<abstract>> getMadre(): AbstractMamifero
+	+{abstract}<<abstract>> getPadre(): AbstractMamifero
+
+	+{abstract}<<abstract>> setEspecie(especie: String)
+	+{abstract}<<abstract>> setIdentificador(identificador: String)
+	+{abstract}<<abstract>> setFechaNacimiento(fechaNacimiento: LocalDate)
+	+{abstract}<<abstract>> setMadre(madre: AbstractMamifero)
+	+{abstract}<<abstract>> setPadre(padre: AbstractMamifero)
+
+	+{abstract}<<abstract>> tieneComoAncestroA(otroMamifero: AbstractMamifero): boolean
+}
+
+class Mamifero extends AbstractMamifero {
+	-identificador: String
+	-especie: String
+	-fechaNacimiento: LocalDate
+
+	-inicializar()
+	+<<create>> Mamifero(identificador: String, especie: String,
+                             fechaNacimiento: LocalDate, madre: Mamifero, padre: Mamifero)
+	+<<create>> Mamifero()
+	+<<create>> Mamifero(identificador: String)
+
+	+getIdentificador(): String
+	+getEspecie(): String
+	+getFechaNacimiento(): LocalDate
+	+getMadre(): AbstractMamifero
+	+getPadre(): AbstractMamifero
+
+	+setIdentificador(identificador: String)
+	+setEspecie(especie: String)
+	+setFechaNacimiento(fechaNacimiento: LocalDate)
+	+setMadre(madre: AbstractMamifero)
+	+setPadre(padre: AbstractMamifero)
+
+	+getAbueloMaterno(): AbstractMamifero
+	+getAbuelaMaterna(): AbstractMamifero
+	+getAbueloPaterno(): AbstractMamifero
+	+getAbuelaPaterna(): AbstractMamifero
+	+tieneComoAncestroA(otroMamifero: AbstractMamifero): boolean
+}
+Mamifero --> "1" Mamifero : madre
+Mamifero --> "1" Mamifero : padre
+
+class NullMamifero extends AbstractMamifero {
+	+getIdentificador(): String
+	+getEspecie(): String
+	+getFechaNacimiento(): LocalDate
+	+getMadre(): AbstractMamifero
+	+getPadre(): AbstractMamifero
+
+	+setIdentificador(identificador: String)
+	+setEspecie(especie: String)
+	+setFechaNacimiento(fechaNacimiento: LocalDate)
+	+setMadre(madre: AbstractMamifero)
+	+setPadre(padre: AbstractMamifero)
+
+	+getAbueloMaterno(): AbstractMamifero
+	+getAbuelaMaterna(): AbstractMamifero
+	+getAbueloPaterno(): AbstractMamifero
+	+getAbuelaPaterna(): AbstractMamifero
+	+tieneComoAncestroA(otroMamifero: AbstractMamifero): boolean
+}
+@enduml
