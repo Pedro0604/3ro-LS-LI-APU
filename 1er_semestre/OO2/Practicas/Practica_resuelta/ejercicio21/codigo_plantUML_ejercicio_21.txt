@@ -1,5 +1,5 @@
 @startuml
-abstract class AbstractMamifero {
+abstract class AbstractMamifero <<Abstract Object>> {
 	+{abstract}<<abstract>> getIdentificador(): String
 	+{abstract}<<abstract>> getEspecie(): String
 	+{abstract}<<abstract>> getFechaNacimiento(): LocalDate
@@ -15,7 +15,7 @@ abstract class AbstractMamifero {
 	+{abstract}<<abstract>> tieneComoAncestroA(otroMamifero: AbstractMamifero): boolean
 }
 
-class Mamifero extends AbstractMamifero {
+class Mamifero <<Real Object>> extends AbstractMamifero {
 	-identificador: String
 	-especie: String
 	-fechaNacimiento: LocalDate
@@ -47,7 +47,7 @@ class Mamifero extends AbstractMamifero {
 Mamifero --> "1" Mamifero : madre
 Mamifero --> "1" Mamifero : padre
 
-class NullMamifero extends AbstractMamifero {
+class NullMamifero <<Null Object>> extends AbstractMamifero {
 	+getIdentificador(): String
 	+getEspecie(): String
 	+getFechaNacimiento(): LocalDate
