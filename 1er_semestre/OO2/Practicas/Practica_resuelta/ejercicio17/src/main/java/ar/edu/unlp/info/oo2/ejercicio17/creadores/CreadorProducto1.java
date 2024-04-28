@@ -8,11 +8,16 @@ import ar.edu.unlp.info.oo2.ejercicio17.productos.ProductoFinanciero;
 
 public class CreadorProducto1 extends Creador {
 	public ProductoFinanciero crearProducto(double valorCompraDolares, double valorCompraPesos,
-			int cantidadDiasPlazoFijo, int parkingBajoRiesgo, int parkingAltoRiesgo) {
+			int cantidadDiasPlazoFijo, double tasaInteres, int parkingBajoRiesgo, int parkingAltoRiesgo) {
 		ProductoFinanciero producto = new ProductoCombinado();
 		producto.addProducto(new CompraDolares(valorCompraDolares));
-		producto.addProducto(new PlazoFijo(cantidadDiasPlazoFijo, 0.00252));
+		producto.addProducto(new PlazoFijo(cantidadDiasPlazoFijo, tasaInteres));
 		producto.addProducto(new CompraPesos(valorCompraPesos));
 		return producto;
+	}
+
+	@Override
+	public boolean puedeSerAccedidoPorGold() {
+		return false;
 	}
 }
