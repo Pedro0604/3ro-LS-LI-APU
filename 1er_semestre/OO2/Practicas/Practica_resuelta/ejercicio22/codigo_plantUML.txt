@@ -1,0 +1,56 @@
+@startuml
+class Sandwich <<Concrete Product>> {
+  +<<create>>Sandwich(pan: AbstractElemento, aderezo: AbstractElemento,
+                      principal: AbstractElemento, adicional: AbstractElemento)
+
+  +getPrecio(): Real
+}
+
+class AbstractElemento {  
+  +getNombre(): String
+  +getPrecio(): Real
+}
+
+class Elemento extends AbstractElemento {
+  -nombre: String;
+  -precio: Real
+
+  +<<create>>Elemento(nombre: String, precio: Real)
+  
+  +getNombre(): String
+  +getPrecio(): Real
+}
+
+Sandwich --> "*" AbstractElemento: -elementos
+
+class NullElemento extends AbstractElemento {
+  +<<create>>NullElemento()
+  
+  +getNombre(): String
+  +getPrecio(): Real
+}
+
+abstract SandwichCreator <<Creator>> {
+  +{abstract}<<abstract>>createSandwich()
+}
+
+class SandwichClasicoCreator <<Concrete Creator>> extends SandwichCreator {
+  +createSandwichClasico()
+}
+SandwichClasicoCreator ..> "1" Sandwich: creates
+
+class SandwichVegetarianoCreator <<Concrete Creator>> extends SandwichCreator {
+  +createSandwichVegetariano()
+}
+SandwichVegetarianoCreator ..> "1" Sandwich: creates
+
+class SandwichVeganoCreator <<Concrete Creator>> extends SandwichCreator {
+  +createSandwichVegano()
+}
+SandwichVeganoCreator ..> "1" Sandwich: creates
+
+class SandwichSinTACCCreator <<Concrete Creator>> extends SandwichCreator {
+  +createSandwichSinTACC()
+}
+SandwichSinTACCCreator ..> "1" Sandwich: creates
+@enduml
