@@ -5,7 +5,7 @@ Program Uno;
         r2:   array[1..5] Of integer;
 
 
-    Procedure Dos(nombre x, t:integer; Var io:integer; valor-resultado y:integer);
+    Procedure Dos(nombre x; nombre t:integer; Var io:integer; valor-resultado y:integer);
         Procedure Dos(nombre t1:integer);
             Procedure Tres;
                 Begin
@@ -36,7 +36,7 @@ Program Uno;
             r2(y) := 1;
         z := 2;
         y := 1;
-        Dos( r1( y + r2( y )), r2( z ), y, z);
+        Dos(r1(y + r2(y)), r2(z), y, z);
         For y:= 1 To 6 Do
             write (r1(y));
         For y:= 1 To 5 Do
