@@ -1,34 +1,77 @@
 package ar.edu.unlp.info.oo2.ejercicio23;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Vuelo {
-	private String id, ciudadSalida, ciudadLlegada;
-	private LocalTime horaSalida, horaLlegada;
-	private double costoBase;
-	private boolean[] frecuencia;
+	private LocalDate fecha;
+	private TypeVuelo typeVuelo;
+	private List<Boolean> asientosOcupados;
 
-	public Vuelo(String id, String ciudadSalida, String ciudadLlegada, LocalTime horaSalida, LocalTime horaLlegada,
-			double costoBase, boolean[] frecuencia) {
-		this.id = id;
-		this.ciudadSalida = ciudadSalida;
-		this.ciudadLlegada = ciudadLlegada;
-		this.horaSalida = horaSalida;
-		this.horaLlegada = horaLlegada;
-		this.costoBase = costoBase;
-		this.frecuencia = frecuencia;
+	public Vuelo(LocalDate fecha, TypeVuelo typeVuelo) {
+		this.fecha = fecha;
+		this.typeVuelo = typeVuelo;
+		this.asientosOcupados = new ArrayList<>();
+		for (int i = 0; i < this.typeVuelo.getAvion().getCantAsientos(); i++) {
+			this.asientosOcupados.add(i, false);
+		}
+	}
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public String getId() {
+		return this.typeVuelo.getId();
 	}
 
 	public String getCiudadSalida() {
-		return ciudadSalida;
+		return this.typeVuelo.getCiudadSalida();
 	}
 
 	public String getCiudadLlegada() {
-		return ciudadLlegada;
+		return this.typeVuelo.getCiudadLlegada();
+	}
+
+	public LocalTime getHoraSalida() {
+		return this.typeVuelo.getHoraSalida();
+	}
+
+	public LocalTime getHoraLlegada() {
+		return this.typeVuelo.getHoraLlegada();
 	}
 
 	public double getCostoBase() {
-		return costoBase;
+		return this.typeVuelo.getCostoBase();
 	}
 
+	public boolean[] getFrecuencia() {
+		return this.typeVuelo.getFrecuencia();
+	}
+
+	public Avion getAvion() {
+		return this.typeVuelo.getAvion();
+	}
+
+	public Boolean isFull() {
+		return this.asientosOcupados.stream().anyMatch(isOcupado -> !isOcupado);
+	}
+
+	public int getCantAsientosOcupados() {
+		return (int) this.asientosOcupados.stream().filter(isOcupado -> isOcupado).count();
+	}
+
+	public boolean ocuparAsiento(int nroAsiento) {
+		if (!this.asientosOcupados.get(nroAsiento)) {
+			this.asientosOcupados.set(nroAsiento, true);
+			return true;
+		}
+		return false;
+	}
+
+	public void desocuparAsiento(int nroAsiento) {
+		this.asientosOcupados.set(nroAsiento, false);
+	}
 }

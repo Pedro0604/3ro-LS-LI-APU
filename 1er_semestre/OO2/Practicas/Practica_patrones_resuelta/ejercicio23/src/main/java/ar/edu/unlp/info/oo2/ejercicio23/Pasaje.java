@@ -1,22 +1,18 @@
 package ar.edu.unlp.info.oo2.ejercicio23;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pasaje {
 	private Pasajero pasajero;
 	private int nroAsiento;
-	private LocalDate dia;
 	private List<Vuelo> vuelos;
-	private double[] valoresDiarios;
+	private final double[] VALORES_DIARIOS = new double[] { 1, 1.01, 0.99, 0.95, 1, 1.01, 1.01 };
 
-	public Pasaje(Pasajero pasajero, int nroAsiento, LocalDate dia) {
+	public Pasaje(Pasajero pasajero, int nroAsiento) {
 		this.pasajero = pasajero;
 		this.nroAsiento = nroAsiento;
-		this.dia = dia;
 		this.vuelos = new ArrayList<>();
-		this.valoresDiarios = new double[] { 1, 1.01, 0.99, 0.95, 1, 1.01, 1.01 };
 	}
 
 	private double getRateRoundTrip() {
@@ -31,7 +27,9 @@ public class Pasaje {
 	}
 
 	private double getRateDiario() {
-		return valoresDiarios[this.dia.getDayOfWeek().getValue() - 1];
+		return this.vuelos.stream()
+				.mapToDouble(vuelo -> VALORES_DIARIOS[vuelo.getFecha().getDayOfWeek().getValue() - 1])
+				.reduce(1.0, (a, b) -> a * b);
 	}
 
 	private double getCostoBase() {
@@ -39,6 +37,14 @@ public class Pasaje {
 	}
 
 	public double getPrecio() {
-		return this.getCostoBase() * this.getRateDiario() * this.getRateRoundTrip() + this.getRateMultiHop();
+		return this.getCostoBase() * this.getRateDiario() * this.getRateRoundTrip() * this.getRateMultiHop();
+	}
+
+	public void addVuelo(Vuelo vuelo) {
+		this.vuelos.add(vuelo);
+	}
+
+	public void removeVuelo(Vuelo vuelo) {
+		this.removeVuelo(vuelo);
 	}
 }
