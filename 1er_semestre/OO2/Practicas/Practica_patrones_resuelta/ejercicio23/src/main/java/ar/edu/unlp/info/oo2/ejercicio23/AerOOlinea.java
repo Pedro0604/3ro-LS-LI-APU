@@ -8,6 +8,8 @@ public class AerOOlinea {
 	private List<Avion> aviones;
 	private List<TypeVuelo> typeVuelos;
 	private List<Vuelo> vuelos;
+	private final double[] VALORES_DIARIOS = new double[] { 1, 1.01, 0.99, 0.95, 1, 1.01, 1.01 };
+	private final boolean[] FRECUENCIA_DIARIA = new boolean[] { true, true, true, true, true, true, true };
 
 	public void addPasaje(Pasaje pasaje) {
 		this.pasajes.add(pasaje);

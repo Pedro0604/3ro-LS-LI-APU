@@ -1,0 +1,100 @@
+@startuml
+class AerOOlinea {
+	+addPasaje(pasaje: Pasaje)
+	+modificarPasaje(pasajeViejo: Pasaje, pasajeNuevo: Pasaje)
+	+cancelarPasaje(pasaje: Pasaje): Boolean
+	+addVuelo(vuelo: Vuelo)
+	+addTypeVuelo(vuelo: Vuelo)
+	+addAvion(avion: Avion)
+
+	+getPromedioOcupacionEnPeriodo(vuelo: TypeVuelo, inicio: Date, fin: Date): Real
+	+getHorasVoladasEnPeriodo(avion: Avion, inicio: Date, fin: Date): Real
+	+getHorasVoladasEnTotal(avion: Avion): Real
+	+getMontoTotalDescuentos(): Real
+	+getEficienciaTarifas(): Real
+}
+
+class Pasaje {
+	-nroAsiento: Integer
+	-valoresDiarios: Real[7]
+
+	+<<create>>Pasaje(pasajero: Pasajero, nroAsiento: Integer)
+
+	-getRateRoundTrip(): Real
+	-getRateMultiHop(): Real
+	-getRateDiario(): Real
+	-getCostoBase(): Real
+	+getPrecio(): Real
+	+addVuelo(vuelo: Vuelo)
+	+removeVuelo(vuelo: Vuelo)
+}
+AerOOlinea --> "*" Pasaje : -pasajes
+
+class Pasajero {
+	-nombre: String
+	-dni: Integer
+}
+Pasaje -l-> "1" Pasajero : -pasajero
+
+class Vuelo{
+	-fecha: Date
+	-asientosOcupados: Boolean[*]
+
+	+<<create>>Vuelo(fecha: Date, typeVuelo: TypeVuelo)
+
+	+getFecha(): Date
+
+	+getId(): String
+	+getCiudadSalida(): String
+	+getCiudadLlegada(): String
+	+getHoraSalida(): Time
+	+getHoraLlegada(): Time
+	+getCostoBase(): Real
+	+getFrecuencia(): Boolean[7]
+	+getAvion(): Avion
+
+	+isFull(): Boolean
+	+getCantAsientosOcupados(): Integer
+	+ocuparAsiento(nroAsiento: Integer): Boolean
+	+desocuparAsiento(nroAsiento: Integer)
+}
+Pasaje -r-> "*" Vuelo : -vuelos
+AerOOlinea --> "*" Vuelo: -vuelos
+
+class TypeVuelo {
+	-id: String
+	-ciudadSalida: String
+	-ciudadLlegada: String
+	-horaSalida: Time
+	-horaLlegada: Time
+	-costoBase: douRealle
+	-frecuencia: Boolean[7]
+
+	+<<create>>Vuelo(id: String, ciudadSalida: String, ciudadLlegada: String, horaSalida: Time,
+               horaLlegada: Time, costoBase: Real, frecuencia: Boolean[7], avion: Avion)
+
+	+getId(): String
+	+getCiudadSalida(): String
+	+getCiudadLlegada(): String
+	+getHoraSalida(): Time
+	+getHoraLlegada(): Time
+	+getCostoBase(): Real
+	+getFrecuencia(): Boolean[7]
+	+getAvion(): Avion
+}
+Vuelo --> "1" TypeVuelo: -typeVuelo
+AerOOlinea --> "*" TypeVuelo: -typeVuelos
+
+class Avion {
+	-nombre: String
+	-cantAsientos: Integer
+	-capacidadCarga: Real
+
+	+<<create>>Avion(nombre: String, cantAsientos: Integer, capacidadCarga: Real)
+
+	+getCantAsientos(): Integer
+	+getCapacidadCarga(): Real
+}
+TypeVuelo -l-> "1" Avion: -avion
+AerOOlinea --> "*" Avion: -aviones
+@enduml

@@ -55,16 +55,20 @@ public class Vuelo {
 		return this.typeVuelo.getAvion();
 	}
 
-	public Boolean isFull() {
-		return this.asientosOcupados.stream().anyMatch(isOcupado -> !isOcupado);
+	public boolean isFull() {
+		return !this.asientosOcupados.stream().anyMatch(isOcupado -> !isOcupado);
 	}
 
 	public int getCantAsientosOcupados() {
 		return (int) this.asientosOcupados.stream().filter(isOcupado -> isOcupado).count();
 	}
 
+	private boolean isNroAsientoValido(int nroAsiento) {
+		return nroAsiento >= 0 && nroAsiento < this.asientosOcupados.size();
+	}
+
 	public boolean ocuparAsiento(int nroAsiento) {
-		if (!this.asientosOcupados.get(nroAsiento)) {
+		if (this.isNroAsientoValido(nroAsiento) && !this.asientosOcupados.get(nroAsiento)) {
 			this.asientosOcupados.set(nroAsiento, true);
 			return true;
 		}
@@ -72,6 +76,8 @@ public class Vuelo {
 	}
 
 	public void desocuparAsiento(int nroAsiento) {
-		this.asientosOcupados.set(nroAsiento, false);
+		if (this.isNroAsientoValido(nroAsiento)) {
+			this.asientosOcupados.set(nroAsiento, false);
+		}
 	}
 }

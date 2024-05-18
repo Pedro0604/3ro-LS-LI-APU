@@ -7,7 +7,6 @@ public class Pasaje {
 	private Pasajero pasajero;
 	private int nroAsiento;
 	private List<Vuelo> vuelos;
-	private final double[] VALORES_DIARIOS = new double[] { 1, 1.01, 0.99, 0.95, 1, 1.01, 1.01 };
 
 	public Pasaje(Pasajero pasajero, int nroAsiento) {
 		this.pasajero = pasajero;
@@ -26,9 +25,8 @@ public class Pasaje {
 		return this.vuelos.size() >= 3 ? 0.93 : 1;
 	}
 
-	private double getRateDiario() {
-		return this.vuelos.stream()
-				.mapToDouble(vuelo -> VALORES_DIARIOS[vuelo.getFecha().getDayOfWeek().getValue() - 1])
+	private double getRateDiario(double[] valoresDiarios) {
+		return this.vuelos.stream().mapToDouble(vuelo -> valoresDiarios[vuelo.getFecha().getDayOfWeek().getValue() - 1])
 				.reduce(1.0, (a, b) -> a * b);
 	}
 
@@ -36,15 +34,22 @@ public class Pasaje {
 		return this.vuelos.stream().mapToDouble(v -> v.getCostoBase()).sum();
 	}
 
-	public double getPrecio() {
-		return this.getCostoBase() * this.getRateDiario() * this.getRateRoundTrip() * this.getRateMultiHop();
+	public double getPrecio(double[] valoresDiarios) {
+		return this.getCostoBase() * this.getRateDiario(valoresDiarios) * this.getRateRoundTrip()
+				* this.getRateMultiHop();
+	}
+
+	public Pasajero getPasajero() {
+		return pasajero;
 	}
 
 	public void addVuelo(Vuelo vuelo) {
 		this.vuelos.add(vuelo);
+		vuelo.ocuparAsiento(this.nroAsiento);
 	}
 
 	public void removeVuelo(Vuelo vuelo) {
 		this.removeVuelo(vuelo);
+		vuelo.desocuparAsiento(this.nroAsiento);
 	}
 }
