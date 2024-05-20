@@ -1,15 +1,12 @@
 package ar.edu.unlp.info.oo2.ejercicio23;
 
-import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 public class AerOOlinea {
 	private List<Pasaje> pasajes;
 	private List<Avion> aviones;
-	private List<TypeVuelo> typeVuelos;
 	private List<Vuelo> vuelos;
-	private final double[] VALORES_DIARIOS = new double[] { 1, 1.01, 0.99, 0.95, 1, 1.01, 1.01 };
-	private final boolean[] FRECUENCIA_DIARIA = new boolean[] { true, true, true, true, true, true, true };
 
 	public void addPasaje(Pasaje pasaje) {
 		this.pasajes.add(pasaje);
@@ -28,19 +25,15 @@ public class AerOOlinea {
 		this.vuelos.add(vuelo);
 	}
 
-	public void addTypeVuelo(TypeVuelo typeVuelo) {
-		this.typeVuelos.add(typeVuelo);
-	}
-
 	public void addAvion(Avion avion) {
 		this.aviones.add(avion);
 	}
 
-	public double getPromedioOcupacionEnPeriodo(TypeVuelo vuelo, LocalDate inicio, LocalDate fin) {
+	public double getPromedioOcupacionEnPeriodo(Vuelo vuelo, Period periodo) {
 		return -1;
 	}
 
-	public double getHorasVoladasEnPeriodo(Avion avion, LocalDate inicio, LocalDate fin) {
+	public double getHorasVoladasEnPeriodo(Avion avion, Period periodo) {
 		return -1;
 	}
 

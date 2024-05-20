@@ -5,51 +5,86 @@ import java.util.List;
 
 public class Pasaje {
 	private Pasajero pasajero;
-	private int nroAsiento;
-	private List<Vuelo> vuelos;
+	private List<Integer> nrosAsientos;
+	private List<Tramo> tramos;
+	private final double[] VALORES_DIARIOS = new double[] { 1, 1.01, 0.99, 0.95, 1, 1.01, 1.01 };
 
-	public Pasaje(Pasajero pasajero, int nroAsiento) {
+	public Pasaje(Pasajero pasajero) {
 		this.pasajero = pasajero;
-		this.nroAsiento = nroAsiento;
-		this.vuelos = new ArrayList<>();
+		this.nrosAsientos = new ArrayList<>();
+		this.tramos = new ArrayList<>();
 	}
 
-	private double getRateRoundTrip() {
-		String primeraCiudad = this.vuelos.get(0).getCiudadSalida();
-		String ultimaCiudad = this.vuelos.get(this.vuelos.size() - 1).getCiudadLlegada();
+	public double getRateRoundTrip() {
+		if (!this.tramos.isEmpty()) {
+			String primeraCiudad = this.tramos.get(0).getCiudadSalida();
+			String ultimaCiudad = this.tramos.get(this.tramos.size() - 1).getCiudadLlegada();
 
-		return primeraCiudad.equals(ultimaCiudad) ? 0.95 : 1;
+			return primeraCiudad.equals(ultimaCiudad) ? 0.95 : 1;
+		}
+		return 0;
 	}
 
-	private double getRateMultiHop() {
-		return this.vuelos.size() >= 3 ? 0.93 : 1;
+	public double getRateMultiHop() {
+		if (!this.tramos.isEmpty()) {
+			return this.tramos.size() >= 3 ? 0.93 : 1;
+		}
+		return 0;
 	}
 
-	private double getRateDiario(double[] valoresDiarios) {
-		return this.vuelos.stream().mapToDouble(vuelo -> valoresDiarios[vuelo.getFecha().getDayOfWeek().getValue() - 1])
-				.reduce(1.0, (a, b) -> a * b);
+	public double getRateDiario() {
+		if (!this.tramos.isEmpty()) {
+			return this.tramos.stream()
+					.mapToDouble(vuelo -> VALORES_DIARIOS[vuelo.getFecha().getDayOfWeek().getValue() - 1])
+					.reduce(1.0, (a, b) -> a * b);
+		}
+		return 0;
 	}
 
-	private double getCostoBase() {
-		return this.vuelos.stream().mapToDouble(v -> v.getCostoBase()).sum();
+	public double getCostoBase() {
+		return this.tramos.stream().mapToDouble(v -> v.getCostoBase()).sum();
 	}
 
-	public double getPrecio(double[] valoresDiarios) {
-		return this.getCostoBase() * this.getRateDiario(valoresDiarios) * this.getRateRoundTrip()
-				* this.getRateMultiHop();
+	public double getPrecio() {
+		return this.getCostoBase() * this.getRateDiario() * this.getRateRoundTrip() * this.getRateMultiHop();
 	}
 
 	public Pasajero getPasajero() {
 		return pasajero;
 	}
 
-	public void addVuelo(Vuelo vuelo) {
-		this.vuelos.add(vuelo);
-		vuelo.ocuparAsiento(this.nroAsiento);
+	public List<Integer> getNrosAsientos() {
+		return nrosAsientos;
 	}
 
-	public void removeVuelo(Vuelo vuelo) {
-		this.removeVuelo(vuelo);
-		vuelo.desocuparAsiento(this.nroAsiento);
+	public List<Tramo> getTramos() {
+		return tramos;
+	}
+
+	public int getNroAsientoDeTramo(Tramo tramo) {
+		int pos = this.tramos.indexOf(tramo);
+		if (pos != -1) {
+			return this.nrosAsientos.get(pos);
+		}
+		return -1;
+	}
+
+	public boolean addTramo(Tramo tramo, int nroAsiento) {
+		if (!this.tramos.contains(tramo) && tramo.ocuparAsiento(nroAsiento)) {
+			this.tramos.add(tramo);
+			this.nrosAsientos.add(nroAsiento);
+			return true;
+		}
+		return false;
+	}
+
+	public void removeTramo(Tramo tramo) {
+		int pos = this.tramos.indexOf(tramo);
+		if (pos != -1) {
+			int nroAsiento = this.nrosAsientos.get(pos);
+			this.tramos.remove(tramo);
+			tramo.desocuparAsiento(nroAsiento);
+			this.nrosAsientos.remove(pos);
+		}
 	}
 }

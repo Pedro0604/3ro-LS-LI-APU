@@ -1,83 +1,55 @@
 package ar.edu.unlp.info.oo2.ejercicio23;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Vuelo {
-	private LocalDate fecha;
-	private TypeVuelo typeVuelo;
-	private List<Boolean> asientosOcupados;
+	private String id, ciudadSalida, ciudadLlegada;
+	private LocalTime horaSalida, horaLlegada;
+	private double costoBase;
+	private boolean[] frecuencia;
+	private Avion avion;
 
-	public Vuelo(LocalDate fecha, TypeVuelo typeVuelo) {
-		this.fecha = fecha;
-		this.typeVuelo = typeVuelo;
-		this.asientosOcupados = new ArrayList<>();
-		for (int i = 0; i < this.typeVuelo.getAvion().getCantAsientos(); i++) {
-			this.asientosOcupados.add(i, false);
-		}
-	}
-
-	public LocalDate getFecha() {
-		return fecha;
+	public Vuelo(String id, String ciudadSalida, String ciudadLlegada, LocalTime horaSalida, LocalTime horaLlegada,
+			double costoBase, boolean[] frecuencia, Avion avion) {
+		this.id = id;
+		this.ciudadSalida = ciudadSalida;
+		this.ciudadLlegada = ciudadLlegada;
+		this.horaSalida = horaSalida;
+		this.horaLlegada = horaLlegada;
+		this.costoBase = costoBase;
+		this.frecuencia = frecuencia;
+		this.avion = avion;
 	}
 
 	public String getId() {
-		return this.typeVuelo.getId();
+		return id;
 	}
 
 	public String getCiudadSalida() {
-		return this.typeVuelo.getCiudadSalida();
+		return ciudadSalida;
 	}
 
 	public String getCiudadLlegada() {
-		return this.typeVuelo.getCiudadLlegada();
+		return ciudadLlegada;
 	}
 
 	public LocalTime getHoraSalida() {
-		return this.typeVuelo.getHoraSalida();
+		return horaSalida;
 	}
 
 	public LocalTime getHoraLlegada() {
-		return this.typeVuelo.getHoraLlegada();
+		return horaLlegada;
 	}
 
 	public double getCostoBase() {
-		return this.typeVuelo.getCostoBase();
+		return costoBase;
 	}
 
 	public boolean[] getFrecuencia() {
-		return this.typeVuelo.getFrecuencia();
+		return frecuencia;
 	}
 
 	public Avion getAvion() {
-		return this.typeVuelo.getAvion();
-	}
-
-	public boolean isFull() {
-		return !this.asientosOcupados.stream().anyMatch(isOcupado -> !isOcupado);
-	}
-
-	public int getCantAsientosOcupados() {
-		return (int) this.asientosOcupados.stream().filter(isOcupado -> isOcupado).count();
-	}
-
-	private boolean isNroAsientoValido(int nroAsiento) {
-		return nroAsiento >= 0 && nroAsiento < this.asientosOcupados.size();
-	}
-
-	public boolean ocuparAsiento(int nroAsiento) {
-		if (this.isNroAsientoValido(nroAsiento) && !this.asientosOcupados.get(nroAsiento)) {
-			this.asientosOcupados.set(nroAsiento, true);
-			return true;
-		}
-		return false;
-	}
-
-	public void desocuparAsiento(int nroAsiento) {
-		if (this.isNroAsientoValido(nroAsiento)) {
-			this.asientosOcupados.set(nroAsiento, false);
-		}
+		return avion;
 	}
 }
