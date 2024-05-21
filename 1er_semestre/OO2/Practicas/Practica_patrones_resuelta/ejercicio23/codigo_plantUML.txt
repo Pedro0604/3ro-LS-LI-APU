@@ -4,10 +4,9 @@ class AerOOlinea {
 	+modificarPasaje(pasajeViejo: Pasaje, pasajeNuevo: Pasaje)
 	+cancelarPasaje(pasaje: Pasaje): Boolean
 	+addVuelo(vuelo: Vuelo)
-	+addTypeVuelo(vuelo: Vuelo)
 	+addAvion(avion: Avion)
 
-	+getPromedioOcupacionEnPeriodo(vuelo: TypeVuelo, inicio: Date, fin: Date): Real
+	+getPromedioOcupacionEnPeriodo(vuelo: Vuelo, inicio: Date, fin: Date): Real
 	+getHorasVoladasEnPeriodo(avion: Avion, inicio: Date, fin: Date): Real
 	+getHorasVoladasEnTotal(avion: Avion): Real
 	+getMontoTotalDescuentos(): Real
@@ -16,17 +15,16 @@ class AerOOlinea {
 
 class Pasaje {
 	-nroAsiento: Integer
-	-valoresDiarios: Real[7]
 
 	+<<create>>Pasaje(pasajero: Pasajero, nroAsiento: Integer)
 
 	-getRateRoundTrip(): Real
 	-getRateMultiHop(): Real
-	-getRateDiario(): Real
+	-getRateDiario(valoresDiarios: Real[*]): Real
 	-getCostoBase(): Real
-	+getPrecio(): Real
-	+addVuelo(vuelo: Vuelo)
-	+removeVuelo(vuelo: Vuelo)
+	+getPrecio(valoresDiarios: Real[*]): Real
+	+addTramo(tramo: tramo)
+	+removeTramo(tramo: tramo)
 }
 AerOOlinea --> "*" Pasaje : -pasajes
 
@@ -36,11 +34,11 @@ class Pasajero {
 }
 Pasaje -l-> "1" Pasajero : -pasajero
 
-class Vuelo{
+class Tramo{
 	-fecha: Date
 	-asientosOcupados: Boolean[*]
 
-	+<<create>>Vuelo(fecha: Date, typeVuelo: TypeVuelo)
+	+<<create>>Tramo(fecha: Date, vuelo: Vuelo)
 
 	+getFecha(): Date
 
@@ -58,10 +56,9 @@ class Vuelo{
 	+ocuparAsiento(nroAsiento: Integer): Boolean
 	+desocuparAsiento(nroAsiento: Integer)
 }
-Pasaje -r-> "*" Vuelo : -vuelos
-AerOOlinea --> "*" Vuelo: -vuelos
+Pasaje -r-> "*" Tramo: -tramos
 
-class TypeVuelo {
+class Vuelo {
 	-id: String
 	-ciudadSalida: String
 	-ciudadLlegada: String
@@ -82,8 +79,8 @@ class TypeVuelo {
 	+getFrecuencia(): Boolean[7]
 	+getAvion(): Avion
 }
-Vuelo --> "1" TypeVuelo: -typeVuelo
-AerOOlinea --> "*" TypeVuelo: -typeVuelos
+Tramo --> "1" Vuelo : -vuelo
+AerOOlinea --> "*" Vuelo : -vuelos
 
 class Avion {
 	-nombre: String
@@ -95,6 +92,6 @@ class Avion {
 	+getCantAsientos(): Integer
 	+getCapacidadCarga(): Real
 }
-TypeVuelo -l-> "1" Avion: -avion
+Vuelo -l-> "1" Avion: -avion
 AerOOlinea --> "*" Avion: -aviones
 @enduml
