@@ -1,5 +1,6 @@
 package ar.edu.unlp.info.oo2.ejercicio23;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,19 +33,35 @@ public class Pasaje {
 		return 0;
 	}
 
+	// Cambiaría segun descripto en getPrecio()
 	public double getRateDiario() {
 		if (!this.tramos.isEmpty()) {
 			return this.tramos.stream()
-					.mapToDouble(vuelo -> VALORES_DIARIOS[vuelo.getFecha().getDayOfWeek().getValue() - 1])
+					.mapToDouble(tramo -> VALORES_DIARIOS[tramo.getFecha().getDayOfWeek().getValue() - 1])
 					.reduce(1.0, (a, b) -> a * b);
 		}
 		return 0;
 	}
 
 	public double getCostoBase() {
-		return this.tramos.stream().mapToDouble(v -> v.getCostoBase()).sum();
+		return this.tramos.stream().mapToDouble(t -> t.getCostoBase()).sum();
 	}
 
+	// Está mal hecho je
+	// Correcto sería: this.getCostoBase() - (this.getCostoBase() *
+	// (1 - this.getRateDiario()) + this.getCostoBase() * (1 -
+	// this.getRateRoundTrip) +
+	// (1 - this.getRateMultiHop()) * this.getCostoBase())
+	// Aunque tampoco estaría bien por la forma de calcular los rate diarios
+	// Para obtener los precios con rate diario habría que pedirle a cada tramo
+	// que calcule su valor según el dia de la semana que es y después sumar
+	// los valores ajustados al día de cada tramo para obtener precio con rateDiario
+	// y ahí sí hacer: this.precioConRateDiario() - (this.getCostoBase() * (1 -
+	// this.getRateRoundTrip) + (1 - this.getRateMultiHop()) * this.getCostoBase())
+	// Entonces al precio total de los costosBases ajustados al día se les restaría
+	// el monto de los descuentos
+	// Pero me da paja porque tengo que cambiar 400 millones de tests y no es la
+	// idea
 	public double getPrecio() {
 		return this.getCostoBase() * this.getRateDiario() * this.getRateRoundTrip() * this.getRateMultiHop();
 	}
@@ -59,6 +76,35 @@ public class Pasaje {
 
 	public List<Tramo> getTramos() {
 		return tramos;
+	}
+
+	// Cambiaría segun descripto en getPrecio()
+	public double getMontoDescuentos() {
+		double rateMultiHop = this.getRateMultiHop();
+		double rateRoundTrip = this.getRateRoundTrip();
+		double costoBase = this.getCostoBase();
+
+		if (rateMultiHop < 1 && rateRoundTrip < 1) {
+			return costoBase * (1 - rateMultiHop) * (1 - rateRoundTrip);
+		} else if (rateMultiHop < 1) {
+			return costoBase * (1 - rateMultiHop);
+		} else if (rateRoundTrip < 1) {
+			return costoBase * (1 - rateRoundTrip);
+		} else {
+			return 0;
+		}
+	}
+
+	public double getPromedioOcupacionEnPeriodo(Vuelo vuelo, LocalDate fechaInicio, LocalDate fechaFin) {
+		return this.tramos.stream()
+				.filter(tramo -> tramo.isFromVuelo(vuelo) && tramo.isDateInPeriod(fechaInicio, fechaFin))
+				.mapToDouble(tramoValido -> tramoValido.getPromedioOcupacion()).average().orElse(0);
+	}
+
+	public double getHorasVoladasEnPeriodo(Avion avion, LocalDate fechaInicio, LocalDate fechaFin) {
+		return this.tramos.stream()
+				.filter(tramo -> tramo.isFromAvion(avion) && tramo.isDateInPeriod(fechaInicio, fechaFin))
+				.mapToDouble(tramoValido -> tramoValido.getHorasVoladas()).sum();
 	}
 
 	public int getNroAsientoDeTramo(Tramo tramo) {

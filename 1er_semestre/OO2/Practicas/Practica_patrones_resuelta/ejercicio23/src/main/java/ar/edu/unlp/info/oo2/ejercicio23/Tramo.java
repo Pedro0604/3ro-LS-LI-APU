@@ -1,5 +1,6 @@
 package ar.edu.unlp.info.oo2.ejercicio23;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -7,14 +8,14 @@ import java.util.List;
 
 public class Tramo {
 	private LocalDate fecha;
-	private Vuelo vuelos;
+	private Vuelo vuelo;
 	private List<Boolean> asientosOcupados;
 
 	public Tramo(LocalDate fecha, Vuelo vuelo) {
 		this.fecha = fecha;
-		this.vuelos = vuelo;
+		this.vuelo = vuelo;
 		this.asientosOcupados = new ArrayList<>();
-		for (int i = 0; i < this.vuelos.getAvion().getCantAsientos(); i++) {
+		for (int i = 0; i < this.vuelo.getAvion().getCantAsientos(); i++) {
 			this.asientosOcupados.add(i, false);
 		}
 	}
@@ -24,35 +25,35 @@ public class Tramo {
 	}
 
 	public String getId() {
-		return this.vuelos.getId();
+		return this.vuelo.getId();
 	}
 
 	public String getCiudadSalida() {
-		return this.vuelos.getCiudadSalida();
+		return this.vuelo.getCiudadSalida();
 	}
 
 	public String getCiudadLlegada() {
-		return this.vuelos.getCiudadLlegada();
+		return this.vuelo.getCiudadLlegada();
 	}
 
 	public LocalTime getHoraSalida() {
-		return this.vuelos.getHoraSalida();
+		return this.vuelo.getHoraSalida();
 	}
 
 	public LocalTime getHoraLlegada() {
-		return this.vuelos.getHoraLlegada();
+		return this.vuelo.getHoraLlegada();
 	}
 
 	public double getCostoBase() {
-		return this.vuelos.getCostoBase();
+		return this.vuelo.getCostoBase();
 	}
 
 	public boolean[] getFrecuencia() {
-		return this.vuelos.getFrecuencia();
+		return this.vuelo.getFrecuencia();
 	}
 
 	public Avion getAvion() {
-		return this.vuelos.getAvion();
+		return this.vuelo.getAvion();
 	}
 
 	public boolean isFull() {
@@ -79,5 +80,28 @@ public class Tramo {
 		if (this.isNroAsientoValido(nroAsiento)) {
 			this.asientosOcupados.set(nroAsiento, false);
 		}
+	}
+
+	public boolean isFromVuelo(Vuelo vuelo) {
+		return this.vuelo.equals(vuelo);
+	}
+
+	public boolean isDateInPeriod(LocalDate fechaInicio, LocalDate fechaFin) {
+		return (this.getFecha().isEqual(fechaInicio) || this.getFecha().isAfter(fechaInicio))
+				&& (this.getFecha().isEqual(fechaFin) || this.getFecha().isBefore(fechaFin));
+	}
+
+	public double getPromedioOcupacion() {
+		return this.getCantAsientosOcupados() / (double) this.getAvion().getCantAsientos();
+	}
+
+	public boolean isFromAvion(Avion avion) {
+		return this.getAvion().equals(avion);
+	}
+
+	public double getHorasVoladas() {
+		Duration duration = Duration.between(this.getHoraSalida(), this.getHoraLlegada());
+		long seconds = duration.getSeconds();
+		return seconds / 3600.0;
 	}
 }

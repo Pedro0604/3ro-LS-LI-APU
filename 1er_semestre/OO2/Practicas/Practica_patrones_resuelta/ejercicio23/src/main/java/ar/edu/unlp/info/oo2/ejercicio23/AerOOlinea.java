@@ -1,12 +1,19 @@
 package ar.edu.unlp.info.oo2.ejercicio23;
 
-import java.time.Period;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AerOOlinea {
 	private List<Pasaje> pasajes;
-	private List<Avion> aviones;
 	private List<Vuelo> vuelos;
+	private List<Avion> aviones;
+
+	public AerOOlinea() {
+		this.pasajes = new ArrayList<>();
+		this.aviones = new ArrayList<>();
+		this.vuelos = new ArrayList<>();
+	}
 
 	public void addPasaje(Pasaje pasaje) {
 		this.pasajes.add(pasaje);
@@ -29,23 +36,29 @@ public class AerOOlinea {
 		this.aviones.add(avion);
 	}
 
-	public double getPromedioOcupacionEnPeriodo(Vuelo vuelo, Period periodo) {
-		return -1;
+	public double getPromedioOcupacionEnPeriodo(Vuelo vuelo, LocalDate fechaInicio, LocalDate fechaFin) {
+		return this.pasajes.stream()
+				.mapToDouble(pasaje -> pasaje.getPromedioOcupacionEnPeriodo(vuelo, fechaInicio, fechaFin)).average()
+				.orElse(0);
 	}
 
-	public double getHorasVoladasEnPeriodo(Avion avion, Period periodo) {
-		return -1;
+	public double getHorasVoladasEnPeriodo(Avion avion, LocalDate fechaInicio, LocalDate fechaFin) {
+		return this.pasajes.stream()
+				.mapToDouble(pasaje -> pasaje.getHorasVoladasEnPeriodo(avion, fechaInicio, fechaFin)).sum();
 	}
 
 	public double getHorasVoladasEnTotal(Avion avion) {
-		return -1;
+		return this.pasajes.stream()
+				.mapToDouble(pasaje -> pasaje.getHorasVoladasEnPeriodo(avion, LocalDate.MIN, LocalDate.MAX)).sum();
 	}
 
 	public double getMontoTotalDescuentos() {
-		return -1;
+		return this.pasajes.stream().mapToDouble(pasaje -> pasaje.getMontoDescuentos()).sum();
 	}
 
 	public double getEficienciaTarifas() {
-		return -1;
+		double facturado = this.pasajes.stream().mapToDouble(pasaje -> pasaje.getPrecio()).sum();
+		double costoBase = this.pasajes.stream().mapToDouble(pasaje -> pasaje.getCostoBase()).sum();
+		return facturado / costoBase;
 	}
 }
