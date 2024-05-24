@@ -12,7 +12,11 @@ public class GestorNumerosDisponibles {
 	}
 
 	public String obtenerNumeroLibre() {
-		return this.tipoGenerador.obtenerNumeroLibre(lineasTelefonicasDisponibles);
+		String lineaTelefonica = this.tipoGenerador.obtenerNumeroLibre(lineasTelefonicasDisponibles);
+		if (lineaTelefonica != null) {
+			lineasTelefonicasDisponibles.remove(lineaTelefonica);
+		}
+		return lineaTelefonica;
 	}
 
 	public void cambiarTipoGenerador(GeneradorDeLineasStrategy nuevoTipoGenerador) {

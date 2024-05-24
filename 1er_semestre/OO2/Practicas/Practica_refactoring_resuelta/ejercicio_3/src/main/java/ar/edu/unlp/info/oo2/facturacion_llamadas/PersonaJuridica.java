@@ -13,4 +13,12 @@ public class PersonaJuridica extends Cliente {
 	public double getMontoDescuento(double monto) {
 		return monto * PersonaJuridica.descuentoJur;
 	}
+
+	public String getCuit() {
+		return cuit;
+	}
+
+	public void setCuit(String cuit) {
+		this.cuit = cuit;
+	}
 }

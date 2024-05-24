@@ -5,8 +5,6 @@ import java.util.SortedSet;
 public class StrategyPrimero extends GeneradorDeLineasStrategy {
 	@Override
 	public String obtenerNumeroLibre(SortedSet<String> lineasTelefonicasDisponibles) {
-		String lineaTelefonica = lineasTelefonicasDisponibles.first();
-		lineasTelefonicasDisponibles.remove(lineaTelefonica);
-		return lineaTelefonica;
+		return lineasTelefonicasDisponibles.first();
 	}
 }

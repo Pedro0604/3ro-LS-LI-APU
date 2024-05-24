@@ -11,7 +11,6 @@ public abstract class Cliente {
 	public Cliente(String nombre, String numeroTelefono) {
 		this.nombre = nombre;
 		this.numeroTelefono = numeroTelefono;
-		this.llamadas = new ArrayList<>();
 	}
 
 	public String getNombre() {

@@ -5,8 +5,11 @@ public class LlamadaNacional extends Llamada {
 		super(origen, destino, duracion);
 	}
 
-	@Override
-	public double getMonto() {
-		return this.getDuracion() * 3 + (this.getDuracion() * 3 * 0.21);
+	public int getPrecioPorSegundo() {
+		return 3;
+	}
+
+	public int getCostoEstablecerLlamada() {
+		return 0;
 	}
 }

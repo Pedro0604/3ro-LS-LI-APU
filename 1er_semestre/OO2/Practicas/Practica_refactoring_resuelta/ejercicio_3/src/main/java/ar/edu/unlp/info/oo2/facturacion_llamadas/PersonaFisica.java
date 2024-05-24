@@ -13,4 +13,12 @@ public class PersonaFisica extends Cliente {
 	public double getMontoDescuento(double monto) {
 		return monto * PersonaFisica.descuentoFis;
 	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 }

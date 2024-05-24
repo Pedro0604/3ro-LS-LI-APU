@@ -5,8 +5,11 @@ public class LlamadaInternacional extends Llamada {
 		super(origen, destino, duracion);
 	}
 
-	@Override
-	public double getMonto() {
-		return this.getDuracion() * 150 + (this.getDuracion() * 150 * 0.21) + 50;
+	public int getPrecioPorSegundo() {
+		return 150;
+	}
+
+	public int getCostoEstablecerLlamada() {
+		return 50;
 	}
 }
