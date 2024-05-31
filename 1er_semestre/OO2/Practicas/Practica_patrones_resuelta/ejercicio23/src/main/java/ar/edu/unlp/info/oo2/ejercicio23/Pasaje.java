@@ -95,12 +95,6 @@ public class Pasaje {
 		}
 	}
 
-	public double getPromedioOcupacionEnPeriodo(Vuelo vuelo, LocalDate fechaInicio, LocalDate fechaFin) {
-		return this.tramos.stream()
-				.filter(tramo -> tramo.isFromVuelo(vuelo) && tramo.isDateInPeriod(fechaInicio, fechaFin))
-				.mapToDouble(tramoValido -> tramoValido.getPromedioOcupacion()).average().orElse(0);
-	}
-
 	public double getHorasVoladasEnPeriodo(Avion avion, LocalDate fechaInicio, LocalDate fechaFin) {
 		return this.tramos.stream()
 				.filter(tramo -> tramo.isFromAvion(avion) && tramo.isDateInPeriod(fechaInicio, fechaFin))

@@ -37,9 +37,9 @@ public class AerOOlinea {
 	}
 
 	public double getPromedioOcupacionEnPeriodo(Vuelo vuelo, LocalDate fechaInicio, LocalDate fechaFin) {
-		return this.pasajes.stream()
-				.mapToDouble(pasaje -> pasaje.getPromedioOcupacionEnPeriodo(vuelo, fechaInicio, fechaFin)).average()
-				.orElse(0);
+		return this.pasajes.stream().flatMap(pasaje -> pasaje.getTramos().stream()).distinct()
+				.filter(tramo -> tramo.isDateInPeriod(fechaInicio, fechaFin))
+				.mapToDouble(tramo -> tramo.getPromedioOcupacion()).average().orElse(0);
 	}
 
 	public double getHorasVoladasEnPeriodo(Avion avion, LocalDate fechaInicio, LocalDate fechaFin) {
