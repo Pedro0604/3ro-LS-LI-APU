@@ -1,0 +1,54 @@
+@startuml
+abstract ProcessStep {
+  -result: Boolean
+  -isDone: Boolean  
+
+  +execute(tank: MixingTank); Boolean
+  #{abstract}<<abstract>> basicExecute(tank: MixingTank): Boolean
+  -setSuccess()
+  -setFailure()
+  +isDone(): Boolean
+  +isSuccessful(): Boolean
+}
+note right of ProcessStep::execute
+public execute (tank: MixingTank){
+  if(this.basicExecute(tank)){
+    this.setSuccess();
+  }
+  else{
+    this.setFailure();
+  }
+}
+end note
+
+class LightMix extends ProcessStep {
+  #basicExecute(tank: MixingTank): Boolean
+}
+
+class Purge extends ProcessStep {
+  #basicExecute(tank: MixingTank): Boolean
+}
+abstract MixingTank {
+  +{abstract}<<abstract>> heatPower(percentage: Integer): boolean
+  +{abstract}<<abstract>> mixerPower(percentage: Integer): boolean
+  +{abstract}<<abstract>> purge(): boolean
+  +{abstract}<<abstract>> upTo(): Real
+  +{abstract}<<abstract>> temperature(): Real
+}
+
+class MixingTankTestStub extends MixingTank {
+  +heatPower(percentage: int): boolean
+  +mixerPower(percentage: int): boolean
+  +purge(): boolean
+  +upTo(): double
+  +temperature(): double
+}
+
+class MixingTankSaboteurTestStub extends MixingTank {
+  +heatPower(percentage: int): boolean
+  +mixerPower(percentage: int): boolean
+  +purge(): boolean
+  +upTo(): double
+  +temperature(): double
+}
+@enduml
