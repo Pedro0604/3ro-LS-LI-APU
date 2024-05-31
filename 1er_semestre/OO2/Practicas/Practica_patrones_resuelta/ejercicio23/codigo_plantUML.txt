@@ -6,6 +6,7 @@ class AerOOlinea {
 	+addVuelo(vuelo: Vuelo)
 	+addAvion(avion: Avion)
 
+	+<<create>> AerOOlinea()
 	+getPromedioOcupacionEnPeriodo(vuelo: Vuelo, inicio: Date, fin: Date): Real
 	+getHorasVoladasEnPeriodo(avion: Avion, inicio: Date, fin: Date): Real
 	+getHorasVoladasEnTotal(avion: Avion): Real
@@ -14,23 +15,36 @@ class AerOOlinea {
 }
 
 class Pasaje {
-	-nroAsiento: Integer
+	-nrosAsientos: Integer[*]
+	-VALORES_DIARIOS: Real[7]
 
-	+<<create>>Pasaje(pasajero: Pasajero, nroAsiento: Integer)
+	+<<create>>Pasaje(pasajero: Pasajero)
 
 	-getRateRoundTrip(): Real
 	-getRateMultiHop(): Real
 	-getRateDiario(valoresDiarios: Real[*]): Real
 	-getCostoBase(): Real
 	+getPrecio(valoresDiarios: Real[*]): Real
-	+addTramo(tramo: tramo)
-	+removeTramo(tramo: tramo)
+
+	+getPasajero(): Pasajero
+	+getNrosAsientos(): Integer[*]
+	+getTramos(): Tramo[*]
+
+	+getMontoDescuentos(): Real
+	+getHorasVoladasEnPeriodo(avion: Avion, inicio: Date, fin: Date): Real
+	+getNumeroAsientoDeTramo(tramo: Tramo): Integer
+	+addTramo(tramo: Tramo): Boolean
+	+removeTramo(tramo: Tramo)
 }
 AerOOlinea --> "*" Pasaje : -pasajes
 
 class Pasajero {
 	-nombre: String
 	-dni: Integer
+
+	+<<crate>> Pasajero(nombre: String, dni: Integer)
+	+getNombre(): String
+	+getDni(): Integer
 }
 Pasaje -l-> "1" Pasajero : -pasajero
 
@@ -41,7 +55,6 @@ class Tramo{
 	+<<create>>Tramo(fecha: Date, vuelo: Vuelo)
 
 	+getFecha(): Date
-
 	+getId(): String
 	+getCiudadSalida(): String
 	+getCiudadLlegada(): String
@@ -53,8 +66,15 @@ class Tramo{
 
 	+isFull(): Boolean
 	+getCantAsientosOcupados(): Integer
+	+isNroAsientoValido(nroAsiento: Integer): Boolean
 	+ocuparAsiento(nroAsiento: Integer): Boolean
 	+desocuparAsiento(nroAsiento: Integer)
+
+	+isFromVuelo(vuelo: Vuelo): Boolean
+	+isDateInPeriod(fechaInicio: LocalDate, fechaFin: LocalDate): Boolean
+	+getPromedioOcupacion(): Real
+	+isFromAvion(avion: Avion): Boolean
+	+getHorasVoladas(): Real
 }
 Pasaje -r-> "*" Tramo: -tramos
 
@@ -89,6 +109,7 @@ class Avion {
 
 	+<<create>>Avion(nombre: String, cantAsientos: Integer, capacidadCarga: Real)
 
+	+getNombre(): String
 	+getCantAsientos(): Integer
 	+getCapacidadCarga(): Real
 }
