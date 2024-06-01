@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unlp.info.oo2.ejercicio1_b.i.JSONFormatter;
 import ar.edu.unlp.info.oo2.ejercicio1_b.i.UpperCaseSimpleFormater;
+import ar.edu.unlp.info.oo2.ejercicio1_b_ii.EmailHandler;
 import ar.edu.unlp.info.oo2.ejercicio1_b_ii.FilterHandler;
 
 public class DatabaseRealAccessTest {
@@ -32,7 +34,17 @@ public class DatabaseRealAccessTest {
 		consoleJSONHandler.setFormatter(new JSONFormatter());
 		Logger.getLogger("database").addHandler(consoleJSONHandler);
 
-		// Añade FilterHandler del ejercicio 1_b_ii
+		// Solo agregaruna vez para probar porque tarda 70 segundos xd
+		// Añade EmailHandler del ejercicio 1_b_ii
+		Handler emailHandler = new EmailHandler();
+		emailHandler.setFormatter(new JSONFormatter());
+		// Si se setea el nivel a severo tarda 36 segundos
+		emailHandler.setLevel(Level.SEVERE);
+		// Dejo comentado
+		// Logger.getLogger("database").addHandler(emailHandler);
+
+		// Añade FilterHandler del ejercicio 1_b_ii - Dejar último porque modifica
+		// el texto del record
 		FilterHandler filterHandler = new FilterHandler();
 		filterHandler.addFilteredWord("base");
 		filterHandler.addFilteredWord("búsquedas");
