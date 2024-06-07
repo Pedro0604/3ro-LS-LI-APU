@@ -1,0 +1,8 @@
+1. El comportamiento variable del framework está implementado mediante herencia ya que, para poder realizar cambios, se deben implementar los métodos save, get y hasKey, los cuales se heredan de la interfaz Storage.
+
+2. Los hook methods son save, hasKey y get, ya que son los métodos que las clases que implementen a la interfaz Storage deberán implementar para poder instanciar los hot spots de la aplicación.
+
+3. El frozen spot está compuesto por:
+	* La forma de inicializar al motor de redundancia (con la lista de Storage a usar)
+	* La forma en la que, ante un pedido de guardado, el motor guarda la información en todos los medios de almacenamiento
+	* La forma en la que se obtiene la información (se la busca en todos los medios de almacenamiento y se retorna el primer valor existente)

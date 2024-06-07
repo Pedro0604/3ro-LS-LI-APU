@@ -2,4 +2,4 @@
 
 2. La inversión de control se encuentre en las líneas 9 y 10, ya que allí se llama a los métodos que las subclases deben implementar (isEmailAllowed y addEmail), por lo que el código del frozen spot del framework está llamando al código implementado por el usuario, realizando así una inversión de control.
 
-3. No, el método isEmailAllowed no es un hotspot en sí mismo, sino que lo es en conjunto con el método addEmail, ya que ambos juntos son los que se encargan de llevar a cabo el filtro de un email.
+3. Sí, el método isEmailAllowed es un hotspot ya que el usuario puede implementar dicho método para así poder instanciar el hotspot y modificar parte de la funcionalidad ofrecida por el creador del framework. Debería tenerse en cuenta que este método implica que el método addEmail también se implemente para poder funcionar efectivamente, haciendo que ambos formen parte de un hotspot para filtrar los emails.
