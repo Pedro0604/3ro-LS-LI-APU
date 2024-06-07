@@ -1,0 +1,70 @@
+@startuml
+class SubteWayDirector {
+	+construir(builder: SandwichBuilder): Sandwich
+}
+note left of SubteWayDirector
+	public Sandwich construir(SandwichBuilder builder) {
+		builder.crearSandwich();
+		builder.ponerPan();
+		builder.ponerAderezo();
+		builder.ponerPrincipal();
+		builder.ponerAdicional();
+		return builder.cerrarSandwich();
+	}
+end note
+
+class Sandwich {
+	+<<create>>Sandwich()
+	+addElemento(elemento: Elemento)
+	+getPrecio(): Real
+}
+SubteWayDirector ..> Sandwich: creates
+
+class Elemento {
+	-nombre: String
+	-precio: Real
+
+	+<<create>>Elemento(nombre: String, precio: Real)
+	+getNombre(): String
+	+getPrecio(): Real
+}
+Sandwich --> "*" Elemento : elementos
+
+abstract class SandwichBuilder {
+	+crearSandwich()
+	+{abstract} ponerPan()
+	+{abstract} ponerAderezo()
+	+{abstract} ponerPrincipal()
+	+{abstract} ponerAdicional()
+	+cerrarSandwich(): Sandwich
+}
+SandwichBuilder --> "1" Sandwich : sandwich
+
+class SandwichClasicoBuilder extends SandwichBuilder {
+	+ponerPan()
+	+ponerAderezo()
+	+ponerPrincipal()
+	+ponerAdicional()
+}
+
+class SandwichSinTACCBuilder extends SandwichBuilder {
+	+ponerPan()
+	+ponerAderezo()
+	+ponerPrincipal()
+	+ponerAdicional()
+}
+
+class SandwichVegetarianoBuilder extends SandwichBuilder {
+	+ponerPan()
+	+ponerAderezo()
+	+ponerPrincipal()
+	+ponerAdicional()
+}
+
+class SandwichVeganoBuilder extends SandwichBuilder {
+	+ponerPan()
+	+ponerAderezo()
+	+ponerPrincipal()
+	+ponerAdicional()
+}
+@enduml
