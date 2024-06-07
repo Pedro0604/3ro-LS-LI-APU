@@ -1,0 +1,66 @@
+@startuml
+class Usuario {
+	-nombre: String
+	-apellido: String
+	-email: String
+
+	+Usuario(nombre: String, apellido: String, email: String)
+	+getEmail(): String
+}
+class Excursion <<Context>> {
+	-nombre: String
+	-fechaInicio: LocalDateTime
+	-fechaFin: LocalDateTime
+	-puntoEncuentro: String
+	-costo: double
+	-cupoMin: int
+	-cupoMax: int
+
+	+Excursion(nombre: String, fechaInicio: LocalDateTime, fechaFin: LocalDateTime, puntoEncuentro: String, costo: double, cupoMin: int, cupoMax: int)
+	+getCupoMin(): int
+	+getCupoMax(): int
+	+getNombre(): String
+	+getFechaInicio(): LocalDateTime
+	+getFechaFin(): LocalDateTime
+	+getPuntoEncuentro(): String
+	+getCosto(): double
+	+setState(state: ExcursionState): void
+	+toString(): String
+	+addUsuario(unUsuario: Usuario): void
+	+addUsuarioToListaDeEspera(unUsuario: Usuario): void
+	+getCantidadUsuarios(): int
+	+getUsuariosHastaCupoMin(): int
+	+getUsuariosHastaCupoMax(): int
+	+inscribir(unUsuario: Usuario): void
+	+obtenerInformacion(): String
+	+getMailsUsuarios(): String
+}
+Excursion --> "*" Usuario : -usuarios
+Excursion --> "*" Usuario : -listaEspera
+
+abstract class ExcursionState <<State>> {
+	+ExcursionState(excursion: Excursion)
+	+{abstract} inscribir(unUsuario: Usuario): void
+	+{abstract} obtenerInformacion(): String
+}
+Excursion --> "1" ExcursionState: -state
+ExcursionState --> "1" Excursion: #excursion
+
+abstract class ProvisoriaState <<ConcreteStateA>> extends ExcursionState {
+	+ProvisoriaState (excursion: Excursion)
+	+inscribir(unUsuario: Usuario): void
+	+obtenerInformacion(): String
+}
+
+abstract class DefinitivaState <<ConcreteStateB>> extends ExcursionState {
+	+DefinitivaState (excursion: Excursion)
+	+inscribir(unUsuario: Usuario): void
+	+obtenerInformacion(): String
+}
+
+abstract class CompletaState <<ConcreteStateC>> extends ExcursionState {
+	+CompletaState (excursion: Excursion)
+	+inscribir(unUsuario: Usuario): void
+	+obtenerInformacion(): String
+}
+@enduml

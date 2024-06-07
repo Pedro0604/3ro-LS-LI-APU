@@ -11,8 +11,12 @@ public class CompletaState extends ExcursionState {
 	}
 
 	@Override
-	public String obtenerInformacion() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getExtraInfo() {
+		return "]";
+	}
+
+	@Override
+	public String getName() {
+		return "Completa";
 	}
 }

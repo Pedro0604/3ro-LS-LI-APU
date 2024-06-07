@@ -55,6 +55,10 @@ public class Excursion {
 		return costo;
 	}
 
+	public ExcursionState getState() {
+		return state;
+	}
+
 	public void setState(ExcursionState state) {
 		this.state = state;
 	}
@@ -78,6 +82,10 @@ public class Excursion {
 		return this.usuarios.size();
 	}
 
+	public int getCantidadUsuariosListaDeEspera() {
+		return this.listaEspera.size();
+	}
+
 	public int getUsuariosHastaCupoMin() {
 		return this.getCupoMin() - this.getCantidadUsuarios();
 	}
@@ -92,5 +100,10 @@ public class Excursion {
 
 	public String obtenerInformacion() {
 		return this.state.obtenerInformacion();
+	}
+
+	public String getMailsUsuarios() {
+		return this.usuarios.stream().map(usuario -> usuario.getEmail()).reduce("",
+				(email1, email2) -> email1 + " - " + email2);
 	}
 }

@@ -9,5 +9,13 @@ public abstract class ExcursionState {
 
 	public abstract void inscribir(Usuario unUsuario);
 
-	public abstract String obtenerInformacion();
+	public String obtenerInformacion() {
+		return "Excursion [nombre=" + this.excursion.getNombre() + ", fechaInicio=" + this.excursion.getFechaInicio()
+				+ ", fechaFin=" + this.excursion.getFechaFin() + ", puntoEncuentro="
+				+ this.excursion.getPuntoEncuentro() + ", costo=" + this.excursion.getCosto() + this.getExtraInfo();
+	}
+
+	protected abstract String getExtraInfo();
+
+	public abstract String getName();
 }

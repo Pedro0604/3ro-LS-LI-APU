@@ -14,9 +14,12 @@ public class ProvisoriaState extends ExcursionState {
 	}
 
 	@Override
-	public String obtenerInformacion() {
-		return "Excursion [nombre=" + this.excursion.getNombre() + ", fechaInicio=" + this.excursion.getFechaInicio()
-				+ ", fechaFin=" + this.excursion.getFechaFin() + ", puntoEncuentro="
-				+ this.excursion.getPuntoEncuentro() + ", costo=" + this.excursion.getCosto() + "]";
+	public String getExtraInfo() {
+		return ", cantidadHastaCupoMin=" + this.excursion.getUsuariosHastaCupoMin() + "]";
+	}
+
+	@Override
+	public String getName() {
+		return "Provisoria";
 	}
 }

@@ -7,16 +7,21 @@ public class DefinitivaState extends ExcursionState {
 
 	@Override
 	public void inscribir(Usuario unUsuario) {
-		if (this.excursion.getCantidadUsuarios() < this.excursion.getCupoMax()) {
-			this.excursion.addUsuario(unUsuario);
-		} else {
+		this.excursion.addUsuario(unUsuario);
+
+		if (this.excursion.getCantidadUsuarios() == this.excursion.getCupoMax()) {
 			this.excursion.setState(new CompletaState(excursion));
 		}
 	}
 
 	@Override
-	public String obtenerInformacion() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getExtraInfo() {
+		return ", mails=[" + this.excursion.getMailsUsuarios() + "] , cantidadHastaCupoMax="
+				+ this.excursion.getUsuariosHastaCupoMax() + "]";
+	}
+
+	@Override
+	public String getName() {
+		return "Definitiva";
 	}
 }
