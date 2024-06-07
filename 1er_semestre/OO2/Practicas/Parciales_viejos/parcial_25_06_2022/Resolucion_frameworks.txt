@@ -1,0 +1,8 @@
+1. La ejecución del código de una subclase de Rule se realiza mediante inversión de control ya que es el código del framework (definido en RuleEngine), el que, dentro del método run, va a ejecutar el método run de cada una de las reglas que se encuentran dentro de la lista de Rules, provocando que el control de la ejecución de las subclases de Rule definidas por el usuario este a cargo de el framework.
+
+2. Los hook methods en este caso son los métodos shouldProcess y process de la clase Rule, ya que estos son los que permiten implementar un hotspot del framework (saber si se debe procesar una regla y encargarse de procesarla), y además, son los métodos que se llaman dentro del método run de la clase Rule que actúa como método plantilla, definiendo los pasos a seguir y sin posibilidad de modificarlos. Cabe aclarar que tanto los hotspot como los hooks que dan lugar a la implementacion de dichos hotspots, no necesariamente deben estar restringidos a un solo método.
+
+3. El frozen spot del extracto del framework presentado se corresponde con:
+	* La instanciación de la clase RuleEngine (que siempre recibe una lista de reglas a ejecutar)
+	* La forma en que la clase RuleEngine ejecuta las reglas
+	* La forma en la que cada Regla es ejecutada (siempre se verifica si se debería procesar y en caso de que se deba procesar, se la procesa)
