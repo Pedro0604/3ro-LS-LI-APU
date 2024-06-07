@@ -1,0 +1,72 @@
+@startuml
+class HomeWeatherStation <<Adaptee>> {
+	-temperatura: double
+	-presion: double
+	-radiacionSolar: double
+	-temperaturas: List<Double>
+	+HomeWheaterStation(temperatura: double, presion: double, radiacionSolar: double, temperaturas: List<Double>)
+	+getTemperaturaFahrenheit(): double
+	+getPresion(): double
+	+getRadiacionSolar(): double
+	+getTemperaturasFahrenheit(): List<Double>
+}
+
+abstract class HomeWeather <<Component>> <<Target>> {
+	+{abstract} getTemperaturaCelsius(): double
+	+{abstract} getTemperaturaFahrenheit(): double
+	+{abstract} getPresion(): double
+	+{abstract} getRadiacionSolar(): double
+	+{abstract} getTemperaturasFahrenheit(): List<Double>
+	+{abstract} getPromedioTemperaturasFahrenheit(): double
+	+{abstract} getPromedioTemperaturasCelsius(): double
+	+{abstract} displayData(): String
+}
+
+class HomeWeatherStationAdapter <<Adapter>><<ConcreteComponent>> extends HomeWeather {
+	+HomeWheaterStationAdapter(adaptee: HomeWheaterStation)
+	+getTemperaturaCelsius(): double
+	+getTemperaturaFahrenheit(): double
+	+getPresion(): double
+	+getRadiacionSolar(): double
+	+getTemperaturasFahrenheit(): List<Double>
+	+getPromedioTemperaturasFahrenheit(): double
+	+getPromedioTemperaturasCelsius(): double
+	+displayData(): String
+	-makeCelsius(fahrenheit: Real): Real
+}
+HomeWeatherStationAdapter  --> "1" HomeWeatherStation : adaptee
+
+abstract class HomeWeatherDecorator <<Decorator>> extends HomeWeather {
+	+HomeWeatherDecorator(homeWeather: HomeWeather)
+	+getTemperaturaCelsius(): double
+	+getTemperaturaFahrenheit(): double
+	+getPresion(): double
+	+getRadiacionSolar(): double
+	+getTemperaturasFahrenheit(): List<Double>
+	+getPromedioTemperaturasFahrenheit(): double
+	+getPromedioTemperaturasCelsius(): double
+	+displayData(): String
+	#{abstract} displayRealData(): String
+}
+HomeWeatherDecorator --> "1" HomeWeather : homeWeather
+
+class RadiacionDecorator <<ConcreteDecorator>> extends HomeWeatherDecorator {
+	+RadiacionDecorator(homeWeather: HomeWeather)
+	#displayRealData(): String
+}
+
+class PresionDecorator <<ConcreteDecorator>> extends HomeWeatherDecorator {
+	+PresionDecorator(homeWeather: HomeWeather)
+	#displayRealData(): String
+}
+
+class PromedioTemperaturasCelsius <<ConcreteDecorator>> extends HomeWeatherDecorator {
+	+PromedioTemperaturasCelsius(homeWeather: HomeWeather)
+	#displayRealData(): String
+}
+
+class TemperaturaCelsiusDecorator <<ConcreteDecorator>> extends HomeWeatherDecorator {
+	+TemperaturaCelsiusDecorator(homeWeather: HomeWeather)
+	#displayRealData(): String
+}
+@enduml

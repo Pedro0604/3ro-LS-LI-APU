@@ -1,0 +1,5 @@
+1. El comportamiento variable del framework es implementado mediante herencia. Las clases que hereden de EmailFilter deberán implementar los métodos abstractos isEmailAllowed y addEmail, para poder instanciar el hotspot correspondiente a decidir si un email debe agregarse al inbox y en caso positivo agregarlo.
+
+2. La inversión de control se encuentre en las líneas 9 y 10, ya que allí se llama a los métodos que las subclases deben implementar (isEmailAllowed y addEmail), por lo que el código del frozen spot del framework está llamando al código implementado por el usuario, realizando así una inversión de control.
+
+3. No, el método isEmailAllowed no es un hotspot en sí mismo, sino que lo es en conjunto con el método addEmail, ya que ambos juntos son los que se encargan de llevar a cabo el filtro de un email.
