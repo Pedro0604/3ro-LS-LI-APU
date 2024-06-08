@@ -1,0 +1,67 @@
+@startuml
+class Cliente {
+	-nombre: String
+	-salarioMensual: double
+	+Cliente(nombre: String, salarioMensual: double)
+	+solicitarPrestamoSimple(monto: double, cantCuotas: int, interes: double): Prestamo
+	+solicitarPrestamoUVA(monto: double, cantCuotas: int): Prestamo
+	+puedeSolicitarPrestamo(montoCuota: double): boolean
+}
+
+abstract class Prestamo <<Context>><<AbstractClass>> {
+	-monto: double
+	-montoAbonado: double
+	-cantCuotas: int
+	-cantCuotasAbonadas: int
+	+Prestamo(monto: double, cantCuotas: int, cliente: Cliente)
+	+setState(state: PrestamoState): void
+	+getMontoCuota(): double
+	#{abstract} getTasaInteres(): double
+	+pagarCuota(): void
+	+getMontoAbonado(): double
+	+getMontoRestante(): double
+	+getCuotasRestantes(): int
+	+gastoCancelacion(): double
+	+getValorAdministrativo(): double
+	+{abstract} getValorSellado(): double
+}
+Cliente --> "*" Prestamo : prestamos
+Prestamo --> "1" Cliente : cliente
+
+class PrestamoUVA <<ConcreteClass>> extends Prestamo {
+	+PrestamoUVA(monto: double, cantCuotas: int, cliente: Cliente)
+	#getTasaInteres(): double
+	+getValorSellado(): double
+}
+
+class PrestamoSimple <<ConcreteClass>> extends Prestamo {
+	-interes: double
+	+PrestamoSimple(monto: double, cantCuotas: int, cliente: Cliente, interes: double)
+	#getTasaInteres(): double
+	+getValorSellado(): double
+}
+
+abstract class PrestamoState <<State>> {
+	+PrestamoState(prestamo: Prestamo)
+	+pagarCuota(): double
+	+{abstract} gastoCancelacion(): double
+}
+Prestamo --> "1" PrestamoState : state
+PrestamoState --> "1" Prestamo : prestamo
+
+class FinalizadoState <<ConcreteState>> extends PrestamoState {
+	+FinalizadoState(prestamo: Prestamo)
+	+gastoCancelacion(): double
+}
+
+class RechazadoState <<ConcreteState>> extends PrestamoState {
+	+RechazadoState(prestamo: Prestamo)
+	+gastoCancelacion(): double
+}
+
+class AprobadoState <<ConcreteState>> extends PrestamoState {
+	+AprobadoState(prestamo: Prestamo)
+	+pagarCuota(): double
+	+gastoCancelacion(): double
+}
+@enduml
