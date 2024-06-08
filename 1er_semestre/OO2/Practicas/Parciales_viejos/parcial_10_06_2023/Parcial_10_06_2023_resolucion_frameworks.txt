@@ -1,8 +1,10 @@
-1. El comportamiento variable del framework está implementado mediante herencia ya que, para poder realizar cambios, se deben implementar los métodos save, get y hasKey, los cuales se heredan de la interfaz Storage.
+1. El comportamiento variable del framework está implementado mediante composición ya que, se separa en diferentes clases el método plantilla de la implementación de los ganchos, los cuales, para poder instanciarlos, se deben agregar a la lista de Permissions de API, y luego mediante inversión de control serán llamadaos desde API(si fuera herencia, serían subclases de API quienes implementen el comportamiento de allowRequest y throwException)
 
-2. Los hook methods son save, hasKey y get, ya que son los métodos que las clases que implementen a la interfaz Storage deberán implementar para poder instanciar los hot spots de la aplicación.
+2. Sí, los hook methods que se observan son allowsAccess y throwException, ya que son llamados, dentro del método plantilla checkPermissions, y que deben ser implementados por el usuario del framework para su correcto funcionamiento.
 
-3. El frozen spot está compuesto por:
-	* La forma de inicializar al motor de redundancia (con la lista de Storage a usar)
-	* La forma en la que, ante un pedido de guardado, el motor guarda la información en todos los medios de almacenamiento
-	* La forma en la que se obtiene la información (se la busca en todos los medios de almacenamiento y se retorna el primer valor existente)
+3. Se corresponden con el frozenspot los siguientes aspectos:
+	* La forma de crear la API (instanciandola siempre con una lista de permisos)
+	* La forma de procesar una request. Siempre se llama al método checkPermissions y, si el mismo lanza una excepción se devuelve una respuesta de acceso prohibido, pero si no lanza ninguna excepción se devuelve una respuesta de acceso exitoso
+	* La forma en la que se chequean los permisos. Para cada una de los permisos, se le envía el mensaje allowsAccess y en caso de obtener una respuesta negativa, se les envía el mensaje throwException donde levantaran una excepción
+
+4. Sí, se observa inversión de control en el método checkPermissions, ya que es ahí donde se llaman a los métodos que deberá implementar el usuario, causando que, el código del framework llame al código del usuario invirtiendo efectivamente el control del programa.
