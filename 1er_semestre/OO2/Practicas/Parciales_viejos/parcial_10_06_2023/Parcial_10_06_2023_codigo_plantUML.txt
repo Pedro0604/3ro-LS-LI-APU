@@ -1,0 +1,58 @@
+@startuml
+class Proyecto <<Context>> {
+	-fechaInicio: Date
+	-fechaFin: Date
+	-nombre: String
+	-objetivo: String
+	-nroIntegrantes: Integer
+	-montoFijoPorDia: Real
+	-margenGanancia: Real
+
+	+<<create>>Proyecto(nombre: String, fechaInicio: Date, fechaFin: Date,
+                  objetivo: String, nroIntegrantes: Integer, montoFijoPorDia: Real)
+
+	+setMargenGanancia(margenGanancia: Real)
+	+setState(state: ProyectoState)
+
+	+aprobarEtapa()
+	+costoProyecto(): Real
+	+precioProyecto(): Real
+	+moficarMargenGanancia(margenGanancia: Real)
+	+cancelarProyecto()
+	+appendToObjetivo(string: String)
+}
+
+abstract ProyectoState <<State>> {
+	+ProyectoState(proyecto: Proyecto)
+
+	+aprobarEtapa()
+	+moficarMargenGanancia(margenGanancia: Real)
+	+cancelarProyecto()
+}
+Proyecto --> "1" ProyectoState: #state
+ProyectoState --> "1" Proyecto: #proyecto
+
+class EnConstruccionState <<ConcreteState>> extends ProyectoState {
+	+EnConstruccionState(proyecto: Proyecto)
+
+	+aprobarEtapa()
+	+moficarMargenGanancia(margenGanancia: Real)
+}
+
+class EnEvaluacionState <<ConcreteState>> extends ProyectoState {
+	+EnEvaluacionState(proyecto: Proyecto)
+
+	+aprobarEtapa()
+	+moficarMargenGanancia(margenGanancia: Real)
+}
+
+class ConfirmadoState <<ConcreteState>> extends ProyectoState {
+	+ConfirmadoState(proyecto: Proyecto)
+}
+
+class CanceladoState <<ConcreteState>> extends ProyectoState {
+	+CanceladoState(proyecto: Proyecto)
+
+	+cancelarProyecto()
+}
+@enduml
