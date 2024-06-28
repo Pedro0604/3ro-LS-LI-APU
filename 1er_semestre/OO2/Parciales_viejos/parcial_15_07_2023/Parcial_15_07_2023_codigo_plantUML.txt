@@ -1,0 +1,60 @@
+@startuml
+abstract class Elemento <Component - Target> {
+	+{abstract}<<abstract>> aplicarEstilo(estilo: ConfiguracionEstilo)
+	+{abstract}<<abstract>> imprimir(): String
+}
+
+class Contenedor <Composite> extends Elemento {
+	-elementos: List<Elemento>
+
+	+Contenedor()
+
+	+addElemento(e: Elemento)
+	+aplicarEstilo(estilo: ConfiguracionEstilo)
+	+imprimir(): String
+}
+
+abstract class ElementoAtomico extends Elemento {
+	#texto: String
+	#estilo: String
+
+	+ElementoAtomico(texto: String)
+}
+
+class Boton <Leaf> extends ElementoAtomico {
+	-accion: String
+
+	+Boton(texto: String, accion: String)
+
+	+aplicarEstilo(estilo: ConfiguracionEstilo)
+	+imprimir(): String
+}
+
+class Etiqueta <Leaf> extends ElementoAtomico {
+	-accion: String
+
+	+Boton(texto: String, accion: String)
+
+	+aplicarEstilo(estilo: ConfiguracionEstilo)
+	+imprimir(): String
+}
+
+class ListaDesplegable <Adaptee> {
+	-style: String
+	-text: String
+
+	+ListaDesplegable(text: String)
+
+	+setStyle(style: String)
+	+print(): String
+}
+
+class ListaDesplegableAdapter <Leaf - Adapter> extends Elemento {
+	+ListaDesplegableAdapter(lista: ListaDesplegable)
+
+	+aplicarEstilo(estilo: ConfiguracionEstilo)
+	+imprimir(): String
+}
+ListaDesplegableAdapter -l-> "1" ListaDesplegable: adaptee
+
+@enduml
