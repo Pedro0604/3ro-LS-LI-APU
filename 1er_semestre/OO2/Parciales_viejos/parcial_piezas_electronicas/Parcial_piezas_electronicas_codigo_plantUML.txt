@@ -1,0 +1,54 @@
+@startuml
+abstract class Pieza <Component> {
+	#nombre: String
+
+	+Pieza(nombre: String)
+
+	+{abstract}<<abstract>> capacidadBateria(): Real
+	+{abstract}<<abstract>> potencia(): Real
+	+informacion(): String
+}
+
+class PiezaSimple <Leaf> {
+	-capacidadBateria: Integer
+	-potencia: Integer
+
+	+PiezaSimple(nombre: String, capacidadBateria: Integer, potencia: Integer)
+
+	+capacidadBateria(): Real
+	+potencia(): Real
+}
+PiezaSimple -r-|> Pieza
+
+class PiezaCompuesta <Composite - Context> extends Pieza {
+	+PiezaCompuesta(nombre: String)
+
+	+addPieza(p: Pieza)
+	+setConfiguracion(config: Configuracion)
+
+	+capacidadBateria(): Real
+	+potencia(): Real
+}
+PiezaCompuesta -u--> "*" Pieza: -piezas
+
+interface Configuracion <Strategy> {
+	porcentajeVariacionBateria(): Real
+	porcentajeVariacionPotencia(): Real
+}
+PiezaCompuesta -l-> "1" Configuracion: -config
+
+class AhorroDeEnergia <ConcreteStrategy> implements Configuracion {
+	+porcentajeVariacionBateria(): Real
+	+porcentajeVariacionPotencia(): Real
+}
+
+class PotenciaMedia <ConcreteStrategy> implements Configuracion {
+	+porcentajeVariacionBateria(): Real
+	+porcentajeVariacionPotencia(): Real
+}
+
+class MaximaPotencia <ConcreteStrategy> implements Configuracion {
+	+porcentajeVariacionBateria(): Real
+	+porcentajeVariacionPotencia(): Real
+}
+@enduml
