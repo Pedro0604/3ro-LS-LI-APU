@@ -1,0 +1,80 @@
+@startuml
+abstract Tarea <Component - AbstractClass> {
+  -nombre: String
+
+  +<<create>>Tarea(nombre: String)
+
+  +getNombre(): String
+  +{abstract}<<abstract>>getDuracionEstimada(): Integer
+  +{abstract}<<abstract>>getFechaInicio(): Integer
+  +{abstract}<<abstract>>getFechaFin(): Integer
+
+  +{abstract}<<abstract>>iniciar()
+  +{abstract}<<abstract>>completar()
+
+  +{abstract}<<abstract>>tiempoUtilizado(): Integer
+  +avance(): Real
+}
+
+class TareaSimple <Leaf - ConcreteClass> extends Tarea {
+  -duracionEstimada: Integer
+  -fechaInicio: Integer
+  -fechaFin: Integer
+  -state: TareaState
+
+  +<<create>>TareaSimple(nombre: String, duracionEstimada: Integer)
+
+  +estimacionTotal(): Integer
+  +getFechaInicio(): Integer
+  +getFechaFin(): Integer
+  +setFechaInicio(fechaInicio: Integer)
+  +setFechaFin(fechaFin: Integer)
+  +iniciar()
+  +completar()
+  +setState(state: TareaState)
+  +tiempoUtilizado(): Integer
+  +tiempoFinMenosInicio(): Integer
+}
+
+class TareaCompleja <Composite - ConcreteClass> extends Tarea {
+  -tareas: List<Tarea>
+
+  +TareaCompleja(nombre: String)
+
+  +estimacionTotal(): Integer
+  +getFechaInicio(): Integer
+  +getFechaFin(): Integer
+  +addTarea(tarea: Tarea)
+  +iniciar()
+  +completar()
+  +tiempoUtilizado(): Integer
+}
+TareaCompleja ---> "*" Tarea: -tareas
+
+abstract TareaState <State> {
+  #tarea: TareaSimple
+
+  +TareaState(tarea: TareaSimple)
+
+  +iniciar()
+  +completar()
+  +tiempoUtilizado(): Integer
+}
+TareaSimple --> "1" TareaState: -state
+TareaState--> "1" TareaSimple : -tarea
+
+class CreadaState <ConcreteState> extends TareaState {
+  +CreadaState(tarea: TareaSimple)
+  +iniciar()
+}
+
+class IniciadaState <ConcreteState> extends TareaState {
+  +IniciadaState(tarea: TareaSimple)
+  +completar()
+}
+
+class CompletadaState <ConcreteState> extends TareaState {
+  +CompletadaState(tarea: TareaSimple)
+  +tiempoUtilizado(): Integer
+}
+@enduml
