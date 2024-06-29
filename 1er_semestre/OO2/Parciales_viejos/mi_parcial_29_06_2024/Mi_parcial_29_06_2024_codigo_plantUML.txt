@@ -1,0 +1,83 @@
+@startuml
+class Presupuesto {
+	-nombreComprador: String
+	-fecha: LocalDate
+
+	+<<create>>Presupuesto(nombreComprador: String, configuracion: Configuracion, director: Director)
+
+	+getEquipo(): Equipo
+}
+
+class Equipo <Product> {
+	-IVA: Real
+
+	+<<create>>Equipo()
+
+	+addComponente(componente: String)
+	+getConsumo(): Real
+	+getPrecio(): Real
+}
+Presupuesto --> "1" Equipo: -equipo
+
+class Catalogo {
+	+getComponente(nombre: String): Componente
+}
+Equipo--> "1" Catalogo: -catalogo
+
+class Componente {
+	-consumo: Real
+	-precio: Real
+	-nombre: String
+
+	+<<create>>Componente(consumo: Real, precio: Real, nombre: String)
+
+	+getConsumo(): Real
+	+getPrecio(): Real
+	+getNombre(): String
+}
+Equipo --> "*" Componente: -componentes
+
+interface Director <Director> {
+	+abstract <<abstract>>construir(configuracion: Configuracion): Equipo
+}
+
+class DirectorNormal <Concrete Director> implements Director {
+	+construir(configuracion: Configuracion): Equipo
+}
+
+abstract class Configuracion <Builder> {
+	+crear()
+	+{abstract}<<abstract>> addProcesador()
+	+{abstract}<<abstract>> addRam()
+	+{abstract}<<abstract>> addDisco()
+	+{abstract}<<abstract>> addGrafica()
+	+{abstract}<<abstract>> addGabinete()
+	+completar(): Equipo
+}
+Configuracion --> "1" Equipo: #equipo
+Configuracion ..> "creates" Equipo
+
+class ConfiguracionBasica <Concrete Builder> extends Configuracion {
+	+addProcesador()
+	+addRam()
+	+addDisco()
+	+addGrafica()
+	+addGabinete()
+}
+
+class ConfiguracionIntermedia <Concrete Builder> extends Configuracion {
+	+addProcesador()
+	+addRam()
+	+addDisco()
+	+addGrafica()
+	+addGabinete()
+}
+
+class ConfiguracionGamer <Concrete Builder> extends Configuracion {
+	+addProcesador()
+	+addRam()
+	+addDisco()
+	+addGrafica()
+	+addGabinete()
+}
+@enduml
