@@ -8,6 +8,9 @@
 > [!NOTE]
 > La práctica 2 tiene algunos ejercicios hechos en [draw.io](https://draw.io). Las imagenes .drawio.png pueden ser subidas a [draw.io](https://draw.io) para modificarlas
 
+> [!IMPORTANT]  
+> Si bien la práctica 5 y 6 tienen sus respectivos archivos .xlsx, conviene verlas en Google Sheets para que todo funcione correctamente
+
 * [PDFs](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/PDFs)
 * [Prácticas resueltas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas)
   * [Práctica 1](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_1)
@@ -15,11 +18,13 @@
   * [Práctica 3](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_3)
   * [Práctica 4](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_4)
   * [Práctica 5](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_5)
-  * [Práctica 1](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_6)
-  * [Práctica 2](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_7)
-  * [Práctica 3](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_8)
-  * [Práctica 4](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_9)
-  * [Práctica 5](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_10)
+      * [Práctica 5 resuelta en Google Sheets](https://docs.google.com/spreadsheets/d/1e2_R6GBDu2rFcoDhq23S05waLqg0Tro5mqOpFT-MtfE/edit?usp=sharing)
+  * [Práctica 6](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_6)
+      * [Práctica 6 resuelta en Google Sheets](https://docs.google.com/spreadsheets/d/1A7zjzbWWWZTOdHcIw8Ahwg7HrF9kBlt32d5NCv0OYSA/edit?usp=sharing)
+  * [Práctica 7](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_7)
+  * [Práctica 8](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_8)
+  * [Práctica 9](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_9)
+  * [Práctica 10](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_10)
 * [Trabajo Integrador](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Trabajo_integrador)
 ### [Teorías](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Teorias)
   * [PDFs](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Teorias/PDFs)
