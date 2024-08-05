@@ -6,7 +6,7 @@
 > [!IMPORTANT]
 > Si bien la práctica 5 y 6, así como algunos ejercicios de los parciales viejos, tienen sus respectivos archivos .xlsx, conviene verlos en Google Sheets para que todo funcione correctamente
 ### [Explicaciones prácticas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Explicaciones_practicas)
-### [Parciales viejos](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Parciales_viejos)
+### [Parciales viejos](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos)
 
  * [Primer parcial](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Primer_parcial)
    * [01/07/2022 - Tema 2](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Primer_parcial/01_07_2022_tema_2)
