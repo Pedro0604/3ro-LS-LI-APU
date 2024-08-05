@@ -2,16 +2,29 @@
 ## 3er año - 1er semestre
 ### [Explicaciones prácticas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Explicaciones_practicas)
 ### [Prácticas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas)
-> [!IMPORTANT]
-> Las prácticas que dicen práctica_x_resuelta_yo las hice yo :0, y las que dicen práctica_x_resuelta_agusrnfr son del github de [agusrnfr](https://github.com/agusrnfr) (es alta crack 😎)
 
 > [!NOTE]
-> La práctica 2 tiene algunos ejercicios hechos en [draw.io](https://draw.io). Las imagenes .drawio.png pueden ser subidas a [draw.io](https://draw.io) para modificarlas
+> Algunos ejercicios tanto de la práctica 2 como de parciales viejos del primer parcial están hechos en [draw.io](https://draw.io). Las imagenes .drawio.png pueden ser subidas a [draw.io](https://draw.io) para modificarlas
 
-> [!IMPORTANT]  
-> Si bien la práctica 5 y 6 tienen sus respectivos archivos .xlsx, conviene verlas en Google Sheets para que todo funcione correctamente
+> [!IMPORTANT]
+> Si bien la práctica 5 y 6, así como algunos ejercicios de los parciales viejos, tienen sus respectivos archivos .xlsx, conviene verlos en Google Sheets para que todo funcione correctamente
 
 * [PDFs](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/PDFs)
+* [Parciales viejos](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Parciales_viejos)
+  * [Primer parcial](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Primer_parcial)
+      * [01/07/2022 - Tema 2](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Primer_parcial/01_07_2022_tema_2)
+      * [05/05/2014](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Primer_parcial/05_05_2014)
+        * [Ejercicio 1 - Google Sheets](https://docs.google.com/spreadsheets/d/1gSP6hD6mX_Ho6d7Mxdb13irDVHjCX_WEP973MRBUHh0/edit?gid=1130123696#gid=1130123696)
+      * [28/04/2023](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Primer_parcial/28_04_2023)
+      * [Parciales viejos resueltos](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/1er_semestre/CPLP/Parciales_viejos/Primer_parcial/Parciales_viejos.pdf)
+  * [Segundo parcial](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial)
+      * [01/07/2022 - Tema 1](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/01_07_2022_tema_1)
+      * [01/07/2022 - Tema 2](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/01_07_2022_tema_2)
+      * [1ra fecha 2023](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/1ra%20fecha%202023)
+      * [Mí parcial](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/mi_parcial_14_06_2024)
+      * [Parciales viejos resueltos](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/Parciales_viejos.pdf)
+> [!IMPORTANT]
+> Las prácticas que dicen práctica_x_resuelta_yo las hice yo :0, y las que dicen práctica_x_resuelta_agusrnfr son del github de [agusrnfr](https://github.com/agusrnfr) (es alta crack 😎)
 * [Prácticas resueltas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas)
   * [Práctica 1](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_1)
   * [Práctica 2](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_2)
