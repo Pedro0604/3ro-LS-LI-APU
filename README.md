@@ -13,5 +13,6 @@
   * [Teorías](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/Ing2/Teorias/PDFs)
 ### [Orientación a Objetos 2](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/OO2)
   * [Prácticas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/OO2/Practicas)
+  * [Parciales viejos](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/OO2/Parciales_viejos)
   * [Teorías](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/OO2/Teorias/PDFs)
 </details>
