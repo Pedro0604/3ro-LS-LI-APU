@@ -15,11 +15,11 @@
    * [28/04/2023](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Primer_parcial/28_04_2023)
    * [Parciales viejos resueltos](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/1er_semestre/CPLP/Parciales_viejos/Primer_parcial/Parciales_viejos.pdf)
  * [Segundo parcial](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial)
+   * [Ejercicios en Google Sheets](https://docs.google.com/spreadsheets/d/1VucbI0m4hWGKyXKhDlMqk9kJKg0AdpPRop7GBlnb644/edit?gid=1731863520#gid=1731863520)
    * [01/07/2022 - Tema 1](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/01_07_2022_tema_1)
    * [01/07/2022 - Tema 2](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/01_07_2022_tema_2)
    * [1ra fecha 2023](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/1ra%20fecha%202023)
    * [Mí parcial](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/mi_parcial_14_06_2024)
-   * [Ejercicios en Google Sheets](https://docs.google.com/spreadsheets/d/1VucbI0m4hWGKyXKhDlMqk9kJKg0AdpPRop7GBlnb644/edit?gid=1731863520#gid=1731863520)
    * [Parciales viejos resueltos](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/1er_semestre/CPLP/Parciales_viejos/Segundo_parcial/Parciales_viejos.pdf)
 ### [Prácticas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas)
 
