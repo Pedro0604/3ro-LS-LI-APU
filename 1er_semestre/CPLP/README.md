@@ -42,6 +42,7 @@
   * [Práctica 10](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Practicas_resueltas/Practica_10)
 * [Trabajo Integrador](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Practicas/Trabajo_integrador)
 ### [Teorías](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Teorias)
+  * [Teorías grabadas](https://www.youtube.com/playlist?list=PLVeo81yvjZb_kp3bftlXLPKXP9X_GJ4Bu)
   * [PDFs](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Teorias/PDFs)
   * [Resumen teorías](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/1er_semestre/CPLP/Teorias/Resumen_teor%C3%ADas.pdf)
   * [EMTs](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/1er_semestre/CPLP/Teorias/EMTs)
