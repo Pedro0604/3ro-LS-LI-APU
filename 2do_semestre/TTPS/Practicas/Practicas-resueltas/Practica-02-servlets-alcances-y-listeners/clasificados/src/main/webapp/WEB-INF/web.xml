@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" id="WebApp_ID" version="5.0">
+  <display-name>clasificados</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  <context-param>
+    <param-name>nombre</param-name>
+    <param-value>Lionel Messi</param-value>
+  </context-param>
+  <context-param>
+    <param-name>email</param-name>
+    <param-value>lionel@messi10.com</param-value>
+  </context-param>
+  <context-param>
+    <param-name>telefono</param-name>
+    <param-value>10101010</param-value>
+  </context-param>
+  <servlet>
+    <description>Servlet que procesa el login de un usuario</description>
+    <display-name>Login</display-name>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>ttps.clasificados.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Menu</display-name>
+    <servlet-name>Menu</servlet-name>
+    <servlet-class>ttps.clasificados.Menu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Menu</servlet-name>
+    <url-pattern>/Menu</url-pattern>
+  </servlet-mapping>
+  <listener>
+    <listener-class>ttps.clasificados.ContextListener</listener-class>
+  </listener>
+  <servlet>
+    <description></description>
+    <display-name>Encabezado</display-name>
+    <servlet-name>Encabezado</servlet-name>
+    <servlet-class>ttps.clasificados.Encabezado</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Encabezado</servlet-name>
+    <url-pattern>/Encabezado</url-pattern>
+  </servlet-mapping>
+</web-app>
