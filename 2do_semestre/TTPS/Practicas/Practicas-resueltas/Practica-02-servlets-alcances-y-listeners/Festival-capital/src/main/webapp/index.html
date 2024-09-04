@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>Festival capital</title>
+</head>
+<body>
+	<form action='Index' id='form'
+		style='padding: 75px 15px; display: flex; justify-content: center;'>
+		<div
+			style='display: flex; flex-direction: column; gap: 12px; max-width: 500px; text-align: center;'>
+			<h1>Festival capital</h1>
+			<div>
+				<label for='text'>Texto: </label> <input maxlength="13" type='text' name='text'
+					id='text' placeholder='Texto'>
+				<button>Generar cupón</button>
+			</div>
+		</div>
+	</form>
+	<script>
+		window.addEventListener('load', () => {
+            const input = document.getElementById("text");
+            input.focus();
+            const length = input.value.length;
+            input.setSelectionRange(length, length);
+		})
+	</script>
+</body>
+</html>
