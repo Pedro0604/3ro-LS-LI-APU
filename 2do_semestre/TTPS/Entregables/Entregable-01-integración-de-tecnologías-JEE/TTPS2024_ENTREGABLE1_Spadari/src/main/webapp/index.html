@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Entradas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input.error {
+            border-color: red;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="POST" action="ImprimeEntrada" id="form-imprime-entrada">
+        <h1>Solicitar Entradas</h1>
+        <div>
+            <label for="name">Nombre:</label>
+            <input type="text" name="name" id="name" placeholder="Nombre" required>
+        </div>
+        <div>
+            <label for="surname">Apellido:</label>
+            <input type="text" name="surname" id="surname" placeholder="Apellido" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+        </div>
+        <div>
+            <label for="dni">DNI:</label>
+            <input type="number" name="dni" id="dni" min="1000000" max="99999999" required>
+        </div>
+        <div>
+            <label for="entradas-requeridas-dos">Abonos para dos días:</label>
+            <input type="number" name="entradas-requeridas-dos" id="entradas-requeridas-dos" value="0" min="0">
+        </div>
+        <div>
+            <label for="entradas-requeridas-tres">Abonos para tres días:</label>
+            <input type="number" name="entradas-requeridas-tres" id="entradas-requeridas-tres" value="0" min="0">
+        </div>
+        <button type="submit">Imprimir Entradas</button>
+        <div class="error" id="error-message" style="text-align: center"></div>
+    </form>
+
+    <script>
+        document.getElementById("form-imprime-entrada").addEventListener("submit", e => {
+            const dosDiasInput = document.getElementById("entradas-requeridas-dos");
+            const tresDiasInput = document.getElementById("entradas-requeridas-tres");
+
+            const dosDias = parseInt(dosDiasInput.value) || 0;
+            const tresDias = parseInt(tresDiasInput.value) || 0;
+
+            if (dosDias + tresDias === 0) {
+                e.preventDefault();
+                document.getElementById("error-message").innerText = "Tienes que seleccionar al menos una entrada de algún tipo";
+                dosDiasInput.classList.add("error");
+                tresDiasInput.classList.add("error");
+            } else {
+                document.getElementById("error-message").innerText = "";
+                dosDiasInput.classList.remove("error");
+                tresDiasInput.classList.remove("error");
+            }
+        });
+    </script>
+</body>
+
+</html>
