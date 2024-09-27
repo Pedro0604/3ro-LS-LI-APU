@@ -1,0 +1,87 @@
+a)
+En los serivdores de DNS de com.ar. se deberian informar los siguientes registros:
+redes2024.com.ar 7200 IN NS ns1.redes2024.com.ar
+redes2024.com.ar 7200 IN NS ns2.redes2024.com.ar
+
+ns1.redes2024.com.ar 7200 IN A 203.0.113.65
+ns2.redes2024.com.ar 7200 IN A 203.0.113.66
+
+b)
+En el servidor de nombres se deberian configurar:
+redes2024.com.ar.	86400	IN	SOA	ns1.redes2024.com.ar. root.redes2024.com.ar. 2024092700 604800 86400 2419200 86400
+
+redes2024.com.ar 7200 IN MX 5 mail.redes2024.com.ar
+redes2024.com.ar 7200 IN NS ns1.redes2024.com.ar
+redes2024.com.ar 7200 IN NS ns2.redes2024.com.ar
+
+webmail.redes2024.com.ar 7200 IN CNAME correo.redes2024.com.ar
+
+ns1.redes2024.com.ar 7200 IN A 203.0.113.65
+ns2.redes2024.com..ar 7200 IN A 203.0.113.66
+mail.redes2024.com.ar 7200 IN A 203.0.113.111
+correo.redes2024.com.ar 7200 IN A 203.0.113.8
+
+c)
+No es necesario que el servidor DNS acepte consultas recursivas, ya que no va a hacer las funciones de servidor local, sino que sera
+consultado iterativamente por servidores locales
+
+d) y e)
+En los servidores de DNS tendria que correr un servicio de DNS que escuche requests en el puerto 53
+En el servidor de mail deberia correr un servicio de SMTP que escuche requests en el puerto 25
+Ademas en el servidor de mail se deberia correr un servicio de IMAP/POP que escuche requests en el puerto 143/110
+En el servidor web se deberia correr un servicio que maneje solicitudes HTTPs y escuche requests en el puerto 443
+
+f)
+Para enviar correos, el webmail del servidor web haria uso del protocolo SMTP
+Para recibir correos, el webmail del servidor web haria uso del protocolo IMAP/POP
+
+g)
+Se podria agregar en el servidor DNS un registro de tipo TXT que especifique la IP aceptada (203.0.113.111) para el servidor de mail mail.redes2024.com.ar
+Eso se podria hacer con el siguiente registro que hace uso de SPF (Sender pPolicy Framework):
+redes2024.com.ar 7200 IN TXT "v=spf1 aip4:203.0.113.111 -all"
+Esto no afectaria a los mails enviados desde el webmail, ya que el mismo se va a conectar al servidor de mail, que sera quien envie los mails (con la IP 203.0.113.111)
+
+h)
+Al ser protocolos basados en ASCII de 7bits, se debe realizar un encoding como base64 o EBCDIC para poder enviar datos que no esten previamente en dicho formato
+
+i)
+Si, podria hacerse eso de la siguiente manera:
+HELO test.test.com
+MAIL FROM: <test@test.com>
+RCPT TO: <receptor@gmail.com>
+DATA
+From: Otro usuario <pepe@pepe.com>
+
+No se si es indicacion de una estafa, pero seguro que seria sospechoso. Quizas indique spam o phishing
+
+j)
+No se si se podria hacer
+Lo que si podria hacerse es enviar a varios usuarios un mismo mail usando CC o BCC (en este ultimo caso, los receptores no sabrian a quien se envio el correo ademas de ellos)
+
+k)
+1. Nuestro MUA se conectara mediante SMTP al MTA ubicado en el servidor mail.redes2024.com.ar
+2. El servidor de mail debera, mediante una consulta recursiva, comunicarse con un servidor de DNS local, al cual le consultara por el registro
+ de tipo MX del servidor info.unlp.edu.ar, mediante una consulta recursiva
+3. Mediante consultas iterativas el servidor local de DNS averiguara la direccion IP del dominio info.unlp.edu.ar y le consultara por sus registros
+ de tipo MX, devolviendo al servidor de mail (de manera recursiva) la IP a la que debera conectarse para enviar el mail
+4. En caso de que haya mas de un servidor de mail en el dominio info.unlp.edu.ar el servidor de mail elegira el de mayor prioridad (menor numero)
+5. El servidor de mail establecera una conexion TCP al puerto 25 de la IP destino
+6. En caso de fallar la conexion y que haya mas de un servidor de mail en el dominio info.unlp.edu.ar, se intentara conectarse a los demas servidores,
+ por orden de prioridad
+7. Si no se logra conectar a ninguno de los servidores de mail destino, se guardara el email en una mail queue, y lo intentara reenviar cada cierto tiempo
+8. Si logra establecer una conexion, se enviara el mail al servidore de mail destino (en caso de no ser el servidor principal, dicho servidor se encargara
+ de enviarlo al servidor principal, aunque tambien debera encargarse de entregar el correo al destinatario final)
+
+l)
+Como hay solo un servidor mail, durante un reinicio del mismo, no se podran recibir ni enviar mails en ese servidor
+Los mails que se quieran enviar desde ese servidor quedaran en el MUA, pendientes de enviar, o en una mail queue de un local MTA, y se reintentaran enviar luego de un tiempo
+Los mails que se quieran enviar hacia ese servidor, quedaran en la mail queue del relay MTA que los quiere enviar y se reintentaran enviar luego de un tiempo
+
+m)
+Agregaria un registro en los servidores de DNS:
+servidor-en-la-nube.com.ar 7200 IN MX <prioridad> mail2.redes2024.com.ar
+
+mail2-redes2024.com.ar 7200 IN A <ip servidor en la nube>
+
+La <prioridad> se deberia establecer mayor o menor dependiendo del nivel de fiabilidad, velocidad de tratado de requests, entre otros parametros, para
+ establecerlo como mas o menos prioritario que el servidor original de mail
