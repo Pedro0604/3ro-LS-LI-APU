@@ -1,0 +1,53 @@
+a)
+Es posible, en ese servidor habria un servicio de mail que este escuchando por conexiones SMTP en el puerto 25 y por conexiones IMAP/POP en el puerto 143/110
+A su vez, en el mismo servidor habria un servicio de web que este escuchando por conexiones HTTP en el puerto 80
+En el servidor de DNS dns2, deberian estar los siguientes registros:
+example.com 3600 IN MX mail1.example.com
+
+mail1.example.com 300 IN A 172.16.2.15
+www.example.com 300 IN A 172.16.2.15
+
+b)
+El MUA consultara por el registro MX del dominio example.com
+
+c)
+El servidor smtp-5 consultara por el registro MX del dominio example.com y luego por el registro A correspondiente a mail1.example.com
+
+d)
+Si, deberia realizar una consulta por el registro A correspondiente a mail1.example.com
+
+e)
+El servidor ns1 realizaria los siguientes pasos como consultas iterativas:
+1. Consulta al b.root-servers.net por example.com.
+2. Recibe la IP de c.gtld-servers.net. (192.26.92.30)
+3. Consulta a c.gtld-servers.net por example.com.
+4. Recibe la IP del servidor de DNS de example.com. (dns2.example.com=172.16.2.10)
+5. Consulta al servidor autoritativo de example.com. dns2.example.com por los registros MX
+6. Recibe los registros MX de example.com
+
+f)
+* Falso. El servidor DNS solo debe revisar la request DNS para responder a la consulta de los registros MX
+
+* Falso. Las capas inferiores solo analizan los datos correspondientes a su capa (TCP solo mirara los datos TCP, etc.)
+
+* MMM. Los protocolos de capa de aplicacion que vimos hasta ahora: HTTP/HTTPs, DNS, SMTP, FTP(?, IMAP y POP usan cabeceras, pero quizas no todos
+ los protocolos de capa de aplicacion lo hagan
+
+* Falso. Van en requests diferentes
+
+* Falso. Falso.
+
+g)
+Esto no se podria llevar a cabo puesto que el servidor de DNS ns1 tiene la recursion deshabilitada y como no es autoritativo para example.com
+ tampoco tendria losss datos necesarios para resolver la consulta
+
+h)
+Si accede a ver a sus mails por la web, debera consultar por el registro A correspondiente a www.example.com
+Si accede a ver sus mails por un MUA que no sea web, debera consultar por el registro MX correspondiente a www.example.com y luego por su registro A
+
+i)
+Para el envio del mail se usan:
+1. Para realizar el envio entre el MUA y el MSA, SMTP Submission con el puerto 587, mediante TCP
+2. Para realizar el envio entre el MSA y el MTA, SMTP con el puerto 25, mediante TCP
+3. Para realizar el envio entre el MTA de smtp-5.misitio.com.ar y el MTA de mail1.example.com, SMTP con el puerto 25, mediante TCP
+4. Para realizar la recepcion entre el MTA de mail1.example.com y el MUA de Alicia, IMAP/POP con el puerto 143/110, mediante TCP
