@@ -1,0 +1,27 @@
+sem mutex = 1, turno_de[P] = ([P] 0);
+Cola cola;
+bool libre = true;
+
+Process Persona [id = 0..P-1] {
+	P(mutex);
+	if(!libre) {
+		cola.push(id);
+		V(mutex);
+		P(turno_de[id]);
+	} else {
+		libre = false;
+		V(mutex);
+	}
+	
+	UsarTerminal();
+	
+	P(mutex);
+	if(!cola.empty()) {
+		int prox_id;
+		cola.pop(prox_id);
+		V(turno_de[prox_id]);
+	} else {
+		libre = true;
+	}
+	V(mutex);
+}

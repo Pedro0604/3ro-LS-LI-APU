@@ -1,0 +1,47 @@
+Monitor Boleteria {
+	int cant_vendidas = 0;
+	
+	Procedure comprar(nro_entrada: out int) {
+		if(cant_vendidas < E) {
+			vender(nro_entrada);
+		} else {
+			nro_entrada = -1;
+		}
+	}
+}
+
+Monitor AccesoBoleteria {
+	int cant_esperando = 0;
+	bool libre = true;
+	cond boleteria_libre;
+	
+	Procedure solicitar() {
+		if(!libre) {
+			cant_esperando ++;
+			wait(boleteria_libre);
+			cant_esperando --;
+		} else {
+			libre = false;
+		}
+	}
+	
+	Procedure liberar() {
+		if(cant_esperando > 0) {
+			signal(boleteria_libre);
+		} else {
+			libre = true;
+		}
+	} 
+}
+
+Process Persona [id = 0..P-1] {
+	int nro_entrada;
+	AccesoBoleteria.solicitar();
+	Boleteria.comprar(nro_entrada);
+	AccesoBoleteria.liberar();
+	if(nro_entrada != -1) {
+		print("Yay!");
+	} else {
+		print(":(");
+	}
+}

@@ -1,0 +1,48 @@
+sem llego[4] = ([4] 0), examen_entregado[4] = ([4] 0), mutex[4] = ([4] 1), examen_listo[4] = ([4] 0), nota_lista[100] = ([100] 0);
+int notas[100];
+Examen examen;
+Cola<int, ResultadoExamen> personas[4];
+
+Process Persona [0..99] {
+	int concurso = getConcurso();
+	ResultadoExamen resultado;
+	int nota;
+	
+	V(llego[concurso]);
+	
+	P(examen_entregado[concurso]);
+	resolverExamen(examen, resultado);
+	
+	P(mutex[concurso]);
+	personas[concurso].push(id, resultado);
+	V(mutex[concurso]);
+	
+	V(examen_listo[concurso]);
+	P(nota_lista[id]);
+	nota = notas[id];
+}
+
+Process Coordinador [id = 0..3] {
+	int nota, aux_id;
+	ResultadoExamen resultado;
+
+	for [i=0..24] {
+		P(llego[id]);
+	}
+	
+	for [i=0..24] {
+		V(examen_entregado[concurso]);
+	}
+	
+	for [i=0..24] {
+		P(examen_listo[id]);
+	
+		P(mutex[concurso]);
+		personas[concurso].pop(aux_id, resultado);
+		V(mutex[concurso]);
+		
+		corregirExamen(resultado, nota);
+		notas[aux_id] = nota;
+		V(nota_lista[aux_id]);
+	}
+}

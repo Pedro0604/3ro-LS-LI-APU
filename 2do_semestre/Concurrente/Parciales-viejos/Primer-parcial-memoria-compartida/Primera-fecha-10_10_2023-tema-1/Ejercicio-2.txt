@@ -1,0 +1,44 @@
+Monitor AccesoAMaquina {
+	cond hay_persona, turno_de[N], maquina_libre;
+	Cola cola;
+	bool libre = true;
+	
+	
+	Procedure solicitar_acceso(id: in int, edad: in int;, esta_embarazada: in bool) {
+		cola.insertar_ordenado(id, edad, esta_embarazada);
+		signal(hay_persona);
+		wait(turno_de[id]);
+	}
+	
+	Procedure dar_acceso() {
+		if(cola.empty()) {
+			wait(hay_persona);
+		}
+		
+		if(!libre) {
+			wait(maquina_libre);
+		}
+		libre = false;
+		
+		int prox_id;
+		cola.pop(prox_id);
+		signal(turno_de[prox_id]);
+	}
+	
+	Procedure liberar() {
+		libre = true;
+		signal(maquina_libre);
+	}
+}
+
+Process Persona [id = 0..N-1] {
+	AccesoAMaquina.solicitar_acceso(id, getEdad(id), estaEmbarazada(id));
+	Votar();
+	AccesoAMaquina.liberar();
+}
+
+Process AutoridadDeMesa {
+	while(true) {
+		AccesoAMaquina.dar_acceso();
+	}
+}

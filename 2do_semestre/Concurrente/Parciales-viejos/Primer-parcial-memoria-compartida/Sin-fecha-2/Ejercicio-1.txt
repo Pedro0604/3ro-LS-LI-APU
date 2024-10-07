@@ -1,0 +1,43 @@
+Monitor Centro {
+	Cola pacientes[2];
+	cond retirarse[N], hay_paciente[2];
+	
+	Procedure llegar(medico: in int, id: in int) {
+		if(medico == 1 || medico == 3) {
+			pacientes[0].push(id);
+			signal(hay_paciente[0]);
+		} else {
+			pacientes[1].push(id);
+			signal(hay_paciente[1]);
+		}
+		wait(retirarse[id]);
+	}
+	
+	Procedure siguiente(medico: in int, id: out int) {
+		if(pacientes[medico].empty()) {
+			wait(hay_paciente[medico]);
+		}
+		
+		pacientes[medico].pop(id);
+		pacientes[medico+1 mod 2].remove(id);
+	}
+	
+	Procedure avisarRetiro(id: in int) {
+		signal(retirarse[id]);
+	}
+}
+
+Process Paciente [id = 0..N-1] {
+	int medico = elegirMedico();
+	Centro.llegar();
+}
+
+Process Medico [id = 0..1] {
+	int id_paciente;
+	
+	while(true) {
+		Centro.siguiente(id, id_paciente);
+		atender(id_paciente);
+		Centro.avisarRetiro(id_paciente);
+	}
+}

@@ -1,0 +1,65 @@
+Monitor Aula {
+	int cant_alumnos_llegaron = 0, nota_alumno[45];
+	Cola alumnos_que_entregaron;
+	cond llegaron_todos, examen_recibido, nota_enviada, examen_entregado;
+	
+	Procedure llegar(){
+		cant_alumnos_llegaron ++;
+		if(cant_alumnos_llegaron == 45) {
+			signal(llegaron_todos);
+		}
+		wait(examen_recibido);
+	}
+	
+	Procedure entregarExamen(examen: in Examen, id: in int, nota: out int) {
+		alumnos_que_entregaron.enqueue(id, examen);
+		signal(examen_entregado);
+		wait(nota_enviada);
+		nota = nota_alumno[id];
+	}
+	
+	Procedure repartirExamenes() {
+		if(cant_alumnos_llegaron < 45) {
+			wait(llegaron_todos);
+		}
+		for [_ = 0..44] {
+			signal(examen_recibido);
+		}
+	}
+	
+	Procedure recibirExamen(id: in int, examen: out Examen) {
+		if(alumnos_que_entregaron.empty()) {
+			wait(examen_entregado);
+		}
+		alumnos_que_entregaron.dequeue(id, examen);
+	}
+	
+	Procedure enviarNota(id: in int, nota: in int) {
+		nota_alumno[id] = nota;
+		signal(nota_enviada);
+	}
+}
+
+Process Alumno [id = 0..44] {
+	int nota;
+	Examen examen:
+
+	Aula.llegar();
+	hacerExamen(examen);
+	Aula.entregarExamen(examen, id, nota);
+}
+
+Process Preceptor {
+	Aula.repartirExamenes();
+}
+
+Process Profesora {
+	int nota;
+	Examen examen;
+	
+	for [_ = 0..44] {
+		Aula.recibirExamen(id, examen);
+		corregirExamen(examen, nota);
+		Aula.enviarNota(id, nota);
+	}
+}

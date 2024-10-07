@@ -1,0 +1,26 @@
+sem mutex = 1, turno_de[P] = ([P] 0);
+Cola cola, cola_terminales[t] = terminales;
+
+Process Persona [id = 1..P] {
+	P(mutex);
+	if(terminales.empty()) {
+		cola.push(id);
+		V(mutex);
+		P(turno_de[id]);
+	}
+	Terminal terminal_a_usar;
+	cola_terminales.pop(terminal_a_usar);
+	V(mutex);
+	
+	UsarTerminal(terminal_a_usar);
+	
+	P(mutex);
+	cola_terminales.push(terminal_a_usar);
+	if(!cola.empty()) {
+		int prox_id;
+		cola.pop(prox_id);
+		V(turno_de[prox_id]);
+	} else {
+		V(mutex);
+	}
+}

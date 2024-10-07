@@ -1,0 +1,47 @@
+Monitor Escritorio {
+	cond tramite_resuelto;
+	Cola<id, Tramite> pedidos = new Cola();
+	Resultado resultados[N];
+	
+	Procedure tramitar(id: in int, solicitud: in Tramite, resultado: out Resultado) {
+		pedidos.push(id, solicitud);
+		wait(tramite_resuelto);
+		resultado = resultados[id];
+	}
+	
+	Procedure atenderPedido(id: out int, solicitud: out Tramite) {
+		if(pedidos.empty()) {
+			id = -1;
+		} else {
+			pedidos.pop(id, solicitud);
+		}
+	}
+	
+	Procedure devolverResultado(id: in int, resultado: in Resultado) {
+		resultados[id] = resultado;
+		signal(tramite_resuelto);
+	}
+}
+
+Process Persona [id = 0..N-1] {
+	Tramite tramite = getTramite();
+	Resultado resultado;
+	Escritorio.tramitar(id, tramite, resultado);
+}
+
+Process Empleado {
+	int id;
+	Tramite solicitud;
+	Resultado resultado;
+	
+	for [i = 0..N-1] {
+		Escritorio.atenderPedido(id, solicitud);
+		while(id == -1) {
+			delay(10min);
+			Escritorio.atenderPedido(id, solicitud);
+		}
+		
+		resolverTramite(solicitud);
+		Escritorio.devolverResultado(id, resultado);
+	}
+}

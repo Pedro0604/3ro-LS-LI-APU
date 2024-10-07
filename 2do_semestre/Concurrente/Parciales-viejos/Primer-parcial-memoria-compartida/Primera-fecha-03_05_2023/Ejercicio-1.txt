@@ -1,0 +1,38 @@
+sem mutex = 1, temperatura_lista = 0, accion_lista[15] = ([15] 0);
+Cola<int, int> pedidos = new Cola();
+int acciones[15];
+
+Process Controlador [id = 0..14] {
+	double temperatura;
+	while(true) {
+		medir(temperatura);
+		
+		P(mutex);
+		pedidos.push(id, temperatura);
+		V(mutex);
+		
+		V(temperatura_lista);
+		
+		P(accion_lista[id]);
+		actuar(acciones[id]);
+		
+		delay(x);
+	}
+}
+
+Process Central [id = 0..1] {
+	double temperatura;
+	int resultado, aux_id;
+	
+	while(true) {
+		P(temperatura_lista);
+		
+		P(mutex);
+		pedidos.pop(aux_id, temperatura);
+		V(mutex);
+		
+		determinar(temperatura, resultado);
+		acciones[aux_id] = resultado;
+		V(accion_lista[aux_id]);
+	}
+}

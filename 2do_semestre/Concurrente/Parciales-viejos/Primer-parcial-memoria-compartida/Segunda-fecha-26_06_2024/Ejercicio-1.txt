@@ -1,0 +1,33 @@
+sem mutex = 1, comprobante_listo = 0, puesto_abandonado = 0, llego_vehiculo = 0;
+Cola vehiculos = new Cola();
+Comprobante comprobante;
+
+Process Vehiculo [id = 0..19] {
+	Comprobante mi_comprobante;
+	
+	P(mutex);
+	vehiculos.push(id);
+	V(mutex);
+	
+	V(llego_vehiculo);
+	P(comprobante_listo[id]);
+	mi_comprobante = comprobante;
+	V(puesto_abandonado);
+}
+
+Process Empleado {
+	int id;
+	
+	for [i = 0..19] {
+		P(llego_vehiculo);
+		
+		P(mutex);
+		vehiculos.pop(id);
+		V(mutex);
+		
+		verificar(id);
+		comprobante = new Comprobante();
+		V(comprobante_listo[id]);
+		P(puesto_abandonado);
+	}
+}

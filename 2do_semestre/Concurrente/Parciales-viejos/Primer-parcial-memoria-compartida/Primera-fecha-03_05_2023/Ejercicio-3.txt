@@ -1,0 +1,30 @@
+Monitor AccesoPuente {
+	int cant_esperando = 0;
+	bool libre = true;
+	cond puente_libre;
+	
+	Procedure solicitar() {
+		if(!libre) {
+			cant_esperando ++;
+			wait(puente_libre);
+			cant_esperando --;
+		} else {
+			libre = false;
+		}
+	}
+	
+	Procedure liberar() {
+		if(cant_esperando > 0) {
+			signal(puente_libre);
+		} else {
+			libre = true;
+		}
+	} 
+}
+
+Process Auto [id = 0..N-1] {
+	int nro_entrada;
+	AccesoPuente.solicitar();
+	pasar();
+	AccesoPuente.liberar();
+}
