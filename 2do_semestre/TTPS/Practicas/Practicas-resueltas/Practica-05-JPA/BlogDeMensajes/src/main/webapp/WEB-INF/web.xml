@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" id="WebApp_ID" version="5.0">
+  <display-name>BlogDeMensajes</display-name>
+  <welcome-file-list>
+    <welcome-file>VisualizarMensajes</welcome-file>
+  </welcome-file-list>
+  <resource-ref>
+    <res-ref-name>jdbc/MySQLDS</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  <servlet>
+    <description></description>
+    <display-name>VisualizarMensajes</display-name>
+    <servlet-name>VisualizarMensajes</servlet-name>
+    <servlet-class>servlets.VisualizarMensajes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VisualizarMensajes</servlet-name>
+    <url-pattern>/VisualizarMensajes</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GuardarMensaje</display-name>
+    <servlet-name>GuardarMensaje</servlet-name>
+    <servlet-class>servlets.GuardarMensaje</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GuardarMensaje</servlet-name>
+    <url-pattern>/GuardarMensaje</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AgregarMensaje</display-name>
+    <servlet-name>AgregarMensaje</servlet-name>
+    <servlet-class>servlets.AgregarMensaje</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AgregarMensaje</servlet-name>
+    <url-pattern>/AgregarMensaje</url-pattern>
+  </servlet-mapping>
+</web-app>
