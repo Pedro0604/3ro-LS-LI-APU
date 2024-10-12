@@ -1,4 +1,4 @@
--- https://sotelo.ia-ugto.mx/archivos/ra/calc.htm
+-- https://dbis-uibk.github.io/relax/landing
 
 group: Ejercicio-04
 
