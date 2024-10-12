@@ -1,0 +1,340 @@
+-- https://sotelo.ia-ugto.mx/archivos/ra/calc.htm
+
+group: Ejercicio-04
+
+PASAJERO = {
+    pasajero_id:number, nombre:string, dni:number, puntaje:number
+    1, "Cassandra", 4259137, 1.17
+    2, "Amanda", 3041370, 7.62
+    3, "Justin", 70339289, 5.17
+    4, "Bradley", 88492779, 8.2
+    5, "Carlos", 51486863, 9.25
+    6, "Christopher", 20489180, 2.04
+    7, "Amanda", 44026340, 0.99
+    8, "Clarence", 91366303, 3.16
+    9, "Samantha", 83923791, 2.99
+    10, "Shawn", 37025924, 8.78
+    11, "Patricia", 30986308, 6.3
+    12, "Nicole", 54632516, 0.59
+    13, "Alison", 54032051, 3.21
+    14, "Catherine", 54758768, 6.27
+    15, "Abigail", 10946727, 4.13
+    16, "Amy", 83974353, 2.76
+    17, "Lisa", 68549957, 3.53
+    18, "Mary", 8388360, 2.85
+    19, "Priscilla", 48255408, 6.24
+    20, "Maria", 22405437, 9.86
+}
+
+PASAJERO_RESERVA = {
+    reserva_id:number, pasajero_id:number
+    1, 6
+    2, 13
+    3, 19
+    4, 9
+    5, 16
+    6, 15
+    7, 19
+    8, 12
+    9, 8
+    10, 15
+    11, 13
+    12, 17
+    13, 11
+    14, 4
+    15, 12
+    16, 18
+    17, 10
+    18, 2
+    19, 19
+    20, 7
+    21, 6
+    22, 8
+    23, 5
+    24, 13
+    25, 13
+    26, 17
+    27, 18
+    28, 20
+    29, 19
+    30, 15
+    31, 4
+    32, 2
+    33, 14
+    34, 9
+    35, 17
+    36, 17
+    37, 16
+    38, 5
+    39, 2
+    40, 2
+    41, 9
+    42, 11
+    43, 18
+    44, 8
+    45, 8
+    46, 13
+    47, 4
+    48, 8
+    49, 5
+    50, 5
+    51, 18
+    52, 8
+    53, 18
+    54, 14
+    55, 14
+    56, 15
+    57, 4
+    58, 4
+    59, 20
+    60, 17
+    61, 19
+    62, 15
+    63, 13
+    64, 10
+    65, 6
+    66, 3
+    67, 9
+    68, 6
+    69, 5
+    70, 15
+    71, 5
+    72, 5
+    73, 4
+    74, 11
+    75, 13
+    76, 4
+    77, 8
+    78, 10
+    79, 19
+    80, 6
+    81, 6
+    82, 19
+    83, 19
+    84, 17
+    85, 8
+    86, 17
+    87, 18
+    88, 12
+    89, 11
+    90, 5
+    91, 10
+    92, 13
+    93, 17
+    94, 12
+    95, 2
+    96, 10
+    97, 13
+    98, 2
+    99, 7
+    100, 2
+}
+
+RESERVA = {
+    reserva_id:number, vuelo_id:number, dia_reserva:number, mes_reserva:number, anio_reserva:number, monto:number, asiento:string
+    1, 5, 26, 1, 2024, 23627.07, "10E"
+    2, 88, 13, 10, 2025, 75881.34, "18D"
+    3, 34, 23, 9, 2023, 37306.59, "24A"
+    4, 55, 18, 2, 2024, 41814.55, "3F"
+    5, 46, 2, 5, 2024, 74945.55, "16C"
+    6, 78, 29, 6, 2025, 87234.2, "17B"
+    7, 87, 15, 10, 2024, 91398.34, "24C"
+    8, 91, 19, 9, 2023, 117192.05, "20F"
+    9, 87, 5, 9, 2024, 38766.13, "6E"
+    10, 40, 10, 9, 2023, 30403.09, "7B"
+    11, 96, 17, 4, 2023, 105685.24, "19B"
+    12, 88, 20, 1, 2025, 10757.4, "4B"
+    13, 93, 22, 4, 2024, 95078.07, "9E"
+    14, 50, 26, 10, 2024, 18375.41, "12C"
+    15, 82, 16, 8, 2023, 46250.48, "14E"
+    16, 34, 15, 3, 2024, 18416.03, "28A"
+    17, 77, 29, 11, 2024, 57119.67, "7E"
+    18, 50, 27, 6, 2023, 60293.78, "30A"
+    19, 43, 4, 8, 2023, 53367.61, "10A"
+    20, 78, 17, 11, 2023, 87628.3, "10C"
+    21, 75, 26, 9, 2025, 60121.17, "25F"
+    22, 14, 22, 3, 2025, 101909.6, "9C"
+    23, 86, 15, 5, 2024, 50157.54, "4A"
+    24, 22, 19, 3, 2023, 84882.36, "19F"
+    25, 59, 2, 7, 2023, 73313.06, "24D"
+    26, 41, 12, 11, 2024, 30802.92, "4A"
+    27, 71, 4, 5, 2023, 47773.67, "27D"
+    28, 37, 14, 4, 2025, 31688.18, "18D"
+    29, 98, 7, 12, 2025, 88473.44, "23A"
+    30, 48, 13, 6, 2025, 101734.37, "11C"
+    31, 88, 5, 12, 2025, 90150.35, "11D"
+    32, 65, 4, 12, 2024, 52820.63, "11E"
+    33, 47, 23, 6, 2025, 27770.06, "8F"
+    34, 21, 25, 2, 2023, 99963.2, "20F"
+    35, 60, 30, 7, 2024, 105342.54, "30B"
+    36, 27, 4, 5, 2023, 115357.51, "4C"
+    37, 8, 21, 3, 2023, 36955.87, "27A"
+    38, 19, 4, 8, 2025, 78044.08, "4D"
+    39, 19, 17, 12, 2024, 87485.91, "5F"
+    40, 73, 26, 7, 2024, 53076.15, "26A"
+    41, 33, 3, 4, 2025, 99792.48, "17E"
+    42, 61, 10, 7, 2023, 97782.96, "3B"
+    43, 52, 29, 8, 2025, 89607.97, "30F"
+    44, 76, 25, 1, 2023, 118104.53, "18F"
+    45, 42, 13, 9, 2023, 91153.12, "2D"
+    46, 97, 19, 5, 2023, 102596.21, "9C"
+    47, 8, 28, 2, 2025, 14155.0, "28B"
+    48, 32, 18, 10, 2025, 65554.14, "2A"
+    49, 76, 20, 12, 2023, 96193.56, "9A"
+    50, 74, 13, 6, 2025, 56370.14, "4E"
+    51, 90, 23, 11, 2024, 84105.42, "22F"
+    52, 56, 12, 3, 2025, 20484.0, "23C"
+    53, 50, 3, 3, 2023, 113771.73, "19E"
+    54, 60, 15, 6, 2025, 15105.94, "3E"
+    55, 100, 27, 8, 2024, 26008.22, "16D"
+    56, 3, 5, 5, 2024, 104445.15, "25A"
+    57, 66, 24, 5, 2024, 85502.59, "6D"
+    58, 71, 30, 3, 2023, 100499.46, "27C"
+    59, 1, 10, 7, 2025, 27812.54, "25C"
+    60, 87, 24, 8, 2024, 33798.06, "13D"
+    61, 71, 30, 5, 2025, 53770.45, "24E"
+    62, 28, 12, 11, 2023, 39284.55, "23A"
+    63, 45, 18, 9, 2023, 74218.12, "1A"
+    64, 88, 20, 7, 2024, 27804.17, "15F"
+    65, 52, 2, 12, 2025, 75246.85, "23B"
+    66, 52, 29, 2, 2023, 30318.66, "9D"
+    67, 36, 16, 9, 2025, 48635.87, "12D"
+    68, 84, 9, 8, 2024, 89119.56, "12C"
+    69, 100, 24, 4, 2024, 30834.58, "2D"
+    70, 49, 15, 4, 2025, 25158.37, "10C"
+    71, 100, 15, 5, 2025, 49366.92, "10C"
+    72, 29, 25, 5, 2023, 32318.47, "20F"
+    73, 44, 6, 8, 2023, 14799.58, "25D"
+    74, 27, 18, 7, 2023, 110277.18, "6B"
+    75, 14, 21, 10, 2023, 116889.74, "4B"
+    76, 96, 30, 5, 2023, 107418.39, "29B"
+    77, 6, 6, 7, 2025, 20939.27, "16F"
+    78, 75, 31, 10, 2024, 62184.34, "23A"
+    79, 8, 27, 10, 2024, 87844.37, "8C"
+    80, 29, 15, 9, 2024, 55782.95, "10A"
+    81, 65, 29, 12, 2023, 101798.47, "18D"
+    82, 62, 11, 11, 2024, 29667.01, "13F"
+    83, 36, 3, 7, 2023, 53086.76, "20F"
+    84, 22, 28, 6, 2025, 19903.76, "22A"
+    85, 86, 25, 8, 2025, 69285.69, "12A"
+    86, 86, 11, 4, 2023, 24907.53, "4D"
+    87, 74, 4, 6, 2025, 21009.27, "4C"
+    88, 70, 27, 8, 2024, 16781.51, "7C"
+    89, 33, 6, 11, 2024, 58240.15, "30D"
+    90, 1, 29, 10, 2025, 106129.67, "25C"
+    91, 3, 1, 12, 2023, 50665.37, "22A"
+    92, 94, 8, 4, 2023, 70310.65, "4A"
+    93, 73, 25, 7, 2024, 23855.98, "22B"
+    94, 77, 12, 1, 2024, 52932.97, "23E"
+    95, 63, 14, 12, 2025, 35018.83, "21A"
+    96, 36, 9, 11, 2023, 89549.33, "1B"
+    97, 100, 19, 3, 2023, 68779.06, "24E"
+    98, 79, 9, 10, 2025, 29174.56, "30B"
+    99, 64, 16, 6, 2024, 105835.9, "10B"
+    100, 71, 20, 1, 2025, 92853.23, "5A"
+}
+
+VUELO = {
+    vuelo_id:number, aeropuerto_salida:string, aeropuerto_destino:string, dia_vuelo:number, mes_vuelo:number, anio_vuelo:number
+    1, "Buenos Aires", "Buenos Aires", 17, 4, 2025
+    2, "Rosario", "Rosario", 13, 5, 2023
+    3, "Rosario", "Cordoba", 15, 7, 2023
+    4, "Buenos Aires", "Buenos Aires", 27, 5, 2025
+    5, "Cordoba", "Ministro Pistarini", 19, 12, 2024
+    6, "Ministro Pistarini", "Cordoba", 28, 2, 2025
+    7, "Cordoba", "Cordoba", 31, 6, 2025
+    8, "Buenos Aires", "Rosario", 6, 1, 2023
+    9, "Cordoba", "Cordoba", 6, 7, 2024
+    10, "Cordoba", "Ministro Pistarini", 16, 7, 2024
+    11, "Buenos Aires", "Cordoba", 1, 10, 2025
+    12, "Ministro Pistarini", "Rosario", 24, 6, 2023
+    13, "Buenos Aires", "Cordoba", 23, 2, 2025
+    14, "Rosario", "Buenos Aires", 21, 10, 2025
+    15, "Cordoba", "Rosario", 28, 4, 2024
+    16, "Ministro Pistarini", "Ministro Pistarini", 6, 5, 2025
+    17, "Cordoba", "Ministro Pistarini", 15, 12, 2024
+    18, "Rosario", "Rosario", 5, 8, 2024
+    19, "Rosario", "Rosario", 5, 7, 2024
+    20, "Ministro Pistarini", "Ministro Pistarini", 20, 11, 2023
+    21, "Cordoba", "Rosario", 7, 12, 2024
+    22, "Rosario", "Buenos Aires", 17, 4, 2024
+    23, "Buenos Aires", "Ministro Pistarini", 26, 8, 2023
+    24, "Ministro Pistarini", "Ministro Pistarini", 9, 8, 2025
+    25, "Rosario", "Ministro Pistarini", 23, 9, 2023
+    26, "Cordoba", "Buenos Aires", 5, 8, 2023
+    27, "Cordoba", "Cordoba", 29, 9, 2024
+    28, "Cordoba", "Ministro Pistarini", 15, 12, 2024
+    29, "Cordoba", "Buenos Aires", 9, 7, 2025
+    30, "Buenos Aires", "Cordoba", 19, 9, 2024
+    31, "Buenos Aires", "Cordoba", 27, 1, 2023
+    32, "Ministro Pistarini", "Rosario", 30, 9, 2025
+    33, "Ministro Pistarini", "Cordoba", 3, 11, 2025
+    34, "Ministro Pistarini", "Ministro Pistarini", 7, 9, 2024
+    35, "Buenos Aires", "Buenos Aires", 21, 1, 2024
+    36, "Rosario", "Cordoba", 20, 5, 2024
+    37, "Rosario", "Rosario", 12, 8, 2025
+    38, "Rosario", "Cordoba", 21, 3, 2024
+    39, "Ministro Pistarini", "Buenos Aires", 26, 5, 2023
+    40, "Buenos Aires", "Cordoba", 28, 7, 2025
+    41, "Buenos Aires", "Ministro Pistarini", 9, 8, 2023
+    42, "Ministro Pistarini", "Buenos Aires", 1, 10, 2023
+    43, "Buenos Aires", "Rosario", 9, 4, 2025
+    44, "Ministro Pistarini", "Buenos Aires", 17, 7, 2025
+    45, "Ministro Pistarini", "Cordoba", 9, 5, 2023
+    46, "Ministro Pistarini", "Buenos Aires", 7, 8, 2023
+    47, "Rosario", "Buenos Aires", 3, 7, 2024
+    48, "Ministro Pistarini", "Rosario", 1, 12, 2023
+    49, "Cordoba", "Rosario", 18, 1, 2024
+    50, "Buenos Aires", "Buenos Aires", 1, 1, 2023
+    51, "Buenos Aires", "Buenos Aires", 16, 12, 2024
+    52, "Rosario", "Rosario", 12, 12, 2024
+    53, "Rosario", "Cordoba", 2, 9, 2023
+    54, "Ministro Pistarini", "Ministro Pistarini", 23, 10, 2024
+    55, "Rosario", "Rosario", 13, 1, 2025
+    56, "Ministro Pistarini", "Ministro Pistarini", 22, 10, 2023
+    57, "Cordoba", "Buenos Aires", 19, 4, 2025
+    58, "Rosario", "Ministro Pistarini", 23, 1, 2023
+    59, "Ministro Pistarini", "Rosario", 23, 3, 2023
+    60, "Cordoba", "Ministro Pistarini", 11, 7, 2023
+    61, "Rosario", "Rosario", 2, 9, 2023
+    62, "Rosario", "Buenos Aires", 8, 10, 2025
+    63, "Rosario", "Buenos Aires", 1, 4, 2024
+    64, "Ministro Pistarini", "Rosario", 31, 4, 2025
+    65, "Cordoba", "Cordoba", 28, 12, 2024
+    66, "Ministro Pistarini", "Buenos Aires", 28, 1, 2025
+    67, "Rosario", "Rosario", 19, 7, 2024
+    68, "Cordoba", "Cordoba", 25, 10, 2024
+    69, "Buenos Aires", "Ministro Pistarini", 2, 3, 2024
+    70, "Rosario", "Buenos Aires", 29, 9, 2025
+    71, "Buenos Aires", "Cordoba", 14, 8, 2024
+    72, "Buenos Aires", "Rosario", 22, 8, 2023
+    73, "Rosario", "Rosario", 28, 4, 2024
+    74, "Ministro Pistarini", "Rosario", 20, 11, 2023
+    75, "Ministro Pistarini", "Rosario", 11, 6, 2025
+    76, "Cordoba", "Buenos Aires", 7, 7, 2025
+    77, "Rosario", "Rosario", 12, 10, 2025
+    78, "Ministro Pistarini", "Cordoba", 6, 7, 2024
+    79, "Buenos Aires", "Cordoba", 3, 12, 2024
+    80, "Cordoba", "Cordoba", 26, 5, 2024
+    81, "Buenos Aires", "Ministro Pistarini", 28, 10, 2025
+    82, "Ministro Pistarini", "Rosario", 29, 3, 2023
+    83, "Rosario", "Ministro Pistarini", 6, 4, 2025
+    84, "Buenos Aires", "Ministro Pistarini", 2, 7, 2023
+    85, "Buenos Aires", "Buenos Aires", 8, 7, 2023
+    86, "Rosario", "Rosario", 2, 11, 2024
+    87, "Ministro Pistarini", "Rosario", 11, 2, 2023
+    88, "Buenos Aires", "Buenos Aires", 12, 11, 2023
+    89, "Rosario", "Rosario", 21, 3, 2025
+    90, "Cordoba", "Buenos Aires", 18, 11, 2024
+    91, "Cordoba", "Cordoba", 23, 9, 2024
+    92, "Buenos Aires", "Cordoba", 4, 11, 2025
+    93, "Buenos Aires", "Cordoba", 5, 1, 2025
+    94, "Rosario", "Buenos Aires", 13, 6, 2023
+    95, "Buenos Aires", "Cordoba", 2, 1, 2025
+    96, "Cordoba", "Ministro Pistarini", 5, 9, 2023
+    97, "Ministro Pistarini", "Ministro Pistarini", 13, 9, 2025
+    98, "Cordoba", "Cordoba", 18, 6, 2025
+    99, "Rosario", "Ministro Pistarini", 16, 10, 2025
+    100, "Cordoba", "Ministro Pistarini", 11, 10, 2023
+}
+

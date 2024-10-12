@@ -1,0 +1,3 @@
+Vuelos_prox_anio = σ anio_vuelo≥2025 (VUELO)
+Res = pi pasajero_id, vuelo_id, asiento (Vuelos_prox_anio ⨝ RESERVA ⨝ PASAJERO_RESERVA)
+Res

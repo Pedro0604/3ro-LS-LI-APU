@@ -1,0 +1,4 @@
+Vuelos_agosto_pasado = σ anio_vuelo=2024 and mes_vuelo = 8 (VUELO)
+Vuelos_agosto_pasado_ba_cor = σ aeropuerto_salida='Buenos Aires' and aeropuerto_destino='Cordoba' (Vuelos_agosto_pasado)
+Res = pi monto (Vuelos_agosto_pasado ⨝ RESERVA)
+Res
