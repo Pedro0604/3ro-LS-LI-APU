@@ -1,0 +1,62 @@
+-- https://dbis-uibk.github.io/relax/landing
+
+group: Ejercicio-06
+
+DUENIO = {
+    id_dueno:number, nombre:string, telefono:string, direccion:string, dni:number
+    1, "Spencer", "908-284-4085", "9371 Strong Throughway Suite 374 East Jasonberg, NC 41882", 29651889
+    2, "Jacob", "9843510975", "375 Rebecca Greens Suite 650 Port Jessicatown, AS 93194", 33247367
+    3, "Anna", "3353710668", "629 Rachel Drive Kennethville, SD 48520", 39661841
+    4, "John", "817.669.2600x89351", "161 Sonia Lake Suite 996 Port Jade, MA 22628", 874915
+    5, "Ashley", "(992)425-8351", "999 Sanchez Highway Apt. 332 Rickyport, CA 61372", 26036655
+    6, "Andrew", "526-950-6903x256", "762 Rodriguez Center Port Jasonstad, MA 89601", 69207445
+    7, "Abigail", "284-988-2832", "871 Michael Mall Grantview, MT 75534", 54392459
+    8, "Jamie", "(909)463-6927", "PSC 9871, Box 5591 APO AE 09457", 34879335
+    9, "Anthony", "238-287-2048x4761", "04959 Melissa Creek Suite 852 East Samantha, PR 71539", 76559319
+    10, "James", "001-293-696-7314x4740", "368 Valdez Stravenue Ericside, MO 22685", 44462229
+}
+
+CHOFER = {
+    id_chofer:number, nombre:string, telefono:string, direccion:string, fecha_licencia_desde_dia:number, fecha_licencia_desde_mes:number, fecha_licencia_desde_anio:number, fecha_licencia_hasta_dia:number, fecha_licencia_hasta_mes:number, fecha_licencia_hasta_anio:number, dni:number
+    1, "Douglas", "(521)394-4898x80684", "5826 Chad Village New Codytown, NH 08813", 14, 8, 2024, 30, 12, 2025, 44462229
+    2, "Tiffany", "(399)582-4200x60251", "504 Palmer Common Apt. 575 Greenfort, MH 06227", 6, 5, 2023, 11, 2, 2024, 54562386
+    3, "Gary", "+1-496-961-8062x46632", "649 Robert Fall Suite 115 Randyville, MT 88715", 1, 5, 2025, 14, 3, 2024, 92400251
+    4, "Catherine", "(541)994-1389x6312", "203 Michelle Ville Apt. 956 Lake Reginaldton, NE 20178", 6, 2, 2025, 28, 5, 2025, 77618660
+    5, "Stephen", "(571)921-7813", "34285 William Rue Suite 424 Carlyport, MS 42340", 5, 10, 2023, 1, 1, 2024, 26929320
+    6, "Sara", "(523)551-3493", "35034 Emily Trace North Elizabeth, MD 78926", 29, 11, 2024, 22, 4, 2025, 69207445
+    7, "Lisa", "(931)508-8446", "56145 Henderson River Whiteshire, PW 53999", 24, 4, 2025, 1, 1, 2024, 84350138
+    8, "Holly", "6534701883", "0386 Noah Island South Alyssafurt, PR 72704", 11, 4, 2025, 21, 3, 2023, 99741075
+    9, "Paul", "(509)818-5420", "314 James Trafficway Apt. 834 Jacksonview, MN 10697", 24, 11, 2024, 14, 7, 2023, 10068684
+    10, "Cassandra", "001-492-277-9377x36721", "PSC 2694, Box 1802 APO AE 46612", 4, 12, 2024, 18, 2, 2025, 76559319
+    11, "Pepardo", "221-440-1231", "Calle peparda", 1, 1, 2019, 1, 1, 2024, 12341235
+}
+
+AUTO = {
+    patente:string, id_dueno:number, id_chofer:number, marca:string, modelo:string, anio:number
+    "4WW 703", 5, 10, "Hammond-Jones", "down", 2025
+    "9KO E59", 6, 1, "Braun, Miller and Freeman", "or", 2023
+    "FKE-667", 8, 7, "Chapman-Bradley", "clearly", 2024
+    "092-SFIB", 10, 4, "Solomon-Cross", "answer", 2023
+    "5-73509", 7, 10, "Dalton Ltd", "who", 2024
+    "4-94741Z", 8, 1, "Mcgrath Group", "rise", 2024
+    "ZYS 729", 10, 5, "Patterson-Meyer", "accept", 2025
+    "6S 3V3OQH", 10, 2, "Thomas-Mueller", "purpose", 2025
+    "VHU 0411", 5, 10, "Young and Sons", "level", 2025
+    "03Z R72", 2, 8, "White PLC", "interest", 2023
+    "ABC-DEF", 72, 11, "Volkswagen", "Gol", 2017
+}
+
+VIAJE = {
+    patente:string, hora_desde:number, hora_hasta:number, origen:string, destino:string, tarifa:number, metraje:number
+    "4WW 703", 3, 12, None, None, 6901.03, 87.18
+    "FKE-667", 20, 9, None, None, 6338.07, 180.26
+    "9KO E59", 3, 5, None, None, 676.57, 381.36
+    "FKE-667", 7, 23, None, None, 5470.86, 57.21
+    "092-SFIB", 8, 12, None, None, 7435.41, 133.58
+    "ZYS 729", 12, 17, None, None, 7658.33, 483.68
+    "5-73509", 16, 6, None, None, 9235.02, 493.51
+    "6S 3V3OQH", 16, 20, None, None, 7582.54, 80.76
+    "03Z R72", 22, 4, None, None, 4341.44, 36.56
+    "4WW 703", 16, 13, None, None, 3200.31, 89.91
+}
+

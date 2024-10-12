@@ -1,0 +1,3 @@
+CHOFERES_CADUCAN = π id_chofer (sigma fecha_licencia_hasta_dia = 1 and fecha_licencia_hasta_mes = 1 and fecha_licencia_hasta_anio  = 2024 CHOFER)
+AUTOS_CADUCAN = π patente, id_chofer (AUTO ⨝ CHOFERES_CADUCAN)
+AUTOS_CADUCAN
