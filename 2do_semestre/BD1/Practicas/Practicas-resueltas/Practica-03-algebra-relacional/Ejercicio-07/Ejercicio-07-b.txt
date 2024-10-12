@@ -1,0 +1,1 @@
+π nombreCompleto (σ nacionalidad = 'Argentina' and codigoDeCarrera ≠ 'LI07' (ESTUDIANTE))

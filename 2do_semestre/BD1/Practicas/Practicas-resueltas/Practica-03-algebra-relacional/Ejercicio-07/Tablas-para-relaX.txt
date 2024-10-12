@@ -1,0 +1,321 @@
+-- https://dbis-uibk.github.io/relax/landing
+
+group: Ejercicio-07
+
+CARRERA = {
+    codigoDeCarrera:string, nombre:string
+    "SO10", "participant"
+    "NT20", "themselves"
+    "FI03", "charge"
+    "AD07", "city"
+    "ED27", "arm"
+    "LS22", "bed"
+    "DI11", "small"
+    "SA26", "buy"
+    "SO10", "ball"
+    "MU13", "sell"
+    "LI07", "after"
+    "LT28", "their"
+    "LS12", "research"
+    "SA26", "front"
+    "DA18", "indeed"
+}
+
+ESTUDIANTE = {
+    legajo:number, nombreCompleto:string, nacionalidad:string, anioDeIngreso:number, codigoDeCarrera:string
+    1, "Edward", "Chile", 2021, "NT20"
+    2, "Philip", "Suecia", 2020, "LT28"
+    3, "Jerome", "Italia", 2019, "LS22"
+    4, "William", "Grecia", 2019, "DA18"
+    5, "Shannon", "Nicaragua", 2021, "AD07"
+    6, "Cheyenne", "Egipto", 2020, "LI07"
+    7, "Brian", "Portugal", 2021, "LT28"
+    8, "Elizabeth", "Guatemala", 2021, "SO10"
+    9, "Keith", "Argentina", 2021, "LI07"
+    10, "Chad", "Paises Bajos", 2021, "LS12"
+    11, "Dylan", "Arabia Saudita", 2019, "LS12"
+    12, "Andrea", "Honduras", 2019, "SO10"
+    13, "Mark", "Argentina", 2021, "FI03"
+    14, "Christopher", "Brasil", 2019, "AD07"
+    15, "Tyler", "India", 2020, "DI11"
+    16, "Marco", "Francia", 2021, "DA18"
+    17, "Kathryn", "Francia", 2021, "LS12"
+    18, "Chelsea", "Costa Rica", 2021, "FI03"
+    19, "Dwayne", "Argentina", 2019, "ED27"
+    20, "Bryce", "Suecia", 2020, "SO10"
+    21, "Scott", "Arabia Saudita", 2020, "LS12"
+    22, "Mckenzie", "Noruega", 2020, "SA26"
+    23, "Michael", "Reino Unido", 2021, "DI11"
+    24, "Michael", "Nigeria", 2019, "SO10"
+    25, "Kayla", "Argentina", 2021, "LS12"
+    26, "Karen", "Grecia", 2020, "LS22"
+    27, "Zachary", "China", 2019, "FI03"
+    28, "Joshua", "Kenia", 2020, "SA26"
+    29, "Scott", "Israel", 2019, "LT28"
+    30, "Sheila", "Argentina", 2019, "LI07"
+    31, "Jeremy", "Grecia", 2019, "ED27"
+    32, "Tony", "Arabia Saudita", 2021, "ED27"
+    33, "Karen", "Republica Dominicana", 2021, "MU13"
+    34, "Sara", "Alemania", 2020, "SA26"
+    35, "Donna", "Grecia", 2020, "MU13"
+    36, "Rhonda", "Paises Bajos", 2019, "LS22"
+    37, "Jon", "Honduras", 2020, "FI03"
+    38, "Brittany", "Rusia", 2021, "LS22"
+    39, "Matthew", "Argentina", 2020, "FI03"
+    40, "Gina", "Japon", 2020, "AD07"
+    41, "Tina", "Egipto", 2020, "SO10"
+    42, "Tyrone", "Irlanda", 2021, "DA18"
+    43, "Eric", "Colombia", 2021, "SO10"
+    44, "William", "Portugal", 2020, "SO10"
+    45, "Katherine", "Corea del Sur", 2021, "MU13"
+    46, "Matthew", "Belgica", 2020, "SO10"
+    47, "Larry", "Noruega", 2021, "SO10"
+    48, "Amanda", "Grecia", 2019, "MU13"
+    49, "Luis", "Suecia", 2020, "NT20"
+    50, "Taylor", "Rusia", 2019, "SA26"
+    51, "Tina", "El Salvador", 2019, "DI11"
+    52, "David", "Rusia", 2021, "SO10"
+    53, "Courtney", "Israel", 2021, "DI11"
+    54, "Emily", "Irlanda", 2021, "NT20"
+    55, "Gina", "Corea del Sur", 2020, "SA26"
+    56, "Jeffrey", "Turquia", 2021, "FI03"
+    57, "Daniel", "Dinamarca", 2019, "DA18"
+    58, "Dominique", "Dinamarca", 2020, "ED27"
+    59, "Aaron", "Kenia", 2020, "MU13"
+    60, "Austin", "Noruega", 2021, "SA26"
+    61, "Joseph", "India", 2019, "FI03"
+    62, "Joseph", "Suecia", 2021, "SA26"
+    63, "Michael", "Francia", 2019, "SO10"
+    64, "Christopher", "Suecia", 2020, "SO10"
+    65, "Richard", "Suecia", 2020, "LS22"
+    66, "Tyler", "Grecia", 2019, "LS12"
+    67, "Tracey", "Mexico", 2020, "DI11"
+    68, "Robin", "Japon", 2019, "FI03"
+    69, "Michael", "Grecia", 2020, "SA26"
+    70, "Jonathan", "Republica Dominicana", 2020, "SO10"
+    71, "Christine", "Grecia", 2021, "LT28"
+    72, "Joshua", "Brasil", 2020, "SA26"
+    73, "Bernard", "Cuba", 2019, "LS22"
+    74, "Kayla", "Paises Bajos", 2020, "AD07"
+    75, "Kenneth", "Japon", 2020, "MU13"
+    76, "Michael", "India", 2020, "DA18"
+    77, "Karen", "Uruguay", 2020, "ED27"
+    78, "Trevor", "Sudafrica", 2020, "DI11"
+    79, "Daniel", "Nicaragua", 2019, "LS12"
+    80, "Tammy", "India", 2019, "LS22"
+    81, "Jonathan", "Estados Unidos", 2021, "LS12"
+    82, "Meghan", "Italia", 2020, "DI11"
+    83, "Edward", "China", 2020, "SA26"
+    84, "Daniel", "Nueva Zelanda", 2020, "SA26"
+    85, "Justin", "Grecia", 2019, "SA26"
+    86, "Jason", "Grecia", 2019, "MU13"
+    87, "Julie", "Portugal", 2019, "SO10"
+    88, "Tracy", "Nueva Zelanda", 2021, "LS22"
+    89, "Zachary", "Dinamarca", 2021, "DA18"
+    90, "Richard", "Egipto", 2021, "SA26"
+    91, "Emily", "Brasil", 2020, "SO10"
+    92, "Samuel", "Rusia", 2021, "FI03"
+    93, "Rachel", "Colombia", 2019, "LI07"
+    94, "Barbara", "Israel", 2019, "DA18"
+    95, "Ashley", "Egipto", 2021, "SO10"
+    96, "Scott", "Republica Dominicana", 2020, "SA26"
+    97, "Sean", "Irlanda", 2021, "FI03"
+    98, "Jessica", "Paises Bajos", 2019, "ED27"
+    99, "Jacob", "Israel", 2019, "DI11"
+    100, "Karen", "Honduras", 2019, "MU13"
+    101, "Pepardo", "Argentina pa", 2021 "LS12"
+}
+
+INSCRIPCIONAMATERIA = {
+    legajo:number, codigoDeMateria:number
+    42, 12
+    72, 8
+    74, 5
+    39, 6
+    24, 5
+    74, 10
+    79, 6
+    86, 1
+    47, 8
+    13, 18
+    21, 15
+    25, 4
+    51, 12
+    38, 13
+    89, 9
+    2, 13
+    79, 16
+    20, 20
+    59, 4
+    54, 3
+    100, 5
+    57, 18
+    88, 1
+    21, 6
+    10, 11
+    83, 5
+    99, 11
+    65, 5
+    97, 17
+    86, 5
+    81, 4
+    74, 12
+    67, 9
+    51, 18
+    7, 2
+    20, 10
+    20, 2
+    10, 10
+    15, 20
+    82, 18
+    77, 14
+    96, 2
+    28, 11
+    44, 9
+    96, 8
+    21, 12
+    6, 17
+    69, 1
+    49, 10
+    56, 19
+    47, 2
+    81, 1
+    22, 11
+    72, 14
+    20, 15
+    96, 2
+    97, 14
+    90, 14
+    10, 4
+    80, 15
+    94, 10
+    53, 5
+    64, 10
+    46, 3
+    38, 7
+    78, 17
+    21, 15
+    33, 2
+    31, 1
+    84, 5
+    9, 16
+    62, 4
+    53, 15
+    18, 1
+    35, 11
+    42, 10
+    9, 16
+    54, 14
+    59, 19
+    9, 10
+    43, 10
+    59, 7
+    78, 16
+    1, 6
+    81, 1
+    100, 12
+    26, 12
+    93, 3
+    77, 18
+    67, 12
+    35, 18
+    60, 6
+    29, 8
+    46, 2
+    34, 9
+    35, 6
+    91, 5
+    36, 2
+    3, 8
+    95, 8
+    24, 3
+    58, 6
+    2, 15
+    74, 19
+    92, 17
+    25, 4
+    10, 7
+    67, 5
+    27, 7
+    95, 17
+    46, 13
+    91, 15
+    56, 19
+    70, 2
+    5, 16
+    51, 7
+    22, 12
+    93, 12
+    29, 12
+    76, 15
+    79, 3
+    15, 6
+    60, 15
+    99, 14
+    13, 18
+    101, 1
+    101, 2
+    101, 3
+    101, 4
+    101, 5
+    101, 6
+    101, 7
+    101, 8
+    101, 9
+    101, 10
+    101, 11
+    101, 12
+    101, 13
+    101, 14
+    101, 15
+    101, 16
+    101, 17
+    101, 18
+    101, 19
+    101, 20
+    23, 1
+    23, 2
+    23, 3
+    23, 4
+    23, 5
+    23, 6
+    23, 7
+    23, 8
+    23, 9
+    23, 10
+    23, 11
+    23, 12
+    23, 13
+    23, 14
+    23, 15
+    23, 16
+    23, 17
+    23, 18
+    23, 19
+    23, 20
+}
+
+MATERIA = {
+    codigoDeMateria:number, nombre:string
+    1, "late"
+    2, "manager"
+    3, "several"
+    4, "perhaps"
+    5, "probably"
+    6, "south"
+    7, "page"
+    8, "cultural"
+    9, "amount"
+    10, "military"
+    11, "once"
+    12, "stand"
+    13, "sell"
+    14, "TV"
+    15, "throughout"
+    16, "great"
+    17, "may"
+    18, "page"
+    19, "spring"
+    20, "Mr"
+}
+
