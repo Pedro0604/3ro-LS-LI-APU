@@ -3,9 +3,9 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import clasesDAO.FactoryDAO;
 import clasesDAO.MensajesDAO;
 import clasesDAO.UsuarioDAO;
-import clasesDAOImpljdbc.FactoryDAO;
 import clasesObjetosSistema.Mensaje;
 import clasesObjetosSistema.Usuario;
 import jakarta.servlet.ServletException;

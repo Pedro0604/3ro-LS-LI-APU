@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import clasesDAO.FactoryDAO;
 import clasesDAO.MensajesDAO;
-import clasesDAOImpljdbc.FactoryDAO;
 import clasesObjetosSistema.Mensaje;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
