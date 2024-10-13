@@ -1,0 +1,3 @@
+MUEBLE_MELAMINA_O_MDF = π id_mueble, id_fabricante (MUEBLE ⨝ σ nombremadera = 'Melamina' or nombremadera = 'MDF' (TIPOMADERA))
+FABRICANTES_MELAMINA_O_MDF = π nombrefabricante (FABRICANTE ⨝ MUEBLE_MELAMINA_O_MDF)
+FABRICANTES_MELAMINA_O_MDF

@@ -1,0 +1,2 @@
+FABRICANTE_TIPO_MADERA = π id_fabricante, id_tipomadera (MUEBLE ⨝ FABRICANTE)
+FABRICANTE_TIPO_MADERA ÷ π id_tipomadera (TIPOMADERA)

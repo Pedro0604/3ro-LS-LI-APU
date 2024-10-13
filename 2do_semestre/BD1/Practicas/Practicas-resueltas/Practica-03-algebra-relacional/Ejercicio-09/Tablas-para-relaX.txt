@@ -1,0 +1,128 @@
+-- https://dbis-uibk.github.io/relax/landing
+
+group: Ejercicio-09
+
+TIPOMUEBLE = {
+    id_tipomueble:number, descripcion:string
+    1, "television"
+    2, "year"
+    3, "drug"
+    4, "charge"
+    5, "nearly"
+}
+
+FABRICANTE = {
+    id_fabricante:number, nombrefabricante:string, cuit:number
+    1, "Amy", 6239693
+    2, "Catherine", 94684780
+    3, "Nicholas", 99084295
+    4, "Rebecca", 57252972
+    5, "Oficinista", 9112592
+    6, "Joseph", 96390329
+    7, "Dwayne", 51844812
+    8, "Nancy", 30634034
+    9, "William", 42281205
+    10, "Thomas", 77161570
+    11, "Tracy", 47327908
+    12, "Rebecca", 49444725
+    13, "Sarah", 99186467
+    14, "Patricia", 33029469
+    15, "Jay", 96197058
+    16, "Maderero", 34523423
+    17, "Bowlinger" 8888888
+    18, "Ambientador" 23534526
+    19, "Cocinero limpio" 3453234
+}
+
+TIPOMADERA = {
+    id_tipomadera:number, nombremadera:string
+    1, "Melamina"
+    2, "MDF"
+    3, "Pino"
+    4, "Roble"
+    5, "Cedro"
+}
+
+AMBIENTE = {
+    id_ambiente:number, descripcionambiente:string
+    1, "Banio"
+    2, "Cocina"
+    3, "Lavadero"
+    4, "Oficina"
+    5, "Sala de Estar"
+}
+
+MUEBLE = {
+    id_mueble:number, id_tipomueble:number, id_fabricante:number, id_tipomadera:number, precio:number, dimensiones:string, descripcion:string
+    1, 1, 15, 2, 220710.66, "performance", "imagine"
+    2, 1, 4, 5, 162640.41, "reveal", "interview"
+    3, 5, 10, 1, 239086.69, "street", "family"
+    4, 1, 2, 2, 17423.49, "military", "list"
+    5, 1, 3, 3, 85335.07, "say", "memory"
+    6, 2, 7, 2, 164777.28, "choose", "exist"
+    7, 5, 2, 2, 249942.9, "prevent", "lot"
+    8, 4, 11, 2, 135199.45, "local", "sign"
+    9, 1, 12, 5, 64887.31, "then", "process"
+    10, 2, 9, 2, 168530.14, "test", "civil"
+    11, 3, 10, 5, 16716.0, "Democrat", "now"
+    12, 4, 1, 5, 128437.46, "eight", "also"
+    13, 1, 3, 4, 101662.78, "together", "day"
+    14, 2, 6, 5, 247141.76, "popular", "current"
+    15, 2, 5, 2, 14052.99, "outside", "husband"
+    16, 3, 7, 3, 70491.59, "understand", "bag"
+    17, 3, 14, 5, 181498.06, "material", "would"
+    18, 4, 14, 3, 155998.87, "company", "deal"
+    19, 1, 2, 2, 157413.04, "now", "leg"
+    20, 4, 1, 5, 120814.82, "to", "wall"
+    21, 1, 16, 1, 43532.12, "22x24", "Muy lindo"
+    22, 3, 16, 2, 43532.12, "22x24", "Muy feo"
+    23, 3, 16, 3, 43532.12, "22x24", "Muy hecho mierda"
+    24, 2, 16, 4, 43532.12, "22x24", "Muy fachero"
+    25, 1, 16, 5, 43532.12, "22x24", "Muy rechinante"
+    26, 1, 17, 3, 43532.12, "22x24", "Muy silencioso"
+    27, 5, 17, 3, 43532.12, "22x24", "Muy blanco"
+    28, 3, 17, 3, 43532.12, "22x24", "Muy negro :O"
+    29, 1, 18, 1, 43532.12, "22x24", "Muy lindo"
+    30, 3, 18, 2, 43532.12, "22x24", "Muy feo"
+    31, 3, 18, 2, 43532.12, "22x24", "Muy hecho mierda"
+    32, 2, 18, 2, 43532.12, "22x24", "Muy fachero"
+    33, 1, 18, 1, 43532.12, "22x24", "Muy rechinante"
+    34, 1, 19, 1, 43532.12, "22x24", "Muy feo"
+    35, 3, 19, 3, 43532.12, "22x24", "Muy hecho mierda"
+    36, 2, 19, 4, 43532.12, "22x24", "Muy fachero"
+    37, 1, 19, 1, 43532.12, "22x24", "Muy rechinante"
+}
+
+MUEBLEAMBIENTE = {
+    id_mueble:number, id_ambiente:number
+    12, 1
+    3, 1
+    4, 5
+    17, 1
+    1, 4
+    19, 3
+    10, 4
+    3, 2
+    10, 2
+    2, 3
+    13, 1
+    14, 2
+    15, 4
+    16, 2
+    1, 1
+    7, 1
+    17, 5
+    12, 5
+    18, 3
+    9, 5
+    29, 1
+    30, 2
+    31, 3
+    32, 4
+    33, 5
+    34, 1
+    35, 1
+    36, 2
+    37, 2
+}
+
