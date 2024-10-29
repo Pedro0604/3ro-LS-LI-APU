@@ -1,5 +1,5 @@
-MUEBLE_CEDRO = π id_mueble, id_fabricante (MUEBLE ⨝ σ nombremadera = 'Cedro' (TIPOMADERA))
-MUEBLE_ROBLE = π id_mueble, id_fabricante (MUEBLE ⨝ σ nombremadera = 'Roble' (TIPOMADERA))
+MUEBLE_CEDRO = π id_fabricante (MUEBLE ⨝ σ nombremadera = 'Cedro' (TIPOMADERA))
+MUEBLE_ROBLE = π id_fabricante (MUEBLE ⨝ σ nombremadera = 'Roble' (TIPOMADERA))
 FABRICANTES_CEDRO = π nombrefabricante (FABRICANTE ⨝ MUEBLE_CEDRO)
 FABRICANTES_ROBLE = π nombrefabricante (FABRICANTE ⨝ MUEBLE_ROBLE)
 FABRICANTES_CEDRO_Y_ROBLE = FABRICANTES_CEDRO ∩ FABRICANTES_ROBLE

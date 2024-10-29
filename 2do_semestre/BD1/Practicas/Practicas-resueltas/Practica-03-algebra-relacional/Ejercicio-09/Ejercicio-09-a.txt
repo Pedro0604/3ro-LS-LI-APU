@@ -3,3 +3,12 @@ FABRICANTES_NO_PINO = π id_fabricante, nombrefabricante (MUEBLES_NO_PINO ⨝ FA
 FABRICANTES_PINO_O_VACIO = (π id_fabricante, nombrefabricante (FABRICANTE) - FABRICANTES_NO_PINO)
 FABRICANTES_SOLO_PINO = π nombrefabricante (FABRICANTES_PINO_O_VACIO ⨝ MUEBLE)
 FABRICANTES_SOLO_PINO
+
+-- Otra solución
+
+FABRICANTES_PINO = pi id_fabricante(MUEBLE ⨝ pi id_tipomadera(σ nombremadera = 'Pino'(TIPOMADERA)))
+
+FABRICANTES_NO_PINO = pi id_fabricante(MUEBLE ⨝ pi id_tipomadera(σ nombremadera ≠ 'Pino'(TIPOMADERA)))
+
+FABRICANTES_SOLO_PINO = pi nombrefabricante((FABRICANTES_PINO - FABRICANTES_NO_PINO) ⨝ FABRICANTE)
+FABRICANTES_SOLO_PINO
