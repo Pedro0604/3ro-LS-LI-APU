@@ -1,0 +1,14 @@
+9)
+a. 	En la red 172.26.22.0/30, el host 172.26.22.3 no tiene una dirección correcta, ya que dicha dirección es la dirección de broadcast de la red
+	Se podría:
+		- Modificar la dirección para que sea la 172.26.22.2
+		- O modificar la máscara a /29 para que la dirección 172.26.22.3 sea una dirección válida
+
+	En la red 172.17.10.0/28, el host 172.17.10.17 no tiene una dirección correcta, ya que dicha dirección no es válida en la red
+	Se podría:
+		- Modificar la dirección para que sea una dirección válida (entre 172.17.10.1 y 172.17.10.13)
+		- O modificar la máscara a /27 para que la dirección 172.17.10.17 sea una dirección válida
+
+b.	Se tomaron 16 bits para hacer subredes, por lo que se podrían generar 2^16 = 65536 redes
+
+c.	La única red pública es la red 191.26.145.0/24, el resto son privadas
