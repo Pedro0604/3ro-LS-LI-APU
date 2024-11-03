@@ -1,0 +1,32 @@
+Process Persona [id = 0..P-1] {
+	Admin!solicitarTerminal(id);
+	Terminal?pasar();
+	usarTerminal();
+	Terminal!liberar();
+}
+
+Process Admin {
+	Cola<int> personas;
+	int cantPersonas = 0;
+	
+	do {
+	-	(cantPersonas<P); Persona[*]?solicitarTerminal(idPersona) -> {
+			personas.push(idPersona);
+			cantPersonas ++;
+		}
+	-	(!personas.empty()); Terminal?listo() -> {
+			Terminal!atender(personas.pop());
+		}
+	}
+}
+
+Process Terminal {
+	int idPersona;
+
+	for [_ = 0..P-1] {
+		Admin!listo();
+		Admin?atender(idPersona);
+		Persona[idPersona]!pasar();
+		Persona[idPersona]?liberar();
+	}
+}

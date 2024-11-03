@@ -1,0 +1,22 @@
+chan enviarDocumento(Documento), documentoImpreso(Documento);
+
+Process Empleado [id = 0..99] {
+	Documento documento;
+	
+	while (true) {
+		documento = getDocumento();
+		send enviarDocumento(documento, id);
+		receive documentoImpreso[id](documento);
+	}
+}
+
+Process Impresora [id = 0..4] {
+	Documento documento, docImpr;
+	int idEmpleado;
+	
+	while (true) {
+		receive enviarDocumento(documento, idEmpleado);
+		docImpr = imprimir(documento);
+		send documentoImpreso[idEmpleado](docImpr);
+	}
+}

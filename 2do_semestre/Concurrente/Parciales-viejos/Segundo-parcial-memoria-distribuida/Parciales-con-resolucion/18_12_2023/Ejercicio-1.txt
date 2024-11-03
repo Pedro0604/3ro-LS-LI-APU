@@ -1,0 +1,41 @@
+chan solicitud(Boleta[], Dinero, int), solicitudPrioritaria(Boleta[], Dinero, int), solicitudEmbarazada(Boleta[], Dinero, int), solicitudEnviada(), vuelto[0..P-1](Dinero, text);
+
+Process Persona [id = 0..P-1] {
+	Dinero pago, vuelto;
+	text recibos;
+	
+	Boleta[] boletas = getBoletas();
+	
+	bool estoyEmbarazada = getEmbarazo();
+	
+	if (estoyEmbarazada) {
+		send solicitudEmbarazada(boletas, pago, id);
+	} else if (boletas.length() < 5) {
+		send solicitudPrioritaria(boletas, pago, id);
+	} else {
+		send solicitud(boletas, pago, id);
+	}
+	send solicitudEnviada();
+	
+	receive vuelto[id](vuelto, recibos);
+}
+
+Process Cajero {
+	Dinero pago, vuelto;
+	text recibos;
+	Boleta[] boletas;
+	int idPersona;
+	
+	while(true) {
+		receive solicitudEnviada();
+		if (empty(solicitudEmbarazada) and empty(solicitudPrioritaria)) {
+			receive solicitud(boletas, pago, idPersona);
+		} else if (empty(solicitudEmbarazada)) {
+			receive solicitudPrioritaria(boletas, pago, idPersona);
+		} else {
+			receive solicitudEmbarazada(boletas, pago, idPersona);
+		}
+		procesarPago(boletas, pago, vuelto, recibos);
+		vuelto[idPersona](vuelto, recibos);
+	}
+}

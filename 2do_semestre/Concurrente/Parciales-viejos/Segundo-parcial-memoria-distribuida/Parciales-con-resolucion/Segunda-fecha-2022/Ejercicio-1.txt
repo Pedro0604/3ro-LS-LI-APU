@@ -1,0 +1,51 @@
+Process Competidor [id = 0..N-1] {
+	Desafio desafio;
+	Solucion solucion;
+	bool correcto = false;
+	Correccion correccion;
+
+	Organizador!obtenerDesafio(id);
+	Organizador?desafioARealizar(desafio);
+	
+	while (!correcto) {
+		solucion = resolver(desafio);
+		Organizador!entregar(solucion, id);
+		Supervisor[*]?correccion(correccion, correcto);
+	}
+}
+
+Process Organizador {
+	int idCompetidor, idSupervisor;
+	Desafio desafio = getDesafio();
+	Solucion solucion;
+	Cola<Solucion, int> soluciones;
+
+	for [i = 0..N-1] {
+		Competidor[*]?obtenerDesafio(idCompetidor);
+		Competidor[idCompetidor]!desafioARealizar(desafio);
+	}
+	
+	do {
+		-	Competidor[*]?entregar(solucion, idCompetidor) -> {
+				soluciones.push(solucion, idCompetidor);
+			}
+		-	(!soluciones.empty()); Supervisor[*]?listo(idSupervisor) -> {
+				(solucion, idCompetidor) = soluciones.pop();
+				Supervisor[idSupervisor]!corregir(solucion, idCompetidor);
+			}
+	}
+}
+
+Process Supervisor [id = 0..S-1] {
+	int idCompetidor;
+	Solucion solucion;
+	Correccion correccion;
+	
+	while (true) {
+		Organizador!listo(id);
+		Organizador?corregir(solucion, idCompetidor);
+		
+		(correccion, correcto) = corregirSolucion(solucion);
+		Competidor[idCompetidor]!correccion(correccion, correcto);
+	}
+}

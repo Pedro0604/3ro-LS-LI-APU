@@ -1,0 +1,40 @@
+chan realizarPedido(Pedido, int), devolverResultado[0..C-1](Resultado), listo(int), pedidoAResolver[0..V-1](Pedido, int);
+
+Process Cliente [id = 0..C-1] {
+	Pedido pedido = getPedido();
+	Resultado resultado;
+	send realizarPedido(pedido, id);
+	receive devolverResultado[id](resultado);
+}
+
+Process Coordinador {
+	Pedido pedido;
+	int idCliente, idVendedor;
+	
+	while (true) {
+		receive listo(idVendedor);
+		if (empty(realizarPedido)) {
+			send pedidoAResolver[idVendedor](null, -1);
+		} else {
+			receive realizarPedido(pedido, idCliente);
+			send pedidoAResolver[idVendedor](pedido, idCliente);
+		}
+	}
+}
+
+Process Vendedor [id = 0..V-1] {
+	Pedido pedido;
+	Resultado resultado;
+	int idCliente;
+
+	while (true) {
+		send listo(id);
+		receive pedidoAResolver[id](pedido, idCliente);
+		if (idCliente == -1) {
+			delay(rand(2, 4)) # Controla stock
+		} else {
+			resolverPedido(pedido, idCliente, resultado);
+			send devolverResultado[idCliente](resultado);
+		}
+	}
+}

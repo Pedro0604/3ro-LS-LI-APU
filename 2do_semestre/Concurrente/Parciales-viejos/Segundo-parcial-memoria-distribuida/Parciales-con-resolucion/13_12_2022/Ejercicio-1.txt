@@ -1,0 +1,33 @@
+Process Estudiante [id = 0..E-1] {
+	Admin!solicitarHorno(id);
+	Horno?pasar();
+	usarHorno();
+	Horno!liberar();
+}
+
+Process Admin {
+	Cola<Estudiante> estudiantes;
+	int idEstudiante, cantEstudiantes = 0;
+	
+	do {
+		-	(cantEstudiantes < E); Estudiante[*]?solicitarHorno(idEstudiante) -> {
+				estudiantes.push(idEstudiante);
+				cantEstudiantes ++;
+			}
+		-	(!estudiantes.empty()); Horno?listo() -> {
+				Horno!acceso(estudiantes.pop());
+			}
+	}
+}
+
+
+Process Horno {
+	int idEstudiante;
+
+	for [_ = 0..E-1] {
+		Admin!listo();
+		Admin?acceso(idEstudiante);
+		Estudiante[idEstudiante]!pasar();
+		Estudiante[idEstudiante]?liberar();
+	}
+}

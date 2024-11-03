@@ -1,0 +1,36 @@
+Process Empleado [id = 0..99] {
+	Documento documento;
+	
+	while (true) {
+		documento = getDocumento();
+		Coordinador!enviarDocumento(documento, id);
+		Impresora[*]?documentoImpreso(documento);
+	}
+}
+
+Process Coordinador {
+	Cola<Documento, int> documentos;
+	Documento documento;
+	int idEmpleado, idImpresora;
+	
+	do {
+		-	Empleado?enviarDocumento(documento, idEmpleado) -> {
+				documentos.push(documento, idEmpleado);
+			}
+		-	(!documentos.empty()); Impresora?lista(idImpresora) -> {
+				Impresora?imprimiteEsto[idImpresora](documentos.pop());
+			}
+	}
+}
+
+Process Impresora [id = 0..4] {
+	Documento documento, docImpr;
+	int idEmpleado;
+	
+	while (true) {
+		Coordinador!lista(id);
+		Coordinador?imprimiteEsto(documento, idEmpleado);
+		docImpr = imprimir(documento);
+		Empleado[idEmpleado]!documentoImpreso(docImpr);
+	}
+}
