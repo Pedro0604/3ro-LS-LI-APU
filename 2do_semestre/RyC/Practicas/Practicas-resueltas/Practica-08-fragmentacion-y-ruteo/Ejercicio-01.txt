@@ -1,0 +1,26 @@
+1)
+	*
+		* IP origen = 10.0.0.20/24
+		* IP destino = 10.0.2.20/24
+		* MF = 0
+		* Fragment offset = 0
+		
+	* Como la red entre R1 y R2 tiene como MTU 600B y el paquete es de 1500B, se deberá fragmentar en 3 paquetes para poder ser enviado
+	
+	* Todos los paquetes tendran en el campo Identification el valor 20543 y un header length de 20
+		* Paquete 1:
+			* Total length = 596
+			* MF = 1
+			* Fragment offset = 0
+		* Paquete 2:
+			* Total length = 596
+			* MF = 1
+			* Fragment offset = 72
+		* Paquete 1:
+			* Total length = 348
+			* MF = 0
+			* Fragment offset = 144
+			
+	* Los fragmentos se unen nuevamente al llegar a pc2. Si un fragmento no llega, como IP no tiene forma de manejarlo, dependerá de capa de transporte
+	
+	* Se fragmenta
