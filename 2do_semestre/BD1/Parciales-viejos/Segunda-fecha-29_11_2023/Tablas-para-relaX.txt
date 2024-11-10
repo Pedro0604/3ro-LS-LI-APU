@@ -1,0 +1,60 @@
+-- https://dbis-uibk.github.io/relax/landing
+
+group: 29_11_2023
+
+EMPLEADO = {
+    empleado_id:number, email:string, nombre:string, anios_antiguedad:number
+    1, "meganschwartz@example.net", "Jimmy", 14
+    2, "theresa06@example.org", "Amanda", 15
+    3, "lawsonbrenda@example.org", "Shawn", 15
+    4, "melissamyers@example.org", "Kyle", 15
+    5, "ljackson@example.net", "Joseph", 15
+    6, "ygutierrez@example.com", "Kelsey", 14
+    7, "walterpeterson@example.org", "Erika", 13
+    8, "wesleyrivera@example.org", "Megan", 9
+    9, "taylortucker@example.org", "Nathaniel", 7
+    10, "shartman@example.net", "Margaret", 10
+}
+
+PREMIO = {
+    premio_id:number, descripcion:string
+    1, "describe"
+    2, "of"
+    3, "result"
+}
+
+RECIBE_PREMIO = {
+    empleado_id:number, premio_id:number
+    5, 1
+    7, 1
+    6, 3
+    4, 1
+    10, 1
+    9, 1
+    1, 1
+    4, 3
+    9, 1
+    4, 1
+    1, 1
+    5, 3
+    7, 1
+    1, 1
+    6, 2
+}
+
+SANCION = {
+    sancion_id:number, descripcion:string
+    1, "of"
+    2, "television"
+    3, "if"
+}
+
+RECIBE_SANCION = {
+    empleado_id:number, sancion_id:number, gravedad:number
+    7, 1, 2
+    10, 3, 3
+    2, 3, 2
+    10, 3, 9
+    6, 2, 4
+}
+
