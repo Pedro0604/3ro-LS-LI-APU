@@ -1,0 +1,51 @@
+-- https://dbis-uibk.github.io/relax/landing
+
+group: 13/12/2023
+
+DUENIO = {
+    id_dueno:number, nombre:string, telefono:string, direccion:string, dni:number
+    1, "Andres", "+1-935-616-8295", "363 Brandon Hill East Ericbury, WV 99705", 13062065
+    2, "Laura", "869.501.2782x5159", "436 Jones Islands Valentineport, GA 10848", 59539127
+    3, "Cynthia", "991.503.3315", "USNV Lawrence FPO AA 86573", 1019892
+    4, "Robert", "001-920-314-7516", "8428 Rogers Cliffs Debraland, MH 40783", 1078260
+    5, "Matthew", "877.983.1972", "594 Horton Lodge North Caitlinmouth, PA 97992", 80371597
+    6, "Hailey", "2303915230", "6414 Tiffany Port Apt. 344 Gomezchester, FM 00846", 43730988
+    7, "Maria", "(989)618-1628", "58434 Scott Crest East Judyside, WY 91087", 25577191
+    8, "Jamie", "+1-246-828-0943x17839", "4203 Becker Valleys Biancachester, KY 96926", 67679996
+    9, "Susan", "+1-211-589-8038x592", "295 Jesus Ford Suite 698 Pachecofort, MP 92765", 30388298
+    10, "Raven", "(624)833-2584x29389", "5611 Kathryn Cove Apt. 779 North Zacharyfurt, AS 44468", 24754190
+}
+
+CHOFER = {
+    id_chofer:number, nombre:string, telefono:string, direccion:string, dni:number
+    1, "Todd", "878-269-1650", "69176 Tran Route Suite 543 Sellersside, IN 17590", 1019892
+    2, "Michael", "001-977-499-6866x3029", "94262 Padilla Gardens Apt. 100 South Billy, NJ 83107", 30388298
+    3, "Robert", "8456353415", "93347 Christine Stravenue Apt. 905 Stephanieland, AR 55822", 24754190
+    4, "Kylie", "9408835148", "92599 Paul Parkway Suite 937 Darleneland, WA 32139", 24754190
+    5, "Stephen", "+1-381-595-9137x84975", "6704 Martinez Via Port Kimberly, MI 20843", 13062065
+    6, "Carl", "344-265-4124", "948 Barrera Manor Apt. 103 Lake Tina, SD 96955", 80371597
+    7, "Daniel", "+1-716-307-1699", "317 Danielle Rest Jonesfort, AL 00671", 1078260
+    8, "Kristina", "357.694.3937", "PSC 3478, Box 3349 APO AP 01497", 80371597
+    9, "Richard", "(218)802-5535x2789", "420 Brent Course Veronicaburgh, CT 54222", 43730988
+    10, "Michael", "894-679-6085x890", "04258 Lee Rapids Apt. 355 Alexanderstad, CT 20618", 30388298
+}
+
+AUTO = {
+    patente:string, id_dueno:number, id_chofer:number, marca:string, modelo:string, anio:number
+    "TH7 E7W", 8, 1, VOLVO, "travel", 2024
+    "1W SR988", 4, 2, FIAT, "project", 2024
+    "XXZ 901", 2, 6, FIAT, "close", 2024
+    "439 7JZ", 1, 10, VOLVO, "four", 2024
+    "5921 DC", 2, 5, RENAULT, "support", 2025
+    "WJE 014", 3, 7, AUDI, "system", 2024
+    "9LX65", 9, 7, VOLVO, "thank", 2025
+    "4A 6860G", 4, 1, AUDI, "company", 2023
+    "0-6406Z", 10, 1, AUDI, "hotel", 2025
+    "TDZ-889", 4, 5, RENAULT, "if", 2023
+    "469-HYDT", 3, 4, FIAT, "moment", 2023
+    "MCY-2000", 6, 8, FIAT, "street", 2023
+    "099 EDK", 9, 1, VOLVO, "west", 2025
+    "02B 6918", 6, 8, FIAT, "west", 2025
+    "965J0", 10, 6, AUDI, "hotel", 2025
+}
+
