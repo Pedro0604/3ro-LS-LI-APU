@@ -47,7 +47,7 @@
 		En otros casos, como con las direcciones 10.0.0.x no se puede porque tienen diferentes interfaces
 		
 	e.
-		Creo que no porque 205.20.0.128/192 tienen diferentes interfaces para Rtr-B
+		No porque 205.20.0.128/192 tienen diferentes interfaces para Rtr-B
 	
 	f.
 		┌───────────────┬──────┬───────────┬───────────┐

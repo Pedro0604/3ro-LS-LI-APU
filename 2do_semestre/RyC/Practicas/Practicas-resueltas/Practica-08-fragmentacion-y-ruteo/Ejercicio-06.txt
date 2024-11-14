@@ -1,0 +1,49 @@
+6)
+	Cada hop es de la forma:
+		* origen -> destino (row)
+	
+		Donde:
+			* origen es el nombre del dispositivo que envia el mensaje
+			* destino es el nombre del dispositivo que recibe el mensaje
+			* row es la fila en la tabla de ruteo de origen que indica el forwarding que se realiza
+			* row es de la forma:
+				* <destination>/<mask> -> <gateway>
+				
+				Donde:
+					* destination es la dirección que matchea (por ejemplo 0.0.0.0 matchea con todas las direcciones) con la IP a la que queremos ir
+					* mask es la mascara aplicada a destination
+					* gateway es a donde se dirigirá el próximo salto (va a ser la IP de destino (NO de destination e))
+
+	* Un mensaje ICMP enviado por PC-B (10.0.5.20/24) a PC-C (10.0.7.20/24):
+		* PC-B -> n7
+		* n7 -> router2
+		* router2 -> router1 (0.0.0.0/0 -> 10.0.0.1)
+		* router1 -> router3 (10.0.0.0/16 -> 10.0.3.1)
+		* router3 -> n6 (10.0.7.0/24 -> 0.0.0.0)
+		* n6 -> PC-C
+		* PC-C -> n6
+		* n6 -> router3
+		* router3 -> router4 (0.0.0.0/0 -> 10.0.2.1)
+		* router4 -> router2 (10.0.0.0/8 -> 10.0.1.1)
+		* router2 -> n7 (10.0.5.0/24 -> 0.0.0.0)
+		* n7 -> PC-B
+		
+		El emisor recibe la ECHO REPLY correspondiente a la ECHO REQUEST realizada
+	
+	* Un mensaje ICMP enviado por PC-C (10.0.7.20/24) a PC-B (10.0.5.20/24):
+		Es lo mismo que el anterior pero invertido
+	
+	* Un mensaje ICMP enviado por PC-C (10.0.7.20/24) a 8.8.8.8:
+		* PC-C -> n6
+		* n6 -> router3
+		* router3 -> router4 (0.0.0.0/0 -> 10.0.2.1)
+		* router4 no tiene una direccion que coincida con 8.8.8.8 (ni una default gateway), por lo que se devolverá un mensaje ICMP Network Unreachable
+	
+	* Un mensaje ICMP enviado por PC-B (10.0.7.20/24) a 8.8.8.8:
+		* PC-B -> n7
+		* n7 -> router2
+		* router2 -> router1 (0.0.0.0/0 -> 10.0.0.1)
+		* router1 -> router2 (0.0.0.0/0 -> 10.0.0.2)
+		* router2 -> router1 (0.0.0.0/0 -> 10.0.0.1)
+		* ...
+		* Va a haber un loop entre router1 y router2 hasta que el TTL del datagrama llegue a 0 y se devolverá un mensaje ICMP TTL Exceeded

@@ -1,0 +1,210 @@
+12)
+	226.10.20.128/27, 224.10.0.128/27 y 224.10.0.64/26 corresponden al rango de direcciones de multicast (224.0.0.0 - 239.255.255.255)
+	127.0.0.0/24 es parte del rango de direcciones de loopback (127.0.0.0 - 127.255.255.255)
+	
+	Direcciones IP públicas disponibles:
+		* 200.30.55.64/26
+		
+	Tener en cuenta que en gráfico dado ya están siendo usadas las siguientes redes:
+		* 10.10.10.0/30
+		* 10.10.10.4/30
+		* 10.10.10.8/30
+		* 10.10.10.12/30
+		* Es decir que están disponibles las redes 10.10.10.16/28 y 10.10.10.32/27
+	
+	Direcciones IP privadas disponibles:
+		* 192.168.10.0/24
+		* 192.168.10.0/29 (está contenida en la de arriba)
+		* 10.10.10.16/28
+		* 10.10.10.32/27
+
+	Red A:
+		* Puede ser privada
+		* Al necesitar 100 hosts necesita 7 bits para el host (2^7 - 2 = 126 >= 100)
+		* Se puede usar únicamente 192.168.10.0/24
+	
+					┌─────────────────────────────────┬────┬────────┐
+					│                Net              │Subn│  Host  │
+					├─────────────────────────────────┼────┼────────┤
+	Dir. red		│   192    .    168    .    10    │ .  │   0    │
+					│1100 0000 . 1010 1000 . 0000 1010│ . 0│000 0000│
+					├─────────────────────────────────┼────┼────────┤
+	Mascara	original│   255    .    255    .    255   │ .  │   0    │
+					│1111 1111 . 1111 1111 . 1111 1111│ . 0│000 0000│
+					├─────────────────────────────────┼────┼────────┤
+	Mascara subred	│   255    .    255    .    255   │ .  │  128   │
+					│1111 1111 . 1111 1111 . 1111 1111│ . 1│000 0000│
+					├─────────────────────────────────┼────┼────────┤
+	Dir. subred 1	│   192    .    168    .    10    │ .  │   0    │
+					│1100 0000 . 1010 1000 . 0000 1010│ . 0│000 0000│
+					├─────────────────────────────────┼────┼────────┤
+	Dir. subred 2	│   192    .    168    .    10    │ .  │  128   │
+					│1100 0000 . 1010 1000 . 0000 1010│ . 1│000 0000│
+					└─────────────────────────────────┴────┴────────┘
+	
+		* Para la red A se podría usar la dirección 192.168.10.0/25
+		* La dirección 192.168.10.128/25 queda libre
+		* La dirección 192.168.10.0/29 queda dentro de la red A por lo que no se va a poder utilizar para otras redes
+	
+	Direcciones IP públicas disponibles:
+		* 200.30.55.64/26
+	
+	Direcciones IP privadas disponibles:
+		* 192.168.10.128/25
+		* 10.10.10.16/28
+		* 10.10.10.32/27
+	
+	Red B:
+		* Puede ser privada
+		* Al necesitar 70 hosts necesita 7 bits para el host (2^7 - 2 = 126 >= 100)
+		* Se puede usar únicamente 192.168.10.128/25
+		* No es necesario subdividirla ya que se la aprovecha al máximo (no se podría usar una red con 6 bits de host porque eso no satisfaría la necesidad de hosts)
+	
+	Direcciones IP públicas disponibles:
+		* 200.30.55.64/26
+	
+	Direcciones IP privadas disponibles:
+		* 10.10.10.16/28
+		* 10.10.10.32/27
+	
+	Red D:
+		* Debe ser publica
+		* Al necesitar 16 hosts necesita 5 bits para el host (2^5 - 2 = 30 >= 16)
+		* Se puede usar únicamente 200.30.55.64/26
+	
+					┌──────────────────────────────────────┬───┬──────┐
+					│				   Net				   │Sub│ Host │
+					├──────────────────────────────────────┼───┼──────┤
+	Dir. red		│   200    .    30     .    55     .   │   │ 64   │
+					│1100 1000 . 0001 1110 . 0011 0111 . 01│ 0 │0 0000│
+					├──────────────────────────────────────┼───┼──────┤
+	Mascara	original│   255    .    255    .    255    .   │   │192   │
+					│1111 1111 . 1111 1111 . 1111 1111 . 11│ 0 │0 0000│
+					├──────────────────────────────────────┼───┼──────┤
+	Mascara	subnet  │   255    .    255    .    255    .   │   │224   │
+					│1111 1111 . 1111 1111 . 1111 1111 . 11│ 1 │0 0000│
+					├──────────────────────────────────────┼───┼──────┤
+	Dir. subred 1	│   200    .    30     .    55     .   │   │ 64   │
+					│1100 1000 . 0001 1110 . 0011 0111 . 01│ 0 │0 0000│
+					├──────────────────────────────────────┼───┼──────┤
+	Dir. subred 2	│   200    .    30     .    55     .   │   │ 96   │
+					│1100 1000 . 0001 1110 . 0011 0111 . 01│ 1 │0 0000│
+					└──────────────────────────────────────┴───┴──────┘
+	
+		* Para la red D se podría usar la dirección 200.30.55.64/27
+		* La dirección 200.30.55.96/27 queda libre
+	
+	Direcciones IP públicas disponibles:
+		* 200.30.55.96/27
+	
+	Direcciones IP privadas disponibles:
+		* 10.10.10.16/28
+		* 10.10.10.32/27
+	
+	Red C:
+		* Debe ser publica
+		* Al necesitar 14 hosts necesita 4 bits para el host (2^4 - 2 = 14 >= 14)
+		* Se puede usar únicamente 200.30.55.96/27
+	
+					┌───────────────────────────────────────┬───┬──────┐
+					│				   Net				    │Sub│ Host │
+					├───────────────────────────────────────┼───┼──────┤
+	Dir. red		│   200    .    30     .    55     .    │  96      │
+					│1100 1000 . 0001 1110 . 0011 0111 . 011│ 0 │ 0000 │
+					├───────────────────────────────────────┼───┼──────┤
+	Mascara	original│   255    .    255    .    255    .    │  224     │
+					│1111 1111 . 1111 1111 . 1111 1111 . 111│ 0 │ 0000 │
+					├───────────────────────────────────────┼───┼──────┤
+	Mascara	subnet  │   255    .    255    .    255    .    │  240     │
+					│1111 1111 . 1111 1111 . 1111 1111 . 111│ 1 │ 0000 │
+					├───────────────────────────────────────┼───┼──────┤
+	Dir. subred 1	│   200    .    30     .    55     .    │  96      │
+					│1100 1000 . 0001 1110 . 0011 0111 . 011│ 0 │ 0000 │
+					├───────────────────────────────────────┼───┼──────┤
+	Dir. subred 2	│   200    .    30     .    55     .    │  112     │
+					│1100 1000 . 0001 1110 . 0011 0111 . 011│ 1 │ 0000 │
+					└───────────────────────────────────────┴───┴──────┘
+	
+		* Para la red C se podría usar la dirección 200.30.55.96/28
+		* La dirección 200.30.55.112/28 queda libre
+	
+	Direcciones IP públicas disponibles:
+		* 200.30.55.112/28
+	
+	Direcciones IP privadas disponibles:
+		* 10.10.10.16/28
+		* 10.10.10.32/27
+	
+	Red entre RouterE - RouterA - RouterB:
+		* Debe ser privada
+		* Al necesitar 3 hosts necesita 3 bits para el host (2^3 - 2 = 6 >= 3)
+		* Se puede usar la red 10.10.10.16/28 o la red 10.10.10.32/27 (voy a usar la primera que, al tener una máscara más grande, necesita menos subneteo)
+	
+					┌────────────────────────────────────────┬───┬────┐
+					│				   Net				     │Sub│Host│
+					├────────────────────────────────────────┼───┼────┤
+	Dir. red		│   10    .     10     .    10     .     │   16   │
+					│0000 1010 . 0000 1010 . 0000 1010 . 0001│  0│000 │
+					├────────────────────────────────────────┼───┼────┤
+	Mascara	original│   255    .    255    .    255    .     │  240   │
+					│1111 1111 . 1111 1111 . 1111 1111 . 1111│  0│000 │
+					├────────────────────────────────────────┼───┼────┤
+	Mascara	subnet  │   255    .    255    .    255    .     │  248   │
+					│1111 1111 . 1111 1111 . 1111 1111 . 1111│  1│000 │
+					├────────────────────────────────────────┼───┼────┤
+	Dir. subred	1	│   10    .     10     .    10     .     │   16   │
+					│0000 1010 . 0000 1010 . 0000 1010 . 0001│  0│000 │
+					├────────────────────────────────────────┼───┼────┤
+	Dir. subred	2	│   10    .     10     .    10     .     │   24   │
+					│0000 1010 . 0000 1010 . 0000 1010 . 0001│  1│000 │
+					└────────────────────────────────────────┴───┴────┘
+	
+		* Para la red entre RouterE - RouterA - RouterB se podría usar la dirección 10.10.10.16/29
+	
+	Direcciones IP públicas disponibles:
+		* 200.30.55.112/28
+	
+	Direcciones IP privadas disponibles:
+		* 10.10.10.24/29
+		* 10.10.10.32/27
+	
+	Red entre RouterC - RouterD:
+		* Debe ser privada
+		* Al necesitar 2 hosts necesita 2 bits para el host (2^2 - 2 = 2 >= 2)
+		* Se puede usar la red 10.10.10.24/29 o la red 10.10.10.32/27 (voy a usar la primera que, al tener una máscara más grande, necesita menos subneteo)
+	
+					┌──────────────────────────────────────────┬───┬────┐
+					│				     Net				   │Sub│Host│
+					├──────────────────────────────────────────┼───┼────┤
+	Dir. red		│   10    .     10     .    10     .       │  24    │
+					│0000 1010 . 0000 1010 . 0000 1010 . 0001 1│ 0 │00  │
+					├──────────────────────────────────────────┼───┼────┤
+	Mascara	original│   255    .    255    .    255    .       │  248   │
+					│1111 1111 . 1111 1111 . 1111 1111 . 1111 1│ 0 │00  │
+					├──────────────────────────────────────────┼───┼────┤
+	Mascara	subnet  │   255    .    255    .    255    .       │  252   │
+					│1111 1111 . 1111 1111 . 1111 1111 . 1111 1│ 1 │00  │
+					├──────────────────────────────────────────┼───┼────┤
+	Dir. subred 1	│   10    .     10     .    10     .       │  24    │
+					│0000 1010 . 0000 1010 . 0000 1010 . 0001 1│ 0 │00  │
+					├──────────────────────────────────────────┼───┼────┤
+	Dir. subred 2	│   10    .     10     .    10     .       │  28    │
+					│0000 1010 . 0000 1010 . 0000 1010 . 0001 1│ 1 │00  │
+					└──────────────────────────────────────────┴───┴────┘
+	
+		* Para la red entre RouterC - RouterD se podría usar la dirección 10.10.10.24/30
+	
+	Direcciones IP públicas que quedan disponibles:
+		* 200.30.55.112/28
+	
+	Direcciones IP privadas que quedan disponibles:
+		* 10.10.10.28/30
+		* 10.10.10.32/27
+	
+	Direcciones IP finales:
+		* Red A: 192.168.10.0/25
+		* Red B: 192.168.10.128/25
+		* Red C: 200.30.55.96/27
+		* Red D: 200.30.55.64/26
+		* Red entre RouterE - RouterA - RouterB: 10.10.10.16/29
+		* Red entre RouterC - RouterD: 10.10.10.24/30
