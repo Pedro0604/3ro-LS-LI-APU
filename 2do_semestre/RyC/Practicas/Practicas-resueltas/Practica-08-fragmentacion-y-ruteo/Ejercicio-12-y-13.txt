@@ -1,4 +1,4 @@
-12)
+12) y 13)
 	226.10.20.128/27, 224.10.0.128/27 y 224.10.0.64/26 corresponden al rango de direcciones de multicast (224.0.0.0 - 239.255.255.255)
 	127.0.0.0/24 es parte del rango de direcciones de loopback (127.0.0.0 - 127.255.255.255)
 	
@@ -204,7 +204,7 @@
 	Direcciones IP finales:
 		* Red A: 192.168.10.0/25
 		* Red B: 192.168.10.128/25
-		* Red C: 200.30.55.96/27
-		* Red D: 200.30.55.64/26
+		* Red C: 200.30.55.96/28
+		* Red D: 200.30.55.64/27
 		* Red entre RouterE - RouterA - RouterB: 10.10.10.16/29
 		* Red entre RouterC - RouterD: 10.10.10.24/30
