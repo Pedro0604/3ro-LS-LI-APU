@@ -1,0 +1,24 @@
+a.
+	Va a haber tráfico ARP en todos los dominios de broadcast:
+		- 88:88:88:88:88:88 (PC_A) -> FF:FF:FF:FF:FF:FF (broadcast) | Pregunta por la MAC de 190.26.11.1 (para poder comunicarse con el router1)
+		- 77:77:77:77:77:77 (Router1) -> 88:88:88:88:88:88 (PC_A) | Responde la solicitud anterior
+		- BB:BB:BB:BB:BB:BB (Router1) -> FF:FF:FF:FF:FF:FF (broadcast) | Pregunta por la MAC de 200.100.11.2 (para poder comunicarse con el router2)
+		- CC:CC:CC:CC:CC:CC (Router2) -> BB:BB:BB:BB:BB:BB (Router1) | Responde la solicitud anterior
+		- EE:EE:EE:EE:EE:EE (Router2) -> FF:FF:FF:FF:FF:FF (broadcast) | Pregunta por la MAC de 200.100.11.6 (para poder comunicarse con el router3)
+		- DD:DD:DD:DD:DD:DD (Router3) -> EE:EE:EE:EE:EE:EE (Router2) | Responde la solicitud anterior
+		- 44:44:44:44:44:44 (Router3) -> FF:FF:FF:FF:FF:FF (broadcast) | Pregunta por la MAC de 190.26.12.65 (para poder comunicarse con la PC_C)
+		- 55:55:55:55:55:55 (PC_C) -> 44:44:44:44:44:44 (Router3) | Responde la solicitud anterior
+	
+	Las direcciones IP son siempre:
+		- 190.26.11.24 (PC_A) -> 190.26.12.65 (PC_C)
+
+b. y c.
+	En todos los dominios de broadcast va a haber tráfico ICMP:
+		- 190.26.11.24 (PC_A) | 88:88:88:88:88:88 (PC_A) -> 190.26.12.65 (PC_C) | 77:77:77:77:77:77 (Router1)
+		- 190.26.11.24 (PC_A) | BB:BB:BB:BB:BB:BB (Router1) -> 190.26.12.65 (PC_C) | CC:CC:CC:CC:CC:CC (Router2)
+		- 190.26.11.24 (PC_A) | EE:EE:EE:EE:EE:EE (Router2) -> 190.26.12.65 (PC_C) | DD:DD:DD:DD:DD:DD (Router3)
+		- 190.26.11.24 (PC_A) | 44:44:44:44:44:44 (Router3) -> 190.26.12.65 (PC_C) | 55:55:55:55:55:55 (PC_C)
+		- 190.26.12.65 (PC_C) | 55:55:55:55:55:55 (PC_C) -> 190.26.11.24 (PC_A) | 44:44:44:44:44:44 (Router3)
+		- 190.26.12.65 (PC_C) | DD:DD:DD:DD:DD:DD (Router3) -> 190.26.11.24 (PC_A) | EE:EE:EE:EE:EE:EE (Router2)
+		- 190.26.12.65 (PC_C) | CC:CC:CC:CC:CC:CC (Router2) -> 190.26.11.24 (PC_A) | BB:BB:BB:BB:BB:BB (Router1)
+		- 190.26.12.65 (PC_C) | 77:77:77:77:77:77 (Router1) -> 190.26.11.24 (PC_A) | 88:88:88:88:88:88 (PC_A)

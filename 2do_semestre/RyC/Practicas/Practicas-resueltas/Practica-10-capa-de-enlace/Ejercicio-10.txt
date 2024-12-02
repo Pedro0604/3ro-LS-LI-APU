@@ -1,0 +1,15 @@
+a.
+	Se va a dar cuenta de que la PC B está en otra red porque al hacer un AND lógico entre su IP y máscara no corresponden con la red de la PC A
+
+b.
+	Va a necesitar la MAC del router que la conecte con otras redes (su default gateway)
+
+c.
+	El requerimiento ARP de PC A va a tener la IP de su default gateway
+
+	Trama Ethernet: (MAC origen: MAC PC A -> MAC destino: FF:FF:FF:FF:FF:FF)
+	Solicitud ARP: (MAC origen: MAC PC A - IP origen: IP PC A)
+	Solicitud ARP: (MAC destino: 00:00:00:00:00:00 -> IP destino: IP default gateway)
+
+d.
+	ECHO REQUEST: MAC PC A | IP PC A -> MAC default gateway | IP PC B

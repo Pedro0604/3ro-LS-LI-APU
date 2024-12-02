@@ -1,0 +1,10 @@
+a.
+	i.	Lo escuchan las estaciones 2, 3, 4 y 5 y el servidor 1
+	ii.	Lo escuchan las estaciones 2, 3, 4, 5 y 11 y el servidor 1  
+	iii.Lo escuchan las estaciones 2, 3, 4, 5, 8, 9 y 10 y el servidor 1
+	iv.	Lo escuchan todos los nodos de la red, al no haber ningún dispositivo que divida el dominio de broadcast
+	v.	Lo escucha la estación 7
+	vi.	Lo escuchan las estaciones 8, 9 y 10
+
+b.
+	Cuando hay un hub entre medio de varios dispositivos, ya que el mismo no divide el dominio de colisión

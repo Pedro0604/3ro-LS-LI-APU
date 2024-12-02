@@ -1,0 +1,92 @@
+a.
+	Hay 5 dominios de colisión:
+		- Entre Switch2 y PC_A
+		- Entre Switch2 y PC_B
+		- Entre Switch2 y PC_E
+		- Entre Switch1 y Switch2
+		- Entre Switch1, el HUB, PC_C y PC_d
+
+b.
+	Hay un solo dominio de broadcast
+
+c.
+	i.
+		Tabla CAM del Switch1:
+			┌───────┬──────┐
+			│  MAC  │ PORT │
+			├───────┼──────┤
+			│ MAC_A │  0   │
+			└───────┴──────┘
+			
+		Tabla CAM del Switch2:
+			┌───────┬──────┐
+			│  MAC  │ PORT │
+			├───────┼──────┤
+			│ MAC_A │  0   │
+			└───────┴──────┘
+		
+	ii.
+		Tabla CAM del Switch1:
+			┌───────┬──────┐
+			│  MAC  │ PORT │
+			├───────┼──────┤
+			│ MAC_A │  0   │
+			├───────┼──────┤
+			│ MAC_C │  1   │
+			└───────┴──────┘
+			
+			
+		Tabla CAM del Switch2:
+			┌───────┬──────┐
+			│  MAC  │ PORT │
+			├───────┼──────┤
+			│ MAC_A │  0   │
+			├───────┼──────┤
+			│ MAC_C │  7   │
+			└───────┴──────┘
+			
+	iii.
+		Tabla CAM del Switch1:
+			┌───────┬──────┐
+			│  MAC  │ PORT │
+			├───────┼──────┤
+			│ MAC_A │  0   │
+			├───────┼──────┤
+			│ MAC_C │  1   │
+			└───────┴──────┘
+			
+			
+		Tabla CAM del Switch2:
+			┌───────┬──────┐
+			│  MAC  │ PORT │
+			├───────┼──────┤
+			│ MAC_A │  0   │
+			├───────┼──────┤
+			│ MAC_C │  7   │
+			└───────┴──────┘
+			
+	iv.
+		Tabla CAM del Switch1:
+			┌───────┬──────┐
+			│  MAC  │ PORT │
+			├───────┼──────┤
+			│ MAC_A │  0   │
+			├───────┼──────┤
+			│ MAC_C │  1   │
+			└───────┴──────┘
+			
+			
+		Tabla CAM del Switch2:
+			┌───────┬──────┐
+			│  MAC  │ PORT │
+			├───────┼──────┤
+			│ MAC_A │  0   │
+			├───────┼──────┤
+			│ MAC_C │  7   │
+			├───────┼──────┤
+			│ MAC_B │  1   │
+			└───────┴──────┘
+
+d.
+	La PC_E solamente hubiera escuchado las solicitudes ARP (al ser broadcast), pero no las resupuestas a dichas solicitudes
+	La PC_D además de escuchar las solicitudes ARP (al ser broadcast), hubiera escuchado la respuesta de la PC_C, ya que un HUB no divide los dominios de colisión
