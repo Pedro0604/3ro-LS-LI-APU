@@ -1,0 +1,56 @@
+n = 640.
+El for j se hace 640 veces por cada iteración del for i.
+El for Z se hace 640 veces por cada iteración del for j, es decir, se hace 640^2 veces por cada iteración del for i.
+P = 1:
+	primera a ultima 1 -> 640 = 640
+	El for Z se va a ejecutar 640^2 por cada iteración del for i, es decir, 640^2 * 640 = 640^3.
+	
+	640^3 multiplicaciones.
+	640^3 sumas.
+	640^3 asignaciones.
+P = 8:
+	primera a ultima -> 80
+	El for Z se va a ejecutar 640^2 por cada iteración del for i, es decir, 640^2 * 80 = 80 * 640^2.
+	
+	80 * 640^2 multiplicaciones.
+	80 * 640^2 sumas.
+	80 * 640^2 asignaciones.
+
+b)
+Tiempo:
+	Secuencial:
+		Para el tiempo secuencial se debe tomar uno de los procesadores más rápidos (P7 o P8).
+		640^3*1 + 640^3*2 + 640^3*4 = 640^3 * 7 = 1,835,008,000 unidades de tiempo.
+		
+	Paralelo:
+		Para el tiempo paralelo se debe tomar uno de los procesadores que tarden más tiempo.
+		En este caso, como todos los procesadores tienen la misma carga de trabajo, los más lentos van a ser los que más tiempo tarden (P3 a P6).
+		
+		(80 * 640^2)*4 + (80 * 640^2)*8 + (80 * 640^2)*16 = (80*640^2)*28 = 917,504,000 unidades de tiempo.
+	
+c)
+	Speedup = 1,835,008,000 / 917,504,000 = 2
+	Speedup óptimo:
+		Potencia mejor (7 y 8) = 4
+		Potencia 1 y 2 = 2
+		Potencia 3, 4, 5 y 6 = 1
+		Speedup óptimo = 4/4 + 4/4 + 2/4 + 2/4 + 1/4 + 1/4 + 1/4 + 1/4 = 4
+	Eficiencia = 2/4 = 0.5 = 50%
+
+d)
+	Habría que redistribuir la carga para que la carga de trabajo sea proporcional a la velocidad del procesador.
+	Como los procesadores rápidos aportan cada uno 1/4 del total de la potencia (según el cálculo del speedup óptimo), entonces deberían tener cada uno 1/4 del total de filas de la matriz, es decir, 160 filas.
+	Como los procesadores 1 y 2 aportan cada uno (2/4)/4 = 1/8 del total de la potencia (según el cálculo del speedup óptimo), entonces deberían tener cada uno 1/8 del total de filas de la matriz, es decir, 80 filas.
+	Como los procesadores más lentos aportan cada uno (1/4)/4 = 1/16 del total de la potencia (según el cálculo del speedup óptimo), entonces deberían tener cada uno 1/16 del total de filas de la matriz, es decir, 40 filas.
+	
+	El tiempo secuencial sigue igual.
+	El tiempo paralelo cambia.
+	Ahora, como la carga está distribuida equitativamente entre todos los procesadores, todos tardan el mismo tiempo, entonces podemos calcular el tiempo de cualquiera de ellos.
+	Por ejemplo, el procesador 4:
+		Como tiene 40 filas de la matriz, va a realizar 40 * 640^2 de cada operación.
+		(40 * 640^2)*4 + (40 * 640^2)*8 + (40 * 640^2)*16 = (40*640^2)*28 = 458,752,000 unidades de tiempo.
+	
+	Entonces:
+		Speedup = 1,835,008,000 / 458,752,000 = 4
+		El speedup óptimo se mantiene en 4 ;).
+		Eficiencia = 4/4 = 1 = 100%

@@ -1,0 +1,412 @@
+--- Clase 1 ---
+Secuencial vs Paralelo vs Concurrente:
+	- Secuencial:
+		- Una instrucción va después de la otra.
+	- Concurrente:
+		- Las instrucciones de 2 o más procesos (que internamente se ejecutan de manera secuencial) se van alternando el tiempo de CPU.
+		- No requiere hardware especial.
+		- Requiere sincronización y comunicación.
+	- Paralelo:
+		- Las instrucciones de 2 o más procesos (que internamente se ejecutan de manera secuencial) se van ejecutando exactamente al mismo tiempo en diferentes CPUs (o cores dentro de una misma).
+		- Requiere hardware específico.
+		- Requiere sincronización y comunicación.
+
+Comunicación:
+	- Memoria compartida:
+		- Diferentes procesos acceden a las variables en la misma memoria.
+		- Implica sincronización por exclusión mutua.
+		- Para los multiprocesadores hay dos tipos:
+			- UMA (Uniform Memory Access):
+				- El acceso a memoria es igual para todos los procesadores.
+				- La memoria es única para todos.
+			- NUMA (Non Uniform Memory Access):
+				- El acceso a memoria varía entre los distintos procesadores.
+				- Cada procesador tiene una memoria que comparte con el resto. Acceder a un dato en su memoria será mucho más rápido que acceder a un dato en la memoria de otro procesador.
+	- Pasaje de mensajes:
+		- Diferentes procesos se comunican mediante canales lógicos o físicos intercambiando mensajes.
+		- No implica sincronización por exclusión mutua.
+
+Sincronización:
+	- Exclusión mutua:
+		- Se obtiene (y posteriormente libera) el acceso exclusivo a una sección crítica.
+		- En caso de no poder obtener el acceso exclusivo habrá que esperar hasta que se libere dicho acceso.
+	- Condición:
+		- Se espera a que se cumpla una determinada condición para seguir la ejecución.
+
+Interferencia:
+	- Un proceso toma acciones que invalidan las suposiciones de otro proceso.
+
+Granularidad:
+	- Grano fino:
+		- Poca computación intercalada con comunicación.
+		- Se adapta mejor a sistemas donde la comunicación es rápida pero el cómputo no tanto, como un multicore.
+	- Grano grueso:
+		- Mucha computación intercalada con comunicación.
+		- Se adapta mejor a sistemas donde el cómputo es rápida pero la comunicación no tanto, como un clúster.
+
+Deadlock:
+	- Se da cuando dos procesos no pueden adquirir un recurso porque está bloqueado por otro proceso, el cual no lo libera porque está bloqueado al no poder adquirir un recurso que tiene el primer proceso.
+	- Las siguientes 4 propiedades son necesarias y suficientes para que suceda:
+		- Recursos reutilizables serialmente:
+			- Hay recursos que pueden ser utilizados por múltiples procesos con exclusión mutua.
+		- No preemption:
+			- Un proceso con mayor prioridad no puede quitar un recurso a otro con menor prioridad.
+		- Adquisición incremental de recursos:
+			- Se adquieren los recursos en partes.
+			- Se mantiene un recurso adquirido previamente mientras se intenta adquirir un segundo recurso.
+		- Espera cíclica:
+			- Un proceso 1 está esperando un recurso que tiene el proceso 2, el cual espera un recurso del proeso 3, el cual espera un recurso del proceso 1.
+	- Si se elimina una de estas propiedades no podrá haber deadlock.
+
+--- Clase 2 ---
+Acción atómica:
+	- De grano fino:
+		- Es una acción que se mapea directamente a una instrucción del procesador, por lo que no puede ser interferida, y se garantiza que comience y finalice sin problemas.
+	- De grano grueso:
+		- Implica que son varias acciones que son tratadas en conjunto como una sola, garantizando no interferencia.
+		- Si una expresión no referencia a ninguna variable modificada por otro proceso, su evaluación será atómica aunque se requiera ejecutar varias acciones atómicas de grano fino.
+		- Si una asignación no referencia a ninguna variable modificada por otro proceso, su ejecución será atómica.
+
+Referencia crítica:
+	- Una referencia a una variable que es modificada en otro proceso.
+
+A lo sumo una vez:
+	- Una sentencia x = e satisface la propiedad de "A lo sumo una vez" si:
+		- e tiene a lo sumo una referencia crítica y x no es referenciada por otro proceso, o
+		- e no tiene ninguna referencia crítica, en cuyo caso, x puede ser referenciada por otro procesos.
+	- Una expresión e satisface la propiedad de "A lo sumo una vez" si tiene a lo sumo una referencia crítica.
+	- Si una expresión o asignación no satisface ASV, en general es necesario ejecutarla atómicamente, usando exclusión mutua.
+
+Sentencia await:
+	- Incondicional:
+		- <e> la expresión e, sea o no atómica de grano fino, se ejecutará como tal.
+	- Condicional:
+		- <await (B) S;> el conjunto de sentencias S se ejecutará como una aacción atómica de grano fino, por más que no lo sea, en caso de que se cumpla la guarda B.
+
+Propiedad:
+	- Un atributo que debe ser verdadero en cualquiera de las posibles historias del programa.
+	- Dos tipos:
+		- Seguridad (safety):
+			- Si se garantizan las propiedades de seguridad significa que nada malo ocurre, asegura estados consistentes.
+			- Si falla una propiedad de seguridad algo anda mal.
+			- Ejemplos:
+				- Exclusión mutua.
+				- Ausencia de interferencia entre procesos.
+				- Partial correctness (siempre que un programa termine lo hace correctamente).
+		- Vida (liveness):
+			- Si se garantizan las propiedades de vida, algo bueno ocurre (el programa avanza, no hay deadlock).
+			- Si falla una propiedad de vida las cosas dejan de ejecutar.
+			- Ejemplos:
+				- Ausencia de deadlock.
+				- Ausencia de inanición.
+				- Ausencia de demora innecesaria.
+				- Eventual terminación.
+				- Eventual acceso a la sección crítica.
+
+Fairness:
+	- Trata de garantizar que todos los procesos puedan continuar su ejecución independientemente de lo que hagan los demás.
+	- Política de schedulling:
+		- Define cuál de las acciones atómicas elegibles será la próxima en ejecutarse.
+		- Tres tipos:
+			- Incondicionalmente fair:
+				- Una política de schedulling es incondicionalmente fair si toda acción atómica Incondicional elegible eventualmente es ejecutada.
+				- Round Robin es incondicionalmente fair en monoprocesador.
+				- La ejecución paralela es incondicionalmente fair en multiprocesador.
+			- Débilmente fair:
+				- Una política de schedulling es débilmente fair si:
+					- Es incondicionalmente fair y,
+					- Toda acción atómica condicional que se vuelve elegible eventualmente es ejecutada. Asumiendo que su guarda se vuelve true y permanece true hasta que el proceso la vea.
+			- Fuertemente fair:
+				- Una política de schedulling es fuertemente fair si:
+					- Es incondicionalmente fair y,
+					- Toda acción atómica condicional que se vuelve elegible eventualmente es ejecutada, al volverse su guarda true con infinita frecuencia.
+
+--- Clase 3 ---
+Problema de la sección crítica:
+	- Se puede resolver usando protocolos de entrada y salida.
+	- Las propiedades a cumplir por la solución son 4:
+		- Exclusión mutua:
+			- A lo sumo un proceso está en la SC.
+		- Ausencia de deadlock:
+			- Si 2 o más procesos intentan entrar a la SC, al menos uno tendrá éxito.
+		- Ausencia de demora innecesaria:
+			- Si un proceso trata de entrar a su SC y los otros estan en sus SNC o terminaron, el primero no está impedido de entrar a su SC.
+		- Eventual entrada:
+			- Un proceso que intenta entrar a su SC y tiene posibilidad de hacerlo eventualmente lo hará.
+	- Solución de grano fino para n procesos:
+		- Requiere uso de test and set.
+		- Tiene memory contention.
+		- Por usar spin locks, no se controla el orden de los procesos demorados, por lo que, si el schedulling no es fuertemente fair, algunos procesos podrían no entrar.
+	- Tie-breaker:
+		- Ventajas:
+			- Requiere schedulling débilmente fair.
+			- No usa instrucciones especiales (TS, FA, CS).
+		- Desventajas:
+			- Es complicada y costosa la generalización a n procesos.
+	- Ticket:
+		- Ventajas:
+			- Requiere schedulling débilmente fair.
+		- Desventajas:
+			- Requiere fetch & add. Si no existe se puede simular con un sección crítica, pero la solución puede no ser fair.
+	- Bakery:
+		- Ventajas:
+			- Es fair.
+			- No usa instrucciones especiales (TS, FA, CS).
+
+Problema de la sincronización de barrera:
+	- Todos los procesos deben llegar a un punto (la barrera) antes de permitirles seguir su ejecución.
+	- Solución con un contador compartido:
+		- Desventajas:
+			- Usa fetch and add.
+			- Solo sirve para una iteración.
+	- Solución con flags y coordinadores:
+		- Tiene memory contention.
+		- Es ineficiente.
+		- Requiere un proceso extra y quizás un procesador extra, porque el coordinador debería trabajar ininterrumpidamente.
+		- El tiempo de ejecución del coordindor es proporcional a n.
+	- Solución con árboles:
+		- Es más eficiente para n grande.
+		- Los diferentes procesos tienen distintos roles dependiendo de la posición del árbol donde estén, implicando una multiplicación de código.
+	- Solución con barrera simétrica:
+		- Si n es potencia de 2 se puede usar una butterfly barrier:
+			- Tiene log2 etapas donde cada worker sincroniza con uno distinto en cada una.
+			- En la etapa s, cada worker se sincroniza con otro a distancia 2^(s-1).
+			- Luego que cada worker pase log2(n) etapas, pueden seguir.
+
+Defectos de la sincronización con busy waiting:
+	- Los protocolos son complejos.
+	- No hay una clara separación entre variables de sincronización y las de resultados.
+	- Es una técnica ineficiente, ya que un procesdor ejecutando un proceso spining puede ser usado de manera más productiva por otro proceso.
+
+--- Clase 4 ---
+Operaciones sobre semáforos:
+	- P:
+		- Demora a un proceso hasta que se libere el semáforo.
+		- Si está libre (contador mayor a 0) lo puede obtener
+		- Decrementa en 1 el contador.
+	- V:
+		- Incrementa el contador de un semáforo
+
+Passing the baton:
+	- Cuando un proceso está en la SC, mantiene el baton/token.
+	- Cuando sale de la SC hace un SIGNAL y pasa el baton a otro proceso. Si no hay procesos, se libera para que el próximo lo obtenga.
+	- Es útil cuando las condiciones para el acceso con exclusión mutua son diferentes y superpuestas.
+
+--- Clase 5 ---
+Problemas con semáforos:
+	- Variables compartidas globales a todos los procesos.
+	- Sentencias de control de acceso dispersas por todo el código.
+
+Monitores:
+	- Módulos de programa con más estructura.
+	- Encapsulan representaciones de recursos.
+	- Brindan operaciones para manipular los recursos.
+	- Tiene:
+		- Variables que almacenan el estado del recurso.
+		- Procedimientos que implementan las operaciones sobre él.
+	- Exclusión mutua:
+		- Implícita. No puede haber más de un proceso ejecutando el código del monitor.
+	- Sincronización por condición:
+		- Explícita con variables de condición.
+	- Los procesos interactuarán invocando procedimientos de los monitores.
+
+Variables de condición:
+	- wait(condVar):
+		- Demora al proceso en una cola hasta que se lo despierte.
+	- signal(condVar):
+		- Despierta al proceso que está en la punta de la cola y lo saca de ella.
+		- El proceso despertado solo podrá ejecutar código del monitor cuando adquiera el acceso exclusivo.
+	- signalall(condVar):
+		- Despierta a todos los procesos de la cola y los saca de ella.
+
+Disciplinas de señalización:
+	- signal and continue:
+		- El proceso que hace el signal continua teniendo el acceso exclusivo al monitor.
+		- El proceso que es despertado tiene que competir por el acceso exclusivo al monitor para reanudar su ejecución en la instrucción que sigue lógicamente al wait.
+	- signal and wait:
+		- El proceso que hace el signal pasa a tener que competir por el acceso exclusivo al monitor.
+		- El proceso que es despertado consigue el acceso exclusivo al monitor y sigue su ejecución en la instrucción que sigue lógicamente al wait.
+
+Operaciones adicionales:
+	- empty(condVar):
+		- Retorna true si la cola de procesos demorados está vacía.
+	- wait(condVar, rank):
+		- Demora al proceso en la cola de condVar en orden ascendente de acuerdo a rank.
+	- minrank(condVar):
+		- Obtiene el mínimo ranking de demora.
+
+--- Clase 6 ---
+Tipos de canales:
+	- Por cantidad de procesos que envían y reciben
+		- Mailbox:
+			- N emisores.
+			- N receptores.
+		- Input port:
+			- N emisores.
+			- 1 receptor.
+		- Link:
+			- 1 emisor.
+			- 1 receptor.
+	- Unidireccionales o bidireccionales (half-duplex o full-duplex).
+	- Sincrónicos o asincrónicos.
+
+Mecanismos de comunicación para memoria distribuida:
+	- PMA:
+		- Canales mailbox, asincrónicos, unidireccionales.
+	- PMS:
+		- Canales link, sincrónicos, unidireccionales.
+	- RPC:
+		- Canales link, sincrónicos, bidireccionales.
+	- Rendezvous:
+		- Canales link, sincrónicos, bidireccionales.
+
+PMA:
+	- Operaciones:
+		- send:
+			- Envía sin esperar a que reciban.
+			- Cola ordenada de mensajes para cada canal.
+		- receive:
+			- Recepción bloqueante.
+			- Obtiene el primer valor que hay.
+
+--- Clase 7 ---
+PMS:
+	- Operaciones:
+		- !(envío):
+			- Envía esperando hasta que reciban.
+			- Cola de mensajes para cada canal de 1 solo mensaje (no va a mantener orden).
+		- ?(recepción):
+			- Recepción bloqueante.
+			- Obtiene el primer (y único) valor que hay.
+
+Comuniación guardada:
+	- B; C -> S:
+		- B: condición booleana. Es opcional y de omitirse se asume true.
+		- C: sentencia de comunicación.
+		- S: sentencias a ejecutar si hay éxito
+		- B y C forman la guarda
+	- Casos:
+		- Éxito:
+			- B es true y C no causa demora (se puede enviar (solo en la teoría) o recibir sin demora).
+			- Luego, si hay S, se ejecuta.
+		- Bloqueo:
+			- B es true y C causa demora.
+		- Fallo:
+			- B es false.
+	- if guardado:
+		- De todas las guardas con éxito, se elige una no deterministicamente y se ejecuta C y luego S.
+		- Si no hay ninguna guarda exitosa pero hay guardas bloqueadas se demora al proceso hasta que alguna de las guardas sea exitosa, y se prosigue como se menciona arriba.
+		- Si todas las guardas fallan no se ejecuta ninguna acción.
+	- do guardado:
+		- Igual que el if pero se repite hasta que todas las guardas fallen.
+
+
+Paradigmas de interacción entre procesos:
+	- Master/worker:
+		- Bag of tasks en memoria distribuida.
+		- El proceso master tiene las tareas y los procesos worker solicitan las tareas, a medida que van terminando con las anteriores, y las realizan.
+		- Esquema cliente/servidor, donde el cliente hace el trabajo y el servidor administra las tareas.
+	- Heartbeat:
+		- Esquema pares que interactúan.
+		- Usado para soluciones iterativas.
+		- Esquema divide & conquer.
+		- Se distribuye la carga entre los workers.
+		- Cada worker hace cálculos sobre sus datos, envía valores a todos los vecinos y recibe valores de todos.
+		- Mejor con PMA.
+	- Pipeline:
+		- Un arreglo lineal de procesos filtro que reciben datos y envían al siguiente luego de calcular.
+		- Esquema productores/consumidores.
+	- Probe echo:
+		- Es el análogo concurrente de DFS.
+		- Sirve para árboles y grafos.
+		- Se envía un mensaje al nodo sucesor (probe) y se espera un mensaje de respuesta (echo).
+		- Los probes se envían en paralelo a todos los sucesores.
+		- Esquema pares que interactúan.
+	- Broadcast:
+		- Mensajes que se envían a todos los demás nodos de una red.
+		- Esquema pares que interactúan.
+	- Token passing:
+		- El token que se pasa otorga permiso (control) o para recoger información global de la arquitectura distribuida.
+		- Puede servir para gestionar exclusión mutua en una arquitectura distribuida.
+		- Esquema pares que interactúan.
+	- Servidores replicados:
+		- Un servidor es replicado cuando hay múltiples instancias de un recurso y cada server maneja una de ellas.
+		- Puede usarse para dar la sensación de que hay un solo recurso cuando hay varios.
+
+--- Clase 8 ---
+RPC:
+	- Los programas tienen módulos los cuales tienen procesos y procedures.
+	- Los procesos de un módulo pueden compartir variables y llamar a procedures de ese módulo.
+	- Un proceso de un módulo puede comunicarse con procesos de otros módulos solo invocando procedimientos exportados por ese.
+	- Los módulos tienen los headers de los procedures que exportan.
+	- Llamado a un procedure de otro módulo:
+		- call ModuleName.OperationName(argumentos).
+		- Al llamar, el llamador se demora hasta recibir el resultado.
+		- En los llamados remotos se crea un nuevo proceso para resolver el llamado.
+	- Sincronización:
+		- Exclusión mutua ya está garantizada, ya que las variables compartidas son protegidas contra el acceso concurrente.
+		- Para sincronización por condición se puede usar cualquiera de los métodos vistos (semáforos, monitores o rendezvous).
+
+Rendezvous:
+	- Las especificaciones de un módulo contienen declaraciones de los headers de las operaciones exportadas.
+	- El cuerpo de un módulo consta de un único proceso que sirve las operaciones definidas.
+	- El servidor es un proceso activo (a diferencia de RPC).
+	- Comunicación guardada:
+		- in operacion (parametros_formales) and B1 by e1 -> S1;:
+			- B1 es la guarda (puede referenciar a los parámetros formales).
+			- e1 es una expresión de schedulling opcional, para modificar el orden en el que se atienden diferentes pedidos (puede referenciar a los parámetros formales).
+
+--- Clase 10 ---
+Clasificación de arquitecturas paralelas:
+	- Por espacio de direcciones:
+		- Memoria compartida.
+		- Memoria distribuida.
+	- Por granularidad.
+	- Por mecanismo de control:
+		- SISD.
+		- SIMD.
+		- MISD.
+		- MIMD:
+			- MPMD (Multiple Program Multiple Data).
+			- SPMD (Single Program Multiple Data).
+	- Por la red de interconexión:
+		- Redes estáticas:
+			- Tienen links punto a punto.
+			- Típicamente para pasaje de mensajes.
+		- Redes dinámicas:
+			- Están construidas usando switches y enlaces de comunicación
+			- Normalmente para máquinas de memoria compartida
+		
+Métricas de rendimiento:
+	- Speedup:
+		- Ts/Tp
+	- Eficiencia:
+		- S/Soptimo
+
+Paradigmas de programación paralela:
+	- Cliente/servidor:
+		- Los servidores reciben y resuelven pedidos.
+		- Comunicación bidireccional.
+		- Atención de a varios clientes con multithreading.
+	- Master/slave o master/worker:
+		- El master entrega tareas.
+		- Los workers realizan las tareas y podrían devolverlas.
+		- En memoria compartida el proceso master podría no existir si no tiene q recibir resultados.
+		- Variación de SPMD donde hay dos programas en lugar de 1.
+		- Cuello de botella posible si las tareas son muy chicas o los slaves muy rapidos.
+		- Podría distribuir las tareas de dos maneras:
+			- Al principio divide todo y entrega.
+			- Bajo demanda. Es más equilibrada y escalable.
+	- Pipeline:
+		- Problema en secuencia de pasos.
+		- Los datos pasan por todos los procesos y cada uno opera sobre ellos.
+		- Los procesadores deberían ser más o menos similares para evitar tiempos ociosos.
+		- El flujo puede no ser una linea simple -> procesamiento sistolico
+	- Divide and conquer:
+		- Implica paralelismo recursivo.
+		- El problema general se descompone en procesos recursivos que trabajan sobre partes del conjunto total de datos.
+	- SPMD:
+		- Single Program Multiple Data.
+		- Todos los procesos ejecutan el mismo programa con distintos datos.
+		- Implica paralelismo iterativo.
+		- Cada proceso es un programa iterativo

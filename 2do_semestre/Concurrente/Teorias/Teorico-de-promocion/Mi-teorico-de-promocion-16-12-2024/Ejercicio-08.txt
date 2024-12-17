@@ -1,0 +1,53 @@
+int n;
+chan pixel[0..n*n](int minimo, int maximo);
+
+Process Proceso[id = 0..(n*n)-1] {
+	int fila = id / n;
+	int columna = id % n;
+	int vecinosId[] = [];
+	int valorPixel = ?;
+	int minPixel = valorPixel;
+	int maxPixel = valorPixel;
+	int i, j;
+	int auxMin, auxMax;
+	
+	if (fila > 0) {
+		vecinosId.push((fila-1)*n + columna);
+		if (columna > 0) {
+			vecinosId.push((fila-1)*n + (columna-1));
+		}
+		if (columna < (n-1)) {
+			vecinosId.push((fila-1)*n + (columna+1));
+		}
+	}
+	if (fila < (n-1)) {
+		vecinosId.push((fila+1)*n + columna);
+		if (columna > 0) {
+			vecinosId.push((fila+1)*n + (columna-1));
+		}
+		if (columna < (n-1)) {
+			vecinosId.push((fila+1)*n + (columna+1));
+		}
+	}
+	if (columna > 0) {
+		vecinosId.push(fila*n + (columna-1));
+	}
+	if (columna < (n-1)) {
+		vecinosId.push(fila*n + (columna+1));
+	}
+	
+	for [i=0; i<n; i++] {
+		for [j=0; j<vecinosId.length; j++] {
+			send pixel[vecinosId[j]](minPixel, maxPixel);
+		}
+		for [j=0; j<vecinosId.length; j++] {
+			receive pixel[id](auxMin, auxMax);
+			if (auxMin < minPixel) {
+				minPixel = auxMin;
+			}
+			if (auxMax > maxPixel) {
+				maxPixel = auxMax;
+			}
+		}
+	}
+}
