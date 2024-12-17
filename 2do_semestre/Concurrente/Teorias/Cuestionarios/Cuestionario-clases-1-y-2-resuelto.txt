@@ -1,0 +1,208 @@
+Cuestionario clases 1 y 2
+1-
+	- Cuando el cajero de un supermercado mientras pasa un producto por el lector de código de barras, agarra otro más.
+	- Cuando una bd acepta múltiples conexiones de lectura a la vez.
+	- Cuando un servidor web toma múltiples peticiones a la vez.
+
+2-
+	Concurrencia es cuando una serie de acciones se ejecutan simultáneamente en una o más unidades de procesamiento.
+	Tipos de procesamiento:
+		- Secuencial:
+			- Una instrucción va después de la otra.
+		- Concurrente:
+			- Dos o más instrucciones se ejecutan a la vez, de manera aparentemente simultanea, pero no necesariamente en paralelo.
+			- Puede llevarse a cabo usando 1 o más unidades de procesamiento.
+			- Es un concepto de software que puede o no llevar hardware específico.
+		- Paralelo:
+			- Es procesamiento concurrente donde las instrucciones se ejecutan en más de una unidad de procesamiento.
+			- Necesita 2 o más unidades de procesamiento.
+			- Hardware específico es necesario.
+
+3-
+	El deadlock es cuando dos o más procesos no pueden continuar su ejecución puesto que tienen recursos accesibles con exclusión mutua, pero no los pueden obtener porque otros procesos en la misma situación los tienen.
+	Ejemplo:
+		- Proceso 1 necesita recurso A y B, proceso 2 necesita recurso B y C y el proceso 3 necesita el recurso C y A.
+		- Si el proceso 1 adquiere el recurso A, el 2 el B y el 3 el C, cuando los procesos vayan a adquirir el siguiente recurso que necesitan, no podrán hacerlo porque lo tiene otro de los procesos. Hay deadlock.
+	
+	Son 4 las condiciones necesarias y suficientes para que haya deadlock:
+		- Recursos reusables serialmente:
+			- Los recursos pueden ser obtenidos por diferentes procesos con exclusión mutua.
+		- Adquisición incremental de recursos:
+			- Los procesos, para adquirir un nuevo recurso, mantienen con exclusión mutua los recursos que ya tenían.
+		- No preemption:
+			- Los procesos no pueden quitarle la posesión de un recurso a otros procesos con menor prioridad.
+		- Espera cíclica:
+			- Los procesos se organizan en un cíclo donde cada proceso adquiere un recurso que necesita el anterior.
+
+4-
+	La inanición se da cuando un proceso no puede ejecutar ninguna acción puesto que tiene una baja prioridad en comparación al resto, y la política de schedulling no le da acceso a la CPU o no puede acceder a los
+		recursos compartidos que necesita.
+	Ejemplo:
+		- El proceso 1 tiene prioridad 10, el 2 tiene prioridad 5 y el 3 tiene prioridad 1.
+		- La política de schedulling es por mayor prioridad.
+		- El proceso 3 sufrirá inanición ya que los demás procesos tienen más prioridad que él.
+
+5-
+	El no determinismo hace referencia al hecho de que la ejecución de un programa concurrente pueda tomar diferentes cursos en las diferentes ejecuciones.
+	En un caso podrían ejecutarse las instrucciones de un proceso o hilo primero y en otro caso otras instrucciones, llevando a diferentes historias del programa dadas por el interleaving de las instrucciones.
+
+6-
+	La comunicación es la forma en que diferentes procesos pueden intercambiar información.
+	Hay dos mecanismos:
+		- Memoria compartida:
+			- Los procesos leen y modifican variables en memoria, la cual es accesible por otros procesos.
+			- Se debe tener en cuenta la exclusión mutua.
+		- Pasaje de mensajes:
+			- Los procesos se envían mensajes como forma de transmitir información.
+			- Pueden ser canales lógicos o físicos.
+			- No se debe tener en cuenta la exclusión mutua.
+
+7-
+	a)
+		La sincronización es la manera de hacer que los diferentes procesos puedan obntener acceso a recursos de manera exclusiva, o esperar ante una condición para poder continuar ejecutándose.
+		Hay dos mecanismos:
+			- Exclusión mutua:
+				- Se garantiza el acceso exclusivo a un recurso sin que otros puedan accederlo hasta que el proceso que lo tiene lo libere.
+			- Por condición:
+				- Se espera a que se cumpla una determinada condición para poder continuar la ejecución.
+
+	b)
+		Sí, por ejemplo, en una situación de productores y consumidores, se va a usar exclusión mutua para el acceso al buffer de producción, por parte de productores y consumidores, y se va a usar sincronización por condición
+			para colocar o quitar un elemento del buffer solamente cuando sea posible (para colocar, cuando no esté lleno el buffer y para quitar, cuando haya algún elemento).
+
+8-
+	La interferencia hace referencia a cuando un proceso rompe las suposiciones tomadas por otro proceso.
+	Se puede evitar con exclusión mutua.
+
+9-
+	La propiedad de a lo sumo se cumple cuando:
+		- Para una asignación x = e:
+			- e tiene a lo sumo una referencia crítica y x no es referenciada por otro proceso, o
+			- e no tiene referencias críticas, en cuyo caso x puede ser leída por otro proceso
+		- Para una expresión e:
+			- e tiene a lo sumo una referencia crítica
+	Si una expresión no cumple el principio de a lo sumo una vez requerirá, en general, de exclusión mutua para garantizar que no haya interferencias, y por ende, estados inválidos.
+	Si una sentencia cumple con ASV su ejecución parece atómica.
+	Ejemplos:
+		- Sentencias que cumplen ASV:
+			- 
+				co 
+					x = x + 1;
+				//
+					y = y + 1;
+				oc;
+			- 
+				co 
+					x = x + y;
+				//
+					y = y + 1;
+				oc;
+		- Sentencias que no cumplen ASV:
+			- 
+				co 
+					x = x + y;
+				//
+					y = y + x;
+				oc;
+			- 
+				co 
+					x = y + z;
+				//
+					y = x + z;
+				//
+					z = x + y;
+				oc;
+
+10-
+	a)
+		x = y - z no cumple al tener 2 referencias críticas (y, z)
+		z = x * 2 no cumple al tener 1 referencia crítica (x) y ser z referenciada en otro proceso
+		y = y - 1 cumple al no tener referencias críticas e 'y' ser leída por otros procesos
+	
+	b)
+		co
+			x = y - z; 1
+		//
+			z = x * 2; 2
+		//
+			y = y - 1; 3
+		oc;
+		
+		La instrucción 1 se puede dividir en:
+			1.1: load posY, Acumulador
+			1.2: sub posZ, Acumulador
+			1.3: store posX, Acumulador
+			
+		La instrucción 2 se puede dividir en:
+			2.1: load posX, Acumulador
+			2.2: mul 2, Acumulador
+			2.3: store posZ, Acumulador
+			
+		La instrucción 3 se puede dividir en:
+			3.1: load posY, Acumulador
+			3.2: sub 1, Acumulador
+			3.3: store posY Acumulador
+		
+		Posibles resultados de la ejecución son:
+			- Se ejecuta 1, 2 y 3 (o 1, 3 y 2): x = 1, z = 2, y = 3
+			- Se ejecuta 2, 1 y 3: x = 0, z = 4, y = 3
+			- Se ejecuta 2, 3 y 1: x = -1, z = 4, y = 3
+			- Se ejecuta 3, 1 y 2: x = 0, z = 0, y = 3
+			- Se ejecuta 3, 2 y 1: x = -1, z = 4, y = 3
+			- Se ejecuta 1.1, 2 y 3 (1.2 y 1.3 se ejecutan luego de 2): x = 0, z = 4, y = 3
+			- Se ejecuta 2.1, 2.2, 1 y 3 (2.3 se ejecuta luego de 1): x = 1, z = 4, y = 3
+			- Se ejecuta 2.1, 2.2, 3 y 1 (2.3 se ejecuta luego de 1): x = 0, z = 4, y = 3
+			- Como 3 cumple con ASV, no cambia la ejecución si se ejecuta 3 todo de una o se hacen sus acciones atómicas por partes
+
+11-
+	Acciones atómicas incondicionales:
+		- Son aquellas que se ejecutarán de manera atómica, pero no tienen una condición para su ejecución. Por ejemplo, <x = x + 1; y = y - 1> se ejecutará sin interferencias.
+	Acciones atómicasa condicionales:
+		- Son aquellas que se ecutarán de manera atómica y tienen una guarda para su ejecución, la cual se chequea de manera atómica. Por ejemplo, <await (x==2); y = x + z;>
+
+12-
+	Propiedades de seguridad:
+		- Son aquellas propiedades que garantizan que nada malo ocurrirá.
+		- Si alguna de ellas no se cumple, se alcanzará un estado inconsistente.
+		- Algunos ejemplos son:
+			- Ausencia de interferencia.
+			- Exclusión mutua.
+			- Partial correctness.
+	Propiedades de vida:
+		- Son aquellas propiedades que garantizan que algo bueno eventualmente sucederá.
+		- Si alguna de ellas no se cumple, se pondría en riesgo la ejecución del programa.
+		- Algunos ejemplos son:
+			- Terminación.
+			- Ausencia de deadlock.
+			- Ausencia de demora innecesaria.
+			- Eventual entrada a la sección crítica.
+			- Ausencia de inanición.
+
+13-
+	Una política de schedulling define, dada una serie de procesos con instrucciones elegibles, cuál de todas será la próxima en ejecutarse.
+	Se relaciona con fairness ya que dependiendo de cuan fair sea una política de schedulling, ciertos programas podrían variar su ejecución.
+	Hay tres tipos de fairness:
+		- Incondicionalmente fair:
+			- Una política de schedulling es incondicionalmente fair si:
+				- Toda acción atómica incondicional elegible, eventualmente será ejecutada.
+		- Débilmente fair:
+			- Una política de schedulling es débilmente fair si:
+				- Es incondicionalmente fair, y
+				- Todas las acciones atómicas condicionales que se vuelven elegibles serán eventualmente ejecutadas. Asumindo que su guarda se vuelve true y permanece true hasta que el proceso que quiere ejecutar la vea.
+		- Fuertemente fair:
+			- Una política de schedulling es fuertemente fair si:
+				- Es incondicionalmente fair, y
+				- Todas las acciones atómicas condicionales que se vuelven elegibles serán eventualmente ejecutadas, dado que su guarda se vuelve true con infinita frecuencia.
+
+14-
+	Las propiedades de vida dependen de la política de schedulling puesto que, por ejemplo, una política de schedulling incondicionalmente fair podría implicar que un proceso con acciones atómicas condicionales nunca se 
+		ejecute.
+	El fairness de la política de schedulling de una base de datos compartida por n procesos debería ser débil o fuertemente fair para tener una gran probabilidad de que los procesos puedan acceder correctamente a la base
+		de datos, dado que habrá sentencias atómicas condicionales en dicho acceso.
+
+15-
+	La respuesta c) es la correcta, ya que La terminación del programa dependerá de la política de schedulling:
+		- Una política de schedulling fuertemente fair garantiza que la guarda b = 1 se ponga en true con infinita frecuencia, haciendo que el programas pueda terminar
+		- Una política débilmente fair no garantiza la terminación, ya que el proceso que verifica la guarda b = 1 no es quien pone b nuevamente en 0, por lo que no está garantizado que la guarda permanezca en true hasta
+			que la vea dicho proceso, y por ende no está garantizada la terminación del programa.
+		- Una política de schedulling incondicionalmente fair no garantiza la terminación del programa, ya que no garantiza que una acción atómica condicional (como lo es <await (b=1) a=0>) se vaya a ejecutar.

@@ -1,0 +1,156 @@
+Cuestionario clases 3, 4 y 5
+1-
+	- Las propiedades que se deben garantizar son:
+		- Exclusión mutua: solo un proceso deberá acceder a la SC.
+		- Ausencia de deadlock: si hay varios procesos intentando acceder a la SC (y no hay nadie dentro de ella), uno lo conseguirá.
+		- Ausencia de demora innecesaria: si un proceso está intentando acceder a la SC y todos los demás han terminado o están en su SNC, el primero no está impedido de entrar en la SC.
+		- Eventual entrada: si un proceso está intentando acceder a la SC y tiene posibilidad de hacerlo, eventualmente lo hará.
+	- Propiedades de vida:
+		- Ausencia de deadlock.
+		- Ausencia de demora innecesaria.
+		- Eventual entrada.
+	- Propiedad de seguridad:
+		- Exclusión mutua.
+	- El estado malo es que haya más de un proceso en la SC, lo que podría causar interferencia y llevar a estados inconsistentes.
+
+2-
+	Queda pendiente :)
+
+3-
+	- Los algoritmos Tie-breaker, Ticket o Bakery introducen las siguientes mejoras:
+		- En el caso de Tie-breaker o Bakery no necesitan usar instrucciones especiales.
+		- No tienen memory contention.
+		- Se garantiza la eventual entrada al mantener un orden de acceso a la SC, con una política de schedulling débilmente fair (en lugar de fuertemente como sucede con spin locks).
+
+4-
+	Queda pendiente :)
+
+5-
+	1 2 3 4 5 6 7 8
+	___ ___ ___ ___ Etapa 1
+	_____   _____   Etapa 2
+	  _____   _____ Etapa 2
+	_________       Etapa 3
+	  _________     Etapa 3
+	    _________   Etapa 3
+		  _________ Etapa 3
+
+6-
+	a)
+		- P:
+			- Si el contador interno del semáforo es mayor a 0, lo decrementa en 1 y el proceso puede pasar.
+			- Si el contador interno del semáforo es igual a 0, demora al proceso hasta que se haga un V.
+		- V:
+			- Incrementa el contador interno del semáforo en 1.
+			- Identifica a un evento que implica dar acceso 1 al semáforo.
+	
+	b)
+		- Si el primer proceso obtiene acceso primero: x = 42.
+		- Si el tercer proceso obtiene acceso primero y luego obtiene acceso el primer proceso: x = 12.
+		- Si el tercer proceso obtiene acceso primero y luego obtiene acceso el segundo proceso: x = 36.
+
+7-
+	Queda pendiente :)
+
+8-
+	- La técnica passing the baton consiste en un token o baton el cual es pasado entre los diferentes procesos para regular el acceso a la SC.
+	- Cuando un proceso termina su SC, pasa el baton a alguno de los procesos pendientes de entrar y, si no hay ninguno, lo libera completamente.
+	- Es útil cuando las condiciones de acceso a diferentes secciones críticas son distintas pero superpuestas.
+
+9-
+	sem e = 1, r = 0, w = 0;
+	int nr, nw, dr, dw;
+
+	Process Lector[id: 0..L-1] {
+		P(e);
+		if(nw > 0 or dw > 0 or nr < 10) {
+			dr ++;
+			V(e);
+			P(r);
+			dr --;
+		}
+		nr ++;
+		if(dr > 0 and dw == 0 and nr < 10) {
+			V(r);
+		} else {
+			V(e);
+		}
+		LeerBD();
+		P(e);
+		nr --;
+		if(dw > 0 and nr == 0) {
+			V(w);
+		} else if (dw == 0 and dr > 0 and nr < 10) {
+			V(r);
+		} else {
+			V(e);
+		}
+	}
+
+	Process Escritor[id: 0..L-1] {
+		P(e);
+		if(nr > 0 or nw > 0) {
+			dw ++;
+			V(e);
+			P(w);
+			dw --;
+		}
+		nw ++;
+		V(e);
+		EscribirBD();
+		P(e);
+		nw --;
+		if(dw > 0) {
+			V(w);
+		} else if(dr > 0) {
+			V(r);
+		} else {
+			V(e);
+		}
+	}
+
+10-
+	- Los monitores como herramienta de sincronización proveen dos mecanismos:
+		- Sincronización por exclusión mutua:
+			- Es implícita ya que solo un proceso puede estar ejecutando código del monitor en un momento dado.
+		- Sincronización por condición:
+			- Es explícita usando variables de condición.
+			- En ellas, los procesos se pueden dormir con wait y ser despertados con signal y signalall.
+
+11-
+	- signal and continue:
+		- El proceso que hace el signal continua teniendo el acceso exclusivo al monitor.
+		- El proceso que es despertado tiene que competir por el acceso exclusivo al monitor para reanudar su ejecución en la instrucción que sigue lógicamente al wait.
+	- signal and wait:
+		- El proceso que hace el signal pasa a tener que competir por el acceso exclusivo al monitor.
+		- El proceso que es despertado consigue el acceso exclusivo al monitor y sigue su ejecución en la instrucción que sigue lógicamente al wait.
+
+12-
+	- La técnica de passing the condition consiste en que cuando se necesita acceso exclusivo bajo una cierta condición a un recurso, el proceso que esté liberando dicho recurso, si hay procesos demorados
+		en vez de liberarlo por completo y hacer el signal al primer proceso dormido esperando a que se cumpla la condición (lo cual podría causar que no termine accediendo dicho proceso), va a hacer el
+		signal al proceso, sin modificar la condición que no permite el acceso al recurso. De esta manera, nuevos procesos que ganen el acceso al monitor se demorarán (al no cumplirse la condición),
+		y el único proceso que podrá acceder será el que se despertó.
+	- Se relaciona con passing the baton ya que en ambos casos, no se libera el acceso al recurso por completo, sino que primero, en caso de cumplirse las condiciones y haber procesos demorados, se les libera a ellos
+		el acceso, lo cual es más fair.
+
+13-
+	Queda pendiente :)
+
+14-
+	a)
+		- No, porque al liberar el recurso, el proceso despertado podría no ser el primero en acceder al monitor, y el proceso que le gane el acceso va a ver libre en true, no se va a demorar y va a acceder al recurso
+			y cuando el proceso despertado acceda al monitor, también accederá al recurso, violando la exclusión mutua.
+	b)
+		- Sí, ya que al liberar el recurso, el proceso despertado va a tener el acceso al monitor y va a poner libre en false, previniendo que más procesos accedan al recurso al mismo tiempo.
+
+15-
+	Queda pendiente :)
+
+16-
+	Queda pendiente :)
+
+17-
+	Queda pendiente :)
+
+18-
+	Queda pendiente :)
