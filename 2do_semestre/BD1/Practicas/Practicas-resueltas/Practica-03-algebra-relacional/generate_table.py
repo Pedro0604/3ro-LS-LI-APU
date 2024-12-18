@@ -3,7 +3,7 @@ import random
 
 # Inicializar faker para generar datos aleatorios
 fake = Faker()
-tipos_extra = {
+_tipos_extra = {
     "nacionalidad": [
         "Argentina",
         "Brasil",
@@ -118,7 +118,7 @@ tipos_extra = {
 }
 
 
-def map_column_type(column_type, extra_columns=None):
+def _map_column_type(column_type, extra_columns=None):
     """
     Convierte tipos personalizados a tipos validos (number, string, boolean).
     """
@@ -169,7 +169,7 @@ def generate_table(table_name, size, columns, output_file, extra_columns=None):
         # Crear cabecera de la tabla
         header = ", ".join(
             [
-                f"{col[0]}:{map_column_type(col[1], extra_columns=extra_columns)}"
+                f"{col[0]}:{_map_column_type(col[1], extra_columns=extra_columns)}"
                 for col in columns
             ]
         )
@@ -230,8 +230,8 @@ def generate_table(table_name, size, columns, output_file, extra_columns=None):
                     value = f'"{fake.city()}"'  # Ciudades de origen aleatorias
                 elif column_type == "marca":
                     value = f'"{fake.company()}"'  # Marca aleatoria
-                elif column_type in tipos_extra.keys():
-                    value = f'"{random.choice(tipos_extra[column_type])}"'
+                elif column_type in _tipos_extra.keys():
+                    value = f'"{random.choice(_tipos_extra[column_type])}"'
                 else:
                     raise ValueError(f"Tipo de dato no soportado: {column_type}")
 

@@ -4,7 +4,7 @@
 > Algunos ejercicios tanto de la práctica 1 como de parciales viejos del primer parcial están hechos en [draw.io](https://draw.io). Las imagenes .drawio.png pueden ser subidas a [draw.io](https://draw.io) para modificarlas
 
 > [!IMPORTANT]  
-> En el README.md de la [Práctica 3](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/2do_semestre/BD1/Practicas/Practicas-resueltas/Practica-03-algebra-relacional/README.md) hay explicaciones sobre los usos y funcionalidades de la calculadora de álgebra relacional
+> En el README.md de la [Práctica 3](https://github.com/Pedro0604/3ro-LS-LI-APU/blob/main/2do_semestre/BD1/Practicas/Practicas-resueltas/Practica-03-algebra-relacional/README.md) hay explicaciones sobre la creación de tablas para la [calculadora de álgebra relacional](https://dbis-uibk.github.io/relax/landing)
 
 ### [Explicaciones prácticas](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/2do_semestre/BD1/Explicaciones-practicas)
 ### [Parciales viejos](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/2do_semestre/BD1/Parciales-viejos)
