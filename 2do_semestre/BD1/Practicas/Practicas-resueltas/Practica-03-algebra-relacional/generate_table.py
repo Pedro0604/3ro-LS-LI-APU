@@ -192,7 +192,6 @@ def generate_table(table_name, size, columns, output_file, extra_columns=None):
                 elif column_type == "number":
                     min_val, max_val = column_range if column_range else (1, 10000)
                     value = random.randint(min_val, max_val)
-
                 elif column_type == "string":
                     value = f'"{fake.word()}"'  # Palabras aleatorias
                 elif column_type == "dni":
@@ -233,6 +232,8 @@ def generate_table(table_name, size, columns, output_file, extra_columns=None):
                     value = f'"{fake.company()}"'  # Marca aleatoria
                 elif column_type in tipos_extra.keys():
                     value = f'"{random.choice(tipos_extra[column_type])}"'
+                else:
+                    raise ValueError(f"Tipo de dato no soportado: {column_type}")
 
                 row[column_name] = value
             f.write(f"    {', '.join(map(str, row.values()))}\n")
