@@ -18,3 +18,4 @@
   * [Práctica 4 - MySQL](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/2do_semestre/BD1/Practicas/Practicas-resueltas/Practica-04-MySQL)
   * [Práctica 5 - Análisis de datos y visualización](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/2do_semestre/BD1/Practicas/Practicas-resueltas/Practica-05-analisis-de-datos-y-visualizacion)
 ### [Teorías](https://github.com/Pedro0604/3ro-LS-LI-APU/tree/main/2do_semestre/BD1/Teorias/PDFs)
+* [Playlist de YouTube con las teorías](https://www.youtube.com/playlist?list=PLrqtFhS2Kr_HeBYp_UJGXRe5uhgkcxR6S)
